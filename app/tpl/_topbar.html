@@ -1,0 +1,35 @@
+<div class="topbar container-fluid">
+  <div class="row">
+
+    <div class="logo-outer col-xs-2">
+      <a ui-sref="home" class="logo"></a>
+    </div>
+
+    <nav class="menu col-xs-8">
+      <ul class="nav nav-tabs">
+        <li><a ui-sref="service" ui-sref-active="active"><i class="fa fa-fw fa-inbox"></i><span>服务<span class="shorten">管理</span></span></a></li>
+        <li><a ui-sref="vendor" ui-sref-active="active"><i class="fa fa-fw fa-globe"></i><span>服务商<span class="shorten">管理</span></span></a></li>
+        <li><a ui-sref="ticket" ui-sref-active="active"><i class="fa fa-fw fa-file-text-o"></i><span>工单<span class="shorten">管理</span></span></a></li>
+        <li><a ui-sref="user" ui-sref-active="active"><i class="fa fa-fw fa-users"></i><span>用户<span class="shorten">管理</span></span></a></li>
+        <li><a ui-sref="cms" ui-sref-active="active"><i class="fa fa-fw fa-book"></i><span>内容<span class="shorten">管理</span></span></a></li>
+        <li><a ui-sref="wechat" ui-sref-active="active"><i class="fa fa-fw fa-weixin"></i><span>微信<span class="shorten">管理</span></span></a></li>
+        <!-- <li><a ui-sref="staff" ui-sref-active="active"><i class="fa fa-fw fa-child"></i><span>员工<span class="shorten">管理</span></span></a></li> -->
+        <li><a ui-sref="system" ui-sref-active="active"><i class="fa fa-fw fa-cog"></i><span>系统<span class="shorten">管理</span></span></a></li>
+      </ul>
+    </nav>
+
+    <div class="logout col-xs-2">
+      <div dropdown on-toggle="toggled(open)">
+        <a id="admin-menu" class="btn-logout adminname" dropdown-toggle>
+          {{admin.username}}<i class="fa fa-angle-down"></i>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="admin-menu">
+          <li role="menuitem"><a ng-click="chgPwd(admin.adminId)"><i class="fa fa-lock"></i>修改密码</a></li>
+          <li role="menuitem"><a ng-click="logout()"><i class="fa fa-sign-out"></i>退出登录</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>

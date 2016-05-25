@@ -1,0 +1,33 @@
+<div class="inner service edit" ng-controller="supportRegionCtrl">
+  <div class="clearfix">
+    <h1 class="pull-left">{{detail.servicename}} <span class="">支持区域</span></h1>
+    <button class="btn pull-right">重新生成</button>
+  </div>
+
+  <div>
+    服务编号:{{detail.servicecode}}
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>省/直辖市</th>
+        <th>市</th>
+        <th>区</th>
+        <th>服务商名单</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="area in detail.list">
+        <td>{{area.province}}</td>
+        <td>{{area.city}}</td>
+        <td>{{area.districts}}</td>
+        <td width="50%">{{area.servicers}}</td>
+        <!-- <td>{{area.districtStatus.support[$index]}}</td>
+        <td>{{area.districtStatus.servicer[$index]}}</td> -->
+        <!-- <td><p ng-repeat="support in area.districtStatus.support">{{area}}</p></td> -->
+        <!-- <td><p ng-repeat="servicer in area.districtStatus.servicer track by $index">{{servicer}}</p></td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>

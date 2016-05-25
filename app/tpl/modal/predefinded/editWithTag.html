@@ -1,0 +1,51 @@
+<div class="modal-wrapper predefined">
+  <form class="form-horizontal" name="predefForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left"><span ng-if="isEdit === false">添加</span><span ng-if="isEdit === true">编辑</span>预定义项
+        <small ng-if="title === 'attention'">注意事项</small>
+        <small ng-if="title === 'faq'">常见问题</small>
+      </h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-default" type="button" ng-click="cancel()">取消</button>
+        <button class="btn btn-success" type="button" ng-click="save(detail)" ng-disabled="predefForm.$invalid || predefForm.$pristine">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': predefForm.name.$invalid && !predefForm.name.$pristine }">
+        <label class="col-xs-2 control-label" ng-if="title === 'attention'"><em>*</em>注意事项标题</label>
+        <label class="col-xs-2 control-label" ng-if="title === 'faq'"><em>*</em>常见问题标题</label>
+        <div class="col-xs-10 input-wrapper">
+          <input type="text" class="form-control" value="{{detail.name}}" ng-model="detail.name" name="name" required ng-minlength="2" ng-maxlength="40" minlength="2" maxlength="40" tooltip="2-40字" tooltip-trigger="focus">
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback">
+        <label class="col-xs-2 control-label" ng-if="title === 'attention'">注意事项正文</label>
+        <label class="col-xs-2 control-label" ng-if="title === 'faq'">常见问题正文</label>
+        <div class="col-xs-10 input-wrapper">
+          <textarea rows="6" type="text" class="form-control" value="{{detail.description}}" ng-model="detail.description" name="description" maxlength="3000" ng-maxlength="3000" tooltip="最多3000字" tooltip-trigger="focus"></textarea>
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback" ng-class="{'has-error': predefForm.tagsArea.$invalid }">
+        <label class="col-xs-2 control-label">标签</label>
+        <div class="col-xs-10 input-wrapper">
+          <tags-input name="tagsArea" ng-model="detail.tagsInput" placeholder="添加标签" min-length="2" max-tags="20" add-on-space="true" add-from-autocomplete-only="true">
+            <auto-complete min-length="1" max-results-to-show="5" source="loadTags($query)"></auto-complete>
+          </tags-input>
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': predefForm.itemSort.$invalid && !predefForm.itemSort.$pristine}">
+        <label class="col-xs-2 control-label">排序</label>
+        <div class="col-xs-2 input-wrapper">
+          <input type="number" class="form-control" placeholder="" ng-model="detail.itemSort" name="itemSort" min="0" max="999999" ng-min="0" ng-max="999999" step="1" tooltip="整数" tooltip-trigger="focus" integer>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

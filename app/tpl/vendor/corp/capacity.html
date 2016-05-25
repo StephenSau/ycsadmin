@@ -1,0 +1,12 @@
+<div ng-controller="capacityCtrl">
+
+	<div class="add-btn-wrapper">
+	  <button class="btn-add-new add-capacity btn btn-warning" ng-click="addCapacity()"><i class="fa fa-fw fa-plus"></i> 新增服务能力</button>
+	  <button class="add-area btn btn-info btn-text-shadow" ui-sref="vendor.corp.edit.modifyArea({srid: vendorId})"><i class="fa fa-fw fa-map-marker"></i> 修改服务区域</button>
+	</div>
+
+	<div class="uiGrid" ui-grid="gridOptions" ui-grid-auto-resize ui-grid-resize-columns>
+		<div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+    <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+	</div>
+</div>

@@ -1,0 +1,67 @@
+<div class="modal-wrapper addpics addSliders">
+  <form name="addSliderForm" class="form-horizontal" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left"><span ng-if="!isHome">资讯</span>首页轮转图 <small ng-if="!isEdit">新建</small><small ng-if="isEdit">编辑</small></h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-success" ng-click="save(sliderInfo)" ng-disabled="addSliderForm.$invalid || (addSliderForm.$pristine && !fileChanged)">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': addSliderForm.url.$invalid && !addSliderForm.url.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>链接</label>
+        <div class="col-xs-9">
+          <input name="url" type="url" class="form-control" ng-model="sliderInfo.url" placeholder="http://" minlength="1" ng-minlength="1" maxlength="100" ng-maxlength="100" required tooltip="1-100字，必须包含`http://`" tooltip-trigger="focus">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label">备注</label>
+        <div class="col-xs-9">
+          <input name="remark" type="text" class="form-control" ng-model="sliderInfo.remark" maxlength="40" ng-maxlength="40" tooltip="最多40字" tooltip-trigger="focus">
+        </div>
+      </div>
+
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': addSliderForm.status.$invalid && !addSliderForm.status.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>是否启用</label>
+        <div class="col-xs-9">
+            <label class="radio-inline" for="statusTrue">
+              <input name="status" id="statusTrue" type="radio" required ng-model="sliderInfo.status" ng-value="1"> 是
+            </label>
+            <label class="radio-inline" for="statusFalse">
+              <input name="status" id="statusFalse" type="radio" required ng-model="sliderInfo.status" ng-value="0"> 否
+            </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label"><em>*</em>图片</label>
+        <div class="col-xs-9">
+          <div class="upload-btn-wrapper">
+            <label for="newImage" class="btn btn-default" ng-class="{loading: uploadBtnDisabled}">
+                <span class="waiting"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                <span class="normal"><i class="fa fa-upload"></i> <span ng-if="sliderInfo.image && sliderInfo.image.length > 0">重新</span>上传</span>
+            </label>
+            <!-- 首页轮转图 -->
+            <input ng-if="isHome" ng-disabled="uploadBtnDisabled" id="newImage" type="file" width-fixed="640" height-fixed="380" class="hidden-input" accept=".jpg,.png,.bmp" image-upload>
+            <!-- 资讯栏目轮转图 -->
+            <input ng-if="!isHome" ng-disabled="uploadBtnDisabled" id="newImage" type="file" width-fixed="680" height-fixed="340" class="hidden-input" accept=".jpg,.png,.bmp" image-upload>
+            <input type="hidden" ng-model="sliderInfo.image" required minlength="4" ng-minlength="4">
+            <span class="helper-text"><span ng-if="!isHome">资讯</span>首页轮转图要求：
+              <b ng-if="isHome">640 x 380 px</b>
+              <b ng-if="!isHome">680 x 340 px</b>
+              ，JPG/PNG/BMP格式
+            </span>
+          </div>
+          <div class="preview">
+            <img ng-if="sliderInfo.image && sliderInfo.image.length > 0 && !uploadBtnDisabled" class="uploaded-image" ng-src="{{sliderInfo.image}}">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+</div>

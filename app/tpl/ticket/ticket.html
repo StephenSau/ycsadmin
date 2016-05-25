@@ -1,0 +1,48 @@
+<div class="inner ticket" ng-controller="ticketCtrl">
+
+  <div class="title-wrapper row">
+    <div class="title-text-block col-xs-9">
+      <h1 class="title clearfix">
+        <a ng-if="checkRecyle" class="btn-back2list btn btn-green" ng-click="getExistingData()"><i class="fa fa-arrow-left"></i> 返回工单列表</a>
+        工单<span ng-if="!checkRecyle">列表</span><span ng-if="checkRecyle">回收站</span>
+        <a ng-if="!checkRecyle" class="btn-add-new btn btn-warning" ng-click="editOrder('new')"><i class="fa fa-plus"></i>  新增工单</a>
+        <span ng-if="!checkRecyle" class="edit-btn-group">
+          <button class="btn btn-purple" ng-click="exportTickets()"><i class="fa fa-fw fa-save"></i> 导出工单</button>
+          <a class="btn-refresh btn btn-default" ng-click="refreshList()"><i class="fa fa-refresh"></i> 刷新列表</a>
+        </span>
+      </h1>
+    </div>
+  </div>
+
+  <div class="filter-wrapper clearfix">
+    <form>
+      <div class="filter-options pull-left" ng-cloak>
+        按区域筛选：
+        <select-district ng-model="qData.district"></select-district>
+        <button class="btn btn-default btn-sm" ng-click="filterTicket()" ng-if="qData.district && qData.district > 0">确定筛选</button>
+        <button ng-if="!checkRecyle && qData.district" class="btn btn-sm" ng-click="clearFilterData()">清除筛选</button>
+        <button ng-if="checkRecyle && qData.district" class="btn btn-sm" ng-click="clearFilterData()">清除筛选</button>
+      </div>
+      <div class="to-recyle pull-right">
+        <a ng-if="!checkRecyle" class="btn-to-recyle btn btn-link" ng-click="getRecycleData()" tooltip="查看已删除的订单" tooltip-placement="left"><i class="fa fa-trash-o"></i> 回收站</a>
+        <a ng-if="checkRecyle" class="btn btn-link" ng-click="getExistingData()">&laquo; 返回工单列表</a>
+      </div> 
+    </form>
+  </div>
+
+  <div class="uiGrid" ui-grid="gridOptions" ui-grid-auto-resize ui-grid-resize-columns>
+    <div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+    <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+  </div>
+
+  <div class="message-wrapper" ng-class="{folded: msgBoxFolded}">
+    <a ng-if="!msgBoxFolded" class="btn-fold" title="折叠" ng-click="toggleMsgBox('fold')"><i class="fa fa-angle-double-down"></i></a>
+    <a ng-if="msgBoxFolded" class="btn-fold" title="展开" ng-click="toggleMsgBox('unfold')"><i class="fa fa-angle-double-up"></i></a>
+    <div class="inner col-xs-offset-2">
+      <div ng-if="loadingMsg" class="loading-msg"><i class="fa fa-spinner fa-spin"></i></div>
+      <div class="ng-include" src="'tpl/ticket/messages.html'"></div>
+      <aside ng-if="!loadingMsg" ng-cloak>本消息框只显示最新的100条消息，请 <a ui-sref="ticket.message">点击此处查看全部消息 &raquo;</a></aside>
+    </div>
+  </div>
+
+</div>

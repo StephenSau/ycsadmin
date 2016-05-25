@@ -1,0 +1,29 @@
+<div class="modal-wrapper editExceptionList">
+  <div class="modal-header clearfix">
+    <h4 class="modal-title pull-left">例外规则 <small>{{exceptionListInfo.name}}</small></h4>
+    <div class="button-group pull-right">
+      <button type="button" class="btn btn-default pull-right" ng-click="ok()">关闭</button>
+    </div>
+  </div>
+  
+  <div class="modal-body">
+    <div class="well text-center" ng-if="detailList.length === 0">
+      <h4>现在还没有建立例外规则</h4>
+      <p>通过建立例外规则，可以针对个别区域，单独进行价格、服务规则等设置。</p>
+    </div>
+
+    <div ng-if="detailList.length !== 0">
+      <table class="exception-list-table table table-bordered table-hover">
+        <tr ng-repeat="item in detailList">
+          <td class="name">{{item.name}}</td>
+          <td><button type="button" class="btn btn-delete" ng-click="delException(srid, item.srsid, item.name)">删除</button></td>
+          <td><button type="button" class="btn btn-info btn-text-shadow" ng-click="addException(srid, item.name, item.srsid, 'edit')">编辑</button></td>
+        </tr>
+      </table>
+    </div>
+    <div class="btn-wrapper text-center">
+      <button type="button" class="btn btn-warning btn-text-shadow" ng-click="addException('', '', '', 'add')"><i class="fa fa-plus"></i> 添加例外规则</button>
+    </div>
+  </div>
+
+</div>

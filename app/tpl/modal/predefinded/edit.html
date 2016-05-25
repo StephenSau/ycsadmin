@@ -1,0 +1,43 @@
+<div class="modal-wrapper predefined">
+  <form class="form-horizontal" ng-submit="save(detail)" name="predefForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left"><span ng-if="isEdit === false">添加</span><span ng-if="isEdit === true">编辑</span>预定义项
+        <small ng-if="title === 'requirement'">需满足条件</small>
+        <small ng-if="title === 'material'">需提供材料</small>
+        <small ng-if="title === 'invoice'">发票类型</small>
+      </h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-default" type="button" ng-click="cancel()">取消</button>
+        <button class="btn btn-success" type="submit" ng-disabled="predefForm.$invalid || predefForm.$pristine">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': predefForm.name.$invalid && !predefForm.name.$pristine }">
+        <label class="col-xs-2 control-label" ng-if="title === 'requirement'"><em>*</em>需满足条件</label>
+        <label class="col-xs-2 control-label" ng-if="title === 'material'"><em>*</em>需提供材料</label>
+        <label class="col-xs-2 control-label" ng-if="title === 'invoice'"><em>*</em>发票类型名称</label>
+        <div class="col-xs-10 input-wrapper">
+          <input type="text" class="form-control" value="{{detail.name}}" ng-model="detail.name" name="name" required ng-minlength="2" ng-maxlength="40" minlength="2" maxlength="40" tooltip="2-40字" tooltip-trigger="focus">
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback">
+        <label class="col-xs-2 control-label">相关描述</label>
+        <div class="col-xs-10 input-wrapper">
+          <textarea rows="6" type="text" class="form-control" value="{{detail.description}}" ng-model="detail.description" name="description" maxlength="2000" ng-maxlength="2000" tooltip="最多2000字" tooltip-trigger="focus"></textarea>
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': predefForm.itemSort.$invalid && !predefForm.itemSort.$pristine}">
+        <label class="col-xs-2 control-label">排序</label>
+        <div class="col-xs-2 input-wrapper">
+          <input type="number" class="form-control" placeholder="" ng-model="detail.itemSort" name="itemSort" min="0" max="999999" ng-min="0" ng-max="999999" step="1" tooltip="整数" tooltip-trigger="focus" integer>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

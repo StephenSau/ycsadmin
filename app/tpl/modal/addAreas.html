@@ -1,0 +1,31 @@
+<div class="modal-wrapper addareas">
+  <form>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">新增区域版本</h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-success" ng-click="ok()" ng-if="areaInfo.districtCode > 0">确定</button>
+        <button class="btn" ng-click="cancel()">取消</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+<!-- 
+      <div class="form-group">
+        <label class="col-xs-2 control-label">区域版本名称</label>
+        <div class="col-xs-6 input-wrapper">
+          <input type="text" class="form-control" placeholder="">
+        </div>
+      </div>
+ -->
+      <div class="form-group">
+        <div class="label-wrapper">
+          <label>请选择要增加的区域</label>
+        </div>
+        <div class="select-group">
+          <select-district ng-model="areaInfo.districtCode"></select-district>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

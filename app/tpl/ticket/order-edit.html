@@ -1,0 +1,144 @@
+<div class="ticket order" ng-controller="ticketOrderCtrl">
+  <form name="ticketOrder" novalidate>
+    <section class="order-header">
+      <h4>订单号：{{qData.orderno}} <small class="text-warning">【{{qData.orderaddress}}】</small>
+        <span class="pull-right text-warning">订单状态：{{translateStatus(qData.status)}}</span>
+      </h4>
+    </section>
+    <section class="price">
+      <table class="table table-bordered order-table">
+        <thead>
+          <tr>
+            <th>服务名称</th>
+            <th>服务项</th>
+            <th>服务规格</th>
+            <th class="price">单价</th>
+            <th class="price">合计</th>
+            <th class="func">操作</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr ng-repeat="order in qData.serviceitems">
+            <td><b ng-class="{hidden:!$first}">{{qData.sdname}}</b></td>
+            <td>{{order.name}}</td>
+            <td>
+              <span ng-if="!order.options || order.options.length === 0">—</span>
+              <div ng-if="order.options.length > 0">
+                <div ng-repeat="specs in order.optionsGroup">{{specs}}</div>
+              </div>
+            </td>
+            <td class="price">￥{{order.price}}</td>
+            <td class="price">￥{{order.price}}</td>
+            <td ng-if="$first" class="func" rowspan="{{qData.serviceitems.length}}">
+              <span ng-if="qData.status === 0">
+                <a ng-if="!qData.noAvailableSpecs" ng-click="modifyServiceItemSpecs()">更改规格</a>
+                <span ng-if="qData.noAvailableSpecs" class="locked">—</span>
+              </span>
+              <span ng-if="qData.status !== 0" class="locked">已锁定</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row">
+        <div class="cc-info col-xs-4">
+          <div>下单人：{{qData.cc}}<span class="helper-text">（{{qData.username}}）</span></div>
+          <div>下单人手机：{{qData.ccmobile}}</div>
+          <div>下单时间：{{qData.created}}</div>
+        </div>
+        <div class="col-xs-4 text-right" ng-class="{editing: editPaytype}">
+          <div class="paytype" ng-class="{hidden: editPaytype}">支付方式：{{translatePaytype(qData.paytype)}} <a ng-if="(qData.status === 0 || qData.status === 5)" ng-click="startEditPaytype()">编辑</a></div>
+          <div class="payment-input-wrapper form-inline form-group-sm" ng-if="editPaytype">
+            <label>修改支付方式：</label><select class="form-control" ng-model="qData.tmpPaytype" ng-init="qData.tmpPaytype = qData.paytype" name="tmpPaytype" ng-options="item.value as item.label for item in payTypeOpts" required></select>
+            <button type="button" class="btn btn-success btn-sm" ng-click="submitEditPaytype()">确定</button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="cancelEditPaytype()">取消</button>
+          </div>
+        </div>
+        <div class="col-xs-4 text-right total-price" ng-class="{editing: editPrice}">
+          <div class="price-wrapper">
+            <b>总价：￥{{qData.due}}</b>
+            <a ng-if="qData.status === 0" ng-click="startEditPrice()" ng-class="{invisible: editPrice}">修改总价</a>
+            <a ng-if="qData.status !== 0" class="locked">已锁定</a>
+          </div>
+          <div ng-if="editPrice" class="price-input-wrapper form-inline form-group-sm" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketOrder.tmpPrice.$invalid && !ticketOrder.tmpPrice.$pristine }">
+            <input type="number" name="tmpPrice" min="0" max="10000000" class="form-control fix-input" ng-model="qData.tmpPrice" placeholder="填入想修改的总价">
+            <button type="button" class="btn btn-success btn-sm" ng-click="submitEditPrice()" ng-disabled="ticketOrder.tmpPrice.$invalid || ticketOrder.tmpPrice.$pristine">确定</button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="cancelEditPrice()">取消</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="info">
+      <div class="row">
+        <div class="col-xs-6">
+          <span>服务商：{{qData.srname}}</span>
+          <a ng-if="qData.status === 0" ng-click="changeVendor()">更换</a>
+          <a ng-if="qData.status !== 0" class="locked">已锁定</a>
+        </div>
+        <div class="col-xs-3 word-break">公司电话：{{qData.srtel}}</div>
+        <div class="col-xs-3 word-break">公司传真：{{qData.srfax}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 word-break">公司地址：{{qData.address}}</div>
+      </div>
+    </section>
+
+    <section class="remarks">
+
+      <div class="row">
+        <div class="order-comments col-xs-4">
+          <div class="form-group">
+            <label class="control-label">客户留言</label>
+            <p ng-if="qData.comments && qData.comments.length > 0" class="word-break">{{qData.comments}}</p>
+            <p class="text-muted" ng-if="!qData.comments || qData.comments.length === 0">无</p>
+          </div>
+        </div>
+
+        <div class="order-comments col-xs-4">
+          <div class="form-group">
+            <label class="control-label">服务商备注</label>
+            <p ng-if="qData.srremark && qData.srremark.length > 0" class="word-break">{{qData.srremark}}</p>
+            <p class="text-muted" ng-if="!qData.srremark || qData.srremark.length === 0">无</p>
+          </div>
+        </div>
+
+        <div class="order-remark col-xs-4">
+          <label class="control-label">壹财税备注</label>
+          <textarea class="form-control" rows="2" ng-model="qData.remark" ng-maxlength="2000" maxlength="2000" tooltip="最多2000字" tooltip-trigger="focus" ></textarea>
+          <div class="submit-btn-wrapper">
+            <button type="button" class="btn btn-default btn-sm" ng-click="submitEditRemark()">保存备注</button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="footer">
+      <div class="row">
+        <div class="col-xs-3">订单状态：{{translateStatus(qData.status)}}</div>
+
+        <div class="col-xs-4 created">最后更新：{{qData.modified}}</div>
+        
+        <div class="col-xs-5 text-right" ng-cloak>
+          <button class="btn btn-success" ng-if="qData.status === 0" ng-click="changeTicketStatus(qData, 1)">审核</button>
+          <button class="btn btn-delete" ng-if="qData.status === 0" ng-click="changeTicketStatus(qData, 3)">作废</button>   
+          <button class="btn btn-success" ng-if="qData.status === 5 || qData.status === 10 || qData.status === 11" ng-click="changeTicketStatus(qData, 6)">确认收款</button>
+          <button class="btn btn-warning" ng-if="qData.status === 5" ng-click="changeTicketStatus(qData, 2)">反审核</button>
+          <button class="btn btn-success" ng-if="qData.status === 15" ng-click="changeTicketStatus(qData, 8)">启动服务</button>
+          <button class="btn btn-warning" ng-if="qData.status === 15" ng-click="changeTicketStatus(qData, 7)">取消收款确认</button>
+          <button class="btn btn-success" ng-if="qData.status === 20" ng-click="changeTicketStatus(qData, 9)">完成服务</button>
+          <button class="btn btn-warning" ng-if="qData.status === 20" ng-click="changeTicketStatus(qData, 10)">中止服务</button>
+          <button class="btn btn-warning" ng-if="qData.status === 40" ng-click="changeTicketStatus(qData, 11)">确认中止</button>
+          <button class="btn btn-default" ng-if="qData.status === 40" ng-click="changeTicketStatus(qData, 12)">取消中止</button>
+          <button class="btn btn-default" ng-if="qData.status === 5" ng-click="changeTicketStatus(qData, 5)">取消订单</button>
+          <button class="btn btn-delete" ng-if="qData.status === 42 || qData.status === 48" ng-click="changeTicketStatus(qData, 4)">删除</button>
+        </div>
+      </div>
+    </section>
+  </form>
+</div>

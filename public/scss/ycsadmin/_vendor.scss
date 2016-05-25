@@ -1,0 +1,522 @@
+.vendor{
+
+	.title-wrapper{
+		.edit-btn-group{
+			display: inline-block;
+			vertical-align: middle;
+			padding-bottom: 5px;
+			margin-left: 15px;
+			border-left: 1px dotted $textLightergray;
+
+			.btn{
+				margin-left: 15px;
+			}
+		}
+	}
+
+	.filter-wrapper{
+		border-top: 1px solid $textLightergray;
+		border-bottom:  1px solid $textLightergray;
+		padding: 8px 0 10px 0;
+		margin-bottom: 1em;
+
+		.locationSelectGroup,
+		button{
+			display: inline-block;
+		}
+
+		.locationSelectGroup{
+			padding-top: 6px;
+
+			select{
+				height: 28px;
+				vertical-align: middle;
+			}
+
+			input.preview{
+				display: none !important;
+			}
+		}
+	}
+
+	.uiGrid{
+		min-height: 500px;
+
+		.text-muted{
+			font-size: 12px;
+		}
+
+		.accumulated{
+			color: $vi-green;
+			font-size: 12px;
+		}
+
+		.ui-grid-cell-contents{
+			.intact{
+				color: $textLightgray;
+			}
+			.ready{
+				color: $vi-lightBlue;
+			}
+			.on-going{
+				// color: $vi-green;
+			}
+			.due{
+				color: $vi-orange;
+			}
+			.overdue{
+				color: $vi-red;
+			}
+			.frozen{
+				background: $textLightgray;
+				color: #fff;
+				font-size: 10px;
+				display: inline-block;
+				margin-top: -2px;
+				padding: 1px 5px 2px 5px;
+				border-radius: 3px;
+			}
+		}
+	}
+
+	.filter-wrapper{
+		border-top: 1px solid $textLightergray;
+		border-bottom:  1px solid $textLightergray;
+		padding: 8px 0 10px 0;
+		margin-bottom: 1em;
+
+		.locationSelectGroup,
+		button{
+			display: inline-block;
+		}
+
+		.locationSelectGroup{
+			padding-top: 6px;
+
+			select{
+				height: 28px;
+				vertical-align: middle;
+			}
+
+			input.preview{
+				display: none !important;
+			}
+		}
+	}
+
+	&.corp{
+
+		.title-wrapper{
+			padding-left: 15px;
+		}
+
+		.edit{
+			padding-bottom: 3em;
+		}
+
+		.date-picker{
+			padding-top: 0.5em;
+		}
+
+		.date-picker-to{
+			padding-top: 0.5em;
+		}
+
+		.form-section{
+			border-bottom: 1px dashed $textLightergray;
+			padding-top: 15px;
+
+			&:first-of-type{
+				// border-top: 1px dashed $textLightergray;
+			}
+
+			.form-group{
+
+				.corp-logo{
+					width: 200px;
+					height: 130px;
+					display: inline-block;
+					vertical-align: bottom;
+					background-size: contain !important;
+					background-repeat: no-repeat;
+					background-position: 50% 50%;
+					border: 1px solid $bgLightGray;
+					position: relative;
+				}
+
+				.upload-btn-group-wrapper{
+					display: inline-block;
+					padding-left: 1em;
+				}
+
+				// Link for image url
+				.btn-link{
+					text-decoration: none;
+				}
+
+			}
+
+			.certificate,
+			.photo{
+				display: inline-block;
+				padding: 0 1em 1em 0;
+
+				.pic{
+					width: 200px;
+					height: 130px;
+					background-size: contain;
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+					border: 1px solid $textLightergray;
+
+					@include delPicBtn;
+				}
+
+				.introduction{
+					text-align: center;
+					color: $textLightgray;
+				}
+			}
+		}
+
+		.submit-btn-wrapper{
+			padding-top: 2em;
+		}
+
+		// Add capacity and area
+		.add-btn-wrapper{
+			padding-top: 2em;
+
+			.btn {
+				margin: 0 0 2em 1em;
+
+				&:first-of-type{
+					margin-left: 0;
+				}
+			}
+		}
+
+		.btn-add-new{
+			margin-top: 2em;
+		}
+		
+		.well{
+			margin: 0 0 2em 0;
+
+			.submit-btn-wrapper{
+				padding-top: 0;
+
+				button{
+					width: 100px;
+				}
+			}
+
+		}
+
+		.fix-padding{
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.steps{
+			margin-top: 2em;
+			margin-bottom: 2em;
+			
+			.step{
+				background: $bgLightGray;
+				float: left;
+				padding: 10px 100px;
+				width: 32%;
+				margin-right: 2%;
+				text-align: center;
+				color: $textLightgray;
+				border-radius: 3px;
+
+				&.active{
+					background: $bgLightYellow;
+					color: $textDarkgray;
+				}
+
+				&:last-of-type{
+					margin-right: 0;
+				}
+			}
+		}
+
+		.ui-grid-cell-contents{
+			.head{
+				display: inline-block;
+				width: 43px;
+				height: 55px;
+				background-size: cover !important;
+				background-repeat: no-repeat;
+			}
+		}
+
+		.helper-text{
+			&.staff{
+				width: 15em;
+			}
+		}
+	}
+
+	&.default-area,
+	&.default-service-item,
+	&.default-price{
+		padding-bottom: 3em;
+
+		.submit-btn-wrapper{
+			padding-top: 1em;
+			border-top: 1px dashed $textLightergray;
+			text-align: center;
+		}
+	}
+
+	&.default-area{
+		.district-list{
+			padding-top: 15px;
+		}
+
+		.district-block{
+			@include detail;
+
+			label {
+				display: inline-block;
+				vertical-align: baseline;
+				margin: 0.5em 3em 0 0;
+				font-weight: normal;
+			}
+		}
+
+	}
+
+	&.default-service-item{
+
+		@include serviceItemFullList;
+
+		// Init
+
+		.service-item-wrapper{
+			margin-top: 2em;
+		}
+
+		.service-full-list{
+			section {
+				border-bottom: 0;
+
+				label.check-all{
+					margin-left: 2em;
+					color: $textGray;
+					padding-bottom: 0.3em;
+					vertical-align: middle; 
+					line-height: 1em;
+					font-size: 14px;
+
+					&.active{
+						color: $vi-orange;
+					}
+				}
+			}
+    }
+
+    .current-selected-wrapper{
+    	margin-bottom: 2em;
+
+    	.preview{
+	    	margin-right: -15px;
+	    	max-height: 500px;
+	    	overflow-y: auto;
+	    	overflow-x: hidden;
+
+    		counter-reset: serviceItem;
+
+    		li {
+    			counter-increment: serviceItem;
+    			overflow: visible;
+    			position: relative;
+		    	padding-left: 3.2em !important;
+
+    			&:before{
+    				display: inline-block;
+    				position: absolute;
+    				left: 0;
+    				width: 2.6em;
+    				text-align: right;
+    				content: counter(serviceItem);
+    				color: $textLightgray;
+    			}
+    		}
+    	}
+    }
+
+    // Add new one-by-one
+
+  	label.disabled {
+			color: $textLightgray;	// Dim selected serviceItem when add new
+		}
+
+		.select-preview{
+			margin-top: 1em;
+
+			.label{
+				font-size: 1em;
+			}
+		}
+
+	}
+
+	&.default-price{
+		table{
+			th,
+			td{
+				text-align: center;
+			}
+
+			td{
+				vertical-align: middle;
+			}
+
+			td.price{
+				width: 20%;
+
+				.input-wrapper{
+					padding: 0;
+				}
+
+				.control-label{
+					margin-bottom: 0;
+					padding: 0;
+					padding-top: 6px;
+					font-weight: normal;
+					text-align: right;
+				}
+			}
+		}
+	}
+
+	&.rating{
+		.title-wrapper{
+			button{
+				margin: 20px 0 0 10px;
+			}
+		}
+
+		.title-wrapper,
+		.submit-btn-wrapper{
+			.btn-success{
+				width: 100px;
+			}
+		}
+
+		.submit-btn-wrapper{
+			padding: 1em 0 3em 0;
+		}
+
+		table {
+			max-width: 700px;
+			margin: 0 auto;
+
+			th{
+				text-align: center;
+			}
+
+			td{
+				vertical-align: middle;
+
+				&.has-error{
+					input {
+						background: transparentize(firebrick, 0.9);
+						color: $vi-red;
+					}
+				}
+			}
+
+			.order{
+				width: 4em;
+				text-align: center;
+				color: $textLightgray;
+			}
+
+			.rating{
+				width: 10em;
+			}
+		}
+	}
+
+	&.modify-area{
+		padding-bottom: 3em;
+
+		.main-frame{
+			padding-right: 4em;
+		}
+
+		.fix-padding{
+			padding-left: 0;
+		}
+
+		.title-wrapper{
+			border-bottom: 1px dashed $textLightergray;
+			margin-bottom: 1em;
+
+			button{
+				margin: 20px 0 0 10px;
+			}
+		}
+
+		.title-wrapper,
+		.submit-btn-wrapper{
+			.btn-success{
+				width: 100px;
+			}
+		}
+	}
+
+	&.notification{
+		.loading-history{
+			position: absolute;
+			color: $textLightgray;
+			top: 30%;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			text-align: center;
+		}
+
+		.right-sidebar{
+			section{
+				padding-top: 15px;
+
+				&:first-of-type{
+					padding-top: 0;
+				}
+
+				.tags-area {
+					margin-top: 20px;
+				}
+
+				.tags-container{
+					padding-top: 10px;
+				}
+			}
+		}
+
+		.over-limited{
+			color:$vi-red;
+			font-weight: bold;
+		}
+
+		.button-group{
+			.btn{
+				width: 100px;
+			}
+		}
+
+		.selected-vendor{
+			@include tagWithRemoveBtn;
+		}
+	}
+
+	.fix-input{
+		padding-right: 12px; 
+	}
+}

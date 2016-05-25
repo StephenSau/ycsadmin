@@ -1,0 +1,227 @@
+.system{
+
+	.title-wrapper{
+		.edit-btn-group{
+			display: inline-block;
+			vertical-align: middle;
+			padding-bottom: 5px;
+			margin-left: 15px;
+			border-left: 1px dotted $textLightergray;
+
+			.btn{
+				margin-left: 15px;
+			}
+		}
+	}	
+
+	.uiGrid{
+		min-height: 500px;
+
+		&.categoryList{
+			.ui-grid-row{
+				.ui-grid-cell-contents{
+					font-weight: normal;
+
+					&.bold{
+						font-weight: bold;
+					}
+				}
+			}
+
+			.ui-grid-tree-base-row-header-buttons{
+				cursor: pointer;
+			}
+
+			.func{
+				a {
+					padding-left: 1em;
+
+					&:first-of-type{
+						padding-left: 0;
+					}
+				}
+			}
+		}
+	}
+	
+	.control-group{
+		margin-bottom: 1.67em;
+
+		button{
+			margin-right: 15px;
+		}
+	}
+
+}
+
+.slider{
+	.slider-list-nav{
+		li {
+
+			a {
+				-webkit-transition: background 0.3s;
+				transition: background 0.3s;
+
+				&.active{
+					color: $vi-blue;
+					background: $bgLightBlue;
+					cursor: default;
+				}
+			}
+
+		}
+	}
+
+	.btn-wrapper{
+		padding-bottom: 10px;
+	}
+
+	// UI Grid ???
+	.grid-slider{
+		width: 100%;
+		min-height: 500px;
+		// text-align: center;
+	}
+
+	.header{
+		display:table;
+		padding-left: 0;
+		position: relative;
+		min-height: 42px;
+    width: 100%;
+    overflow: hidden;
+		border-collapse: collapse;
+
+    .inner{
+			display: table-row;
+			border-collapse: collapse;
+			position: relative;
+
+			div{
+				display: table-cell;
+				border-collapse: collapse;
+				border: 1px solid $textLightergray;
+				padding: 5px;
+
+				vertical-align: middle;
+				text-align: center !important;
+			}
+		}
+	}
+
+
+	// Only show cursor hint for online slider list
+	.slider-online{
+		.slider-list{
+			li {
+				.order,
+				.thumb{
+					cursor: move;
+				}
+			}
+		}
+	}
+
+	.slider-list{
+		display:table;
+		padding-left: 0;
+		position: relative;
+		min-height: 42px;
+    width: 100%;
+		border-collapse: collapse;
+
+    .dndDraggingSource {
+    	display: none;
+		}
+
+		.dndPlaceholder {
+	    display: block;
+	    background-color: #ddd;
+	    min-height: 42px;
+		}
+
+		li{
+			display: table-row;
+			border-collapse: collapse;
+
+			&:nth-child(2n){
+				background: $bgLighterGray;
+			}
+
+			div{
+				display: table-cell;
+				border-collapse: collapse;
+				border: 1px solid $textLightergray;
+				border-top: 0;
+				padding: 10px;
+				vertical-align: middle;
+
+				&.thumb{
+					img{
+						display: block;
+						width: 100%;
+						height: auto;
+					}
+				}
+			}
+		}
+	}
+
+	.header,
+	.slider-list{
+		.order{
+			width: 50px;
+			text-align: center;
+		}
+
+		.thumb{
+			width: 180px;
+			text-align: center;
+		}
+
+		.status{
+			width: 80px;
+			text-align: center;
+
+			.isHidden{
+				color: $vi-orange;
+			}
+		}
+
+		.created{
+			width: 100px;
+			text-align:center;
+		}
+
+		.remark{
+			width: 250px;
+		}
+
+		.link{
+			a{
+			  overflow-wrap: break-word;
+			  word-wrap: break-word;
+
+			  word-break: break-all;
+			  word-break: break-word;
+			}
+		}
+
+		.func{
+			text-align: center;
+			width: 60px;
+		}
+
+		li {
+			.order{
+				font-size: 1.5em;
+				color: $textLightgray;
+			}
+
+			.created{
+				font-size: 0.9em;
+				color: $textLightgray;
+			}
+		}
+	}
+}

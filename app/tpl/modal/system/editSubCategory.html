@@ -1,0 +1,55 @@
+<div class="modal-wrapper subCategoryEdit">
+  <form class="form-horizontal" name="subCategoryForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left" ><span ng-if="isEdit">编辑</span><span ng-if="!isEdit">新增</span>子类</h4>
+      <div class="button-group pull-right">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="submit" class="btn btn-success" ng-click="save(detail)" ng-disabled="subCategoryForm.$invalid || subCategoryForm.$pristine">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': subCategoryForm.parentCate.$invalid && !subCategoryForm.parentCate.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>上级分类</label>
+        <div class="col-xs-10 input-wrapper">
+          <select name="parentCate" class="form-control" ng-model="detail.pid" required ng-options="item.value as item.label for item in subCategoryInfo.nameOpts"></select>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': subCategoryForm.subCateName.$invalid && !subCategoryForm.subCateName.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>子类名称</label>
+        <div class="col-xs-10 input-wrapper">
+          <input name="subCateName" type="text" class="form-control" ng-model="detail.name" placeholder="" required minlength="2" ng-minlength="2" maxlength="20" ng-maxlength="20" tooltip="2-20字" tooltip-trigger="focus">
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="isEdit" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': subCategoryForm.cateOrder.$invalid && !subCategoryForm.cateOrder.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>排序</label>
+        <div class="col-xs-4 input-wrapper">
+          <input name="cateOrder" type="number" class="form-control" ng-model="detail.sort" placeholder="" required min="0" ng-min="0" max="9999999" ng-max="9999999" tooltip="整数（0-9999999）" tooltip-trigger="focus">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label"><em>*</em>分类标签</label>
+        <div class="col-xs-10 input-wrapper">
+          <tags-input ng-model="detail.tagsInput" placeholder="添加标签" min-tags="1" min-length="2" add-on-space="true" add-on-enter="true" add-on-comma="true" allow-leftover-text="true">
+            <auto-complete min-length="1" max-results-to-show="5" source="loadTags($query)"></auto-complete>
+          </tags-input>
+        </div>
+      </div>
+
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': subCategoryForm.cateCode.$invalid && !subCategoryForm.cateCode.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>分类编码</label>
+        <div class="col-xs-5 input-wrapper">
+          <div class="input-group">
+            <input name="cateCode" type="number" class="form-control" ng-model="detail.code" placeholder="" required min="0" ng-min="0" max="999999" ng-max="999999" tooltip="1-6位数字" tooltip-trigger="focus">
+            <span class="input-group-addon">#</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

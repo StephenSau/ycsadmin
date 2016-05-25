@@ -1,0 +1,25 @@
+<div class="modal-wrapper industryCategory">
+	<form class="form-horizontal">
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">选择所在行业</h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-success" ng-click="save()">确定</button>
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <section class="row" ng-repeat="category in industries">
+        <div class="col-xs-3">
+          <h5 class="title">{{category.name}}</h5>
+        </div>
+        <div class="content-wrapper col-xs-9">
+          <label ng-repeat="industry in category.sub" ng-class="{active: currentSelected.code === industry.code}">
+            <input name="selectedIndustry" type="radio" ng-click="toggleSelected(category.name, industry.name, industry.code)" ng-checked="checkIfSelected(industry.code)" value="{{industry.code}}"> {{industry.name}}
+          </label>
+        </div>
+      </section>
+    </div>
+
+	</form>
+</div>

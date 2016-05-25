@@ -1,0 +1,37 @@
+<div class="inner user" ng-controller="userCtrl">
+
+  <div class="title-wrapper row">
+    <div class="title-text-block col-xs-9">
+      <h1 class="title">用户列表
+        <a class="btn-add-new btn btn-warning" ui-sref="user.add"><i class="fa fa-plus"></i>  添加用户</a>
+        <!-- <a class="btn btn-default" ng-click="chooseIndustry()">选择行业</a> -->
+      </h1>
+    </div>
+  </div>
+
+  <div class="filter-wrapper clearfix">
+    <form class="form-inline">
+      <span>按条件筛选：&nbsp;</span>
+      <div class="form-group filter-options">
+        <label>区域</label>
+        <select-district ng-model="qData.contactsdistrict"></select-district>
+      </div>
+
+      <div class="form-group filter-options">
+        <label>用户角色</label>
+      	<select ng-model="qData.userrole" ng-options="item.value as item.label for item in userRoleOpts"></select>
+      </div>
+
+      <div class="form-group filter-options" ng-cloak>
+        <button class="btn btn-default btn-sm" ng-click="filterUser()" ng-if="qData.contactsdistrict && qData.contactsdistrict > 0 || qData.userrole">确定筛选</button>
+        <button ng-if="qData.contactsdistrict || qData.userrole" class="btn btn-sm" ng-click="getExistingData()">清除筛选</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="uiGrid" ui-grid="gridOptions">
+    <div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+    <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+  </div>
+
+</div>

@@ -1,0 +1,200 @@
+<div class="ticket client" ng-controller="ticketClientCtrl">
+  <form name="ticketClient" class="form-horizontal" novalidate>
+    <div class="row">
+      <div class="form-group col-xs-11 has-feedback">
+        <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketClient.username.$invalid && !ticketClient.username.$pristine }">
+          <label class="col-xs-2 control-label"><em>*</em>用户帐号</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" 
+              ng-model-options="{debounce: 500}"
+              ng-change="checkIfAccEmpty()" 
+              ng-model="qData.username" 
+              name="username" 
+              placeholder="请输入已注册的用户账号" 
+              required 
+              ng-minlength="2" ng-maxlength="40" minlength="2" maxlength="40" 
+              tooltip="2-40字" 
+              tooltip-trigger="focus" 
+              ng-readonly="orderInfo.id !== 'new'">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+
+        <div class="inline" ng-if="orderInfo.id === 'new'">
+          <div class="col-xs-6">
+            <button class="btn btn-info btn-text-shadow" ng-click="searchClientInfo(qData.username)"><i class="fa fa-search"></i> 查找用户</button>
+            <p ng-if="noUserFound" class="not-found-warning bg-warning">找不到该用户信息，请确认输入的用户账户是否正确</p>
+            <p ng-if="!noUserFound && insufficientInfo" class="not-found-warning bg-warning">用户信息不完善，请先补全该用户的联系信息</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-11 has-feedback">
+        
+        <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketClient.company.$invalid && !ticketClient.company.$pristine }">
+          <label class="col-xs-2 control-label"><em>*</em>公司名称</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" ng-model="qData.company" name="company" required placeholder="" ng-minlength="1" ng-maxlength="40" minlength="1" maxlength="40" tooltip="1-40字" tooltip-trigger="focus" ng-readonly="orderInfo.id === 'new'">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+
+        <!-- <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketClient.nickname.$invalid && !ticketClient.nickname.$pristine }">
+          <label class="col-xs-2 control-label">简称</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" ng-model="qData.nickname" name="nickname" required minlength="2" ng-minlength="2" maxlength="20" ng-maxlength="20" tooltip="2-20字" tooltip-trigger="focus">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-11 has-feedback">
+
+        <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketClient.contacts.$invalid && !ticketClient.contacts.$pristine }">
+          <label class="col-xs-2 control-label"><em>*</em>联系人</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" 
+              ng-model="qData.contacts" 
+              ng-trim="false" 
+              name="contacts" 
+              required 
+              minlength="2" ng-minlength="2" 
+              maxlength="20" ng-maxlength="20" 
+              tooltip="2-20位中文、英文" tooltip-trigger="focus" 
+              ng-readonly="orderInfo.id === 'new'" 
+              ng-pattern="/^[\u4E00-\u9FBFA-Za-z]{2,20}$/">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+
+        <div class="inline">
+          <label class="col-xs-2 control-label">职位</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" ng-model="qData.title" name="title" placeholder="" maxlength="40" ng-maxlength="40" tooltip="最多40字" tooltip-trigger="focus" ng-readonly="orderInfo.id === 'new'">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-11 has-feedback">
+
+        <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketClient.contactsmobile.$invalid && !ticketClient.contactsmobile.$pristine }">
+          <label class="col-xs-2 control-label"><em>*</em>手机号码</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" ng-model="qData.contactsmobile" name="contactsmobile" required placeholder="" maxlength="11" ng-maxlength="11" tooltip="最多11位" tooltip-trigger="focus" ng-readonly="orderInfo.id === 'new'">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+
+        <div class="inline">
+          <label class="col-xs-2 control-label">固定电话</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" ng-model="qData.contactstel" name="contactstel" placeholder="" maxlength="40" ng-maxlength="40" tooltip="最多40字" tooltip-trigger="focus" ng-readonly="orderInfo.id === 'new'">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-11 has-feedback">
+
+        <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketClient.contactsemail.$invalid && !ticketClient.contactsemail.$pristine }">
+          <label class="col-xs-2 control-label">邮箱</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="email" class="form-control" ng-model="qData.contactsemail" name="contactsemail" minlength="6" ng-minlength="6" maxlength="100" ng-maxlength="100" tooltip="6-100字" tooltip-trigger="focus" ng-readonly="orderInfo.id === 'new'">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+
+        <div class="inline">
+          <label class="col-xs-2 control-label">其他方式</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" ng-model="qData.contactsother" name="contactsother" maxlength="40" ng-maxlength="40" tooltip="最多40字" tooltip-trigger="focus" ng-readonly="orderInfo.id === 'new'">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-11 has-feedback">
+
+        <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketClient.contactsdistrict.$invalid && !ticketClient.contactsdistrict.$pristine }">
+          <label class="col-xs-2 control-label"><em>*</em>所在区域</label>
+          <div class="location-input col-xs-4 input-wrapper" ng-class="{noClicking: orderInfo.id === 'new'}">
+            <div class="select-group">
+              <div class="mask"></div>
+              <select-district ng-model="qData.contactsdistrict"></select-district>
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="inline">
+          <label class="col-xs-2 control-label">邮编</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" ng-model="qData.contactszip" name="contactszip" maxlength="6" ng-maxlength="6" tooltip="6位数" tooltip-trigger="focus" ng-readonly="orderInfo.id === 'new'">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-xs-11 has-feedback">
+
+        <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketClient.contactsaddress.$invalid && !ticketClient.contactsaddress.$pristine }">
+          <label class="col-xs-2 control-label"><em>*</em>公司地址</label>
+          <div class="col-xs-4 input-wrapper">
+            <input type="text" class="form-control" ng-model="qData.contactsaddress" name="contactsaddress" placeholder="" required minlength="2" ng-minlength="2" maxlength="100" ng-maxlength="100" tooltip="2-100字" tooltip-trigger="focus" ng-readonly="orderInfo.id === 'new'">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row" ng-if="orderInfo.id !== 'new'">
+      <div class="form-group col-xs-11 has-feedback">
+
+        <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': ticketClient.sourceid.$invalid && !ticketClient.sourceid.$pristine }">
+          <label class="col-xs-2 control-label"><em>*</em>来源</label>
+          <div class="col-xs-4 input-wrapper">
+            <div class="select-group">
+              <select class="form-control" ng-model="qData.sourceid" name="sourceid" ng-options="item.value as item.label for item in sourceOpts" required></select>
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="inline">
+          <label class="col-xs-2 control-label">来源备注</label>
+          <div class="col-xs-4 input-wrapper">
+            <textarea rows="2" class="form-control" ng-model="qData.sourcememo" name="sourcememo" maxlength="2000" ng-maxlength="2000" tooltip="最多2000字" tooltip-trigger="focus"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-11">
+        <div class="submit-btn-wrapper col-xs-offset-2" ng-cloak>
+          <button ng-if="orderInfo.id !== 'new'" type="button" ng-click="editUserInfo(qData)" class="btn btn-success" ng-disabled="ticketClient.$invalid || ticketClient.$pristine || !qData.contactsdistrict || qData.contactsdistrict % 10000 === 0 || qData.contactsdistrict % 100 === 0 && qData.contactsdistrict % 10000 !== 0 || String(qData.contacts).trim() === ''">保存</button>
+          <button ng-if="orderInfo.id === 'new' && qData.contacts.length > 0" type="button" ng-click="toNextStep(qData.id)" class="btn btn-success" ng-disabled="ticketClient.$invalid">下一步</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

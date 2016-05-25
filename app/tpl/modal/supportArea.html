@@ -1,0 +1,43 @@
+<div class="modal-wrapper serviceSupportAreas">
+  <form class="form-horizontal">
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">{{servicename}} <small>当前支持区域</small></h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-default" ng-click="cancel()">关闭</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      
+      <div ng-if="isLoading" class="loading text-center text-muted">
+        <p><i class="fa fa-spinner fa-spin fa-3x"></i></p>
+        <p>查询中，请稍候</p>
+      </div>
+
+      <table ng-if="!isLoading" class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="provice">省/直辖市</th>
+            <th class="city">市</th>
+            <th>区</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="area in detail.list track by area.city">
+            <td>{{area.province}}</td>
+            <td>{{area.city}}</td>
+            <td>
+              <p><b>支持：</b>{{area.districtStatus.support}}</p>
+              <p><b>不支持：</b>{{area.districtStatus.unsupport}}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-default" ng-click="cancel()">关闭</button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,42 @@
+<div class="modal-wrapper userPermission">
+  <form class="form-horizontal" name="chgUserPswForm" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title"><span ng-if="userInfo.func === 'freeze'">冻结</span><span ng-if="userInfo.func === 'unfreeze'">解冻</span><span ng-if="userInfo.func === 'delete'">删除</span><span ng-if="userInfo.func === 'restore'">恢复</span>用户</h4>
+    </div>
+
+    <div class="modal-body modal-form">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">用户名</label>
+        <div class="col-sm-8">
+          <input name="username" ng-value="qData.username" class="form-control" disabled>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">账户手机号码</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" ng-value="qData.mobile" disabled>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <label class="checkbox-inline">
+            <input type="checkbox" ng-model="userInfo.isSendSms" ng-true-value="1" ng-false-value="0" name="isSendSms" ng-disabled="!qData.mobile"> 发送手机短信通知
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" ng-model="userInfo.isSendMessage" ng-true-value="1" ng-false-value="0" name="isSendMessage"> 发送通知到用户中心
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="userModal.close()">取消</button>
+        <button class="btn btn-danger" ng-if="userInfo.func === 'freeze'" ng-click="editUserStatus(userInfo)">确定冻结</button>
+        <button class="btn btn-success" ng-if="userInfo.func === 'unfreeze'" ng-click="editUserStatus(userInfo)">确定解冻</button>
+        <button class="btn btn-danger" ng-if="userInfo.func === 'delete'" ng-click="editUserStatus(userInfo)">确定删除</button>
+        <button class="btn btn-success" ng-if="userInfo.func === 'restore'" ng-click="editUserStatus(userInfo)">确定恢复</button>
+    </div>
+  </form>
+</div>

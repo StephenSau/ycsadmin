@@ -1,0 +1,213 @@
+<div class="edit" ng-controller="vendorInfoCtrl">
+  <form name="vendorInfoForm" class="form-horizontal" novalidate>
+    <section class="form-section">
+      <div class="row">
+
+        <div class="form-group col-xs-11">
+          <div class="inline">
+            <label class="col-xs-2 control-label">法人</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.legal" name="legal" placeholder="法人全名" ng-maxlength="40" maxlength="40" tooltip="最多40字" tooltip-trigger="focus">
+            </div>
+          </div>
+          <div class="inline">
+            <label class="col-xs-2 control-label">法人电话</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.legaltel" name="legaltel" ng-maxlength="100" maxlength="100" tooltip="最多100字" tooltip-trigger="focus">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="form-group col-xs-11 has-feedback">
+          <div class="inline">
+            <label class="col-xs-2 control-label">法人身份证</label>
+            <div class="col-xs-2 input-wrapper">
+              <input type="text" class="form-control fix-input" ng-model="qData.legalidcard" name="legalidcard" placeholder="暂无" readonly="true">
+            </div>
+
+
+            <div class="col-xs-2">
+              <label for="legalPersonId" class="btn btn-default" ng-class="{loading: legalidcardUploadBtnDisabled}">
+                <span class="waiting"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                <span class="normal"><i class="fa fa-upload"></i> <span ng-if="qData.legalidcard && qData.legalidcard.length > 0">重新</span>上传</span>
+              </label>
+              <input id="legalPersonId" ng-disabled="legalidcardUploadBtnDisabled" type="file" class="hidden-input" accept=".jpg,.png,.bmp" image-upload>
+              <a ng-if="qData.legalidcard && qData.legalidcard.length > 0 && !legalidcardUploadBtnDisabled" class="btn btn-link" href="{{qData.legalidcard}}" target="_blank"><i class="fa fa-image"></i> 查看</a>
+            </div> 
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">法人邮箱</label>
+            <div class="col-xs-4 input-wrapper" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorInfoForm.legalemail.$invalid && !vendorInfoForm.legalemail.$pristine }">
+              <input type="email" class="form-control" ng-model="qData.legalemail" name="legalemail" ng-maxlength="100" maxlength="100" ng-pattern="/^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/" tooltip="请输入正确的邮箱格式，最多100个字符" tooltip-trigger="focus">
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="form-group col-xs-11">
+          <div class="inline">
+            <label class="col-xs-2 control-label">营业执照</label>
+            <div class="col-xs-2 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.licence" name="licence" placeholder="暂无" readonly="true">
+            </div>
+            <div class="col-xs-2">
+              <label for="corpLicence" class="btn btn-default" ng-class="{loading: licenceUploadBtnDisabled}">
+                <span class="waiting"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                <span class="normal"><i class="fa fa-upload"></i> <span ng-if="qData.licence && qData.licence.length > 0">重新</span>上传</span>
+                </label>
+                <input id="corpLicence" ng-disabled="licenceUploadBtnDisabled" type="file" class="hidden-input" accept=".jpg,.png,.bmp" image-upload>
+              <a ng-if="qData.licence && qData.licence.length > 0 && !licenceUploadBtnDisabled" class="btn btn-link" href="{{qData.licence}}" target="_blank"><i class="fa fa-image"></i> 查看</a>
+            </div> 
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">机构代码证</label>
+            <div class="col-xs-2 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.organization" name="organization" placeholder="暂无" readonly="true">
+            </div>
+            <div class="col-xs-2">
+              <label for="corpOrgCert" class="btn btn-default" ng-class="{loading: organizationUploadBtnDisabled}">
+                <span class="waiting"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                <span class="normal"><i class="fa fa-upload"></i> <span ng-if="qData.organization && qData.organization.length > 0">重新</span>上传</span>
+                </label>
+                <input id="corpOrgCert" ng-disabled="organizationUploadBtnDisabled" type="file" class="hidden-input" accept=".jpg,.png,.bmp" image-upload>
+              <a ng-if="qData.organization && qData.organization.length > 0 && !organizationUploadBtnDisabled" class="btn btn-link" href="{{qData.organization}}" target="_blank"><i class="fa fa-image"></i> 查看</a>
+            </div> 
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="form-group col-xs-11 has-feedback">
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">资质勋章</label>
+            <div class="col-xs-4 input-wrapper">
+              <label class="checkbox-inline">
+                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="qData.accountant" name="accountant"> 会计勋章
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="qData.taxation" name="taxation"> 税务勋章
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="qData.criterion" name="criterion"> 服务规范认证
+              </label>
+            </div>
+          </div>
+
+          <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorInfoForm.score.$invalid && !vendorInfoForm.score.$pristine }">
+            <label class="col-xs-2 control-label"><em>*</em>服务商评分</label>
+            <div class="col-xs-2 input-wrapper">
+              <input name="score" type="number" step="0.01" required ng-model="qData.score" class="form-control" required min="0" ng-min="0" max="5" ng-max="5" tooltip="数字（0-5）" tooltip-trigger="focus"/>
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      
+
+    </section>
+
+    <section class="form-section">
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorInfoForm.advantage.$invalid && !vendorInfoForm.advantage.$pristine }">
+          <label class="col-xs-2 control-label"><em>*</em>服务优势</label>
+          <div class="col-xs-10">
+            <textarea rows="6" class="form-control" required ng-model="qData.advantage" name="advantage" ng-minlength="2" minlength="2" ng-maxlength="600" maxlength="600" tooltip="2-600字" tooltip-trigger="focus"></textarea>
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11">
+          <label class="col-xs-2 control-label">主要客户</label>
+          <div class="col-xs-10">
+            <textarea rows="3" type="text" class="form-control" ng-model="qData.customers" name="customers" ng-maxlength="600" maxlength="600" tooltip="最多600字" tooltip-trigger="focus"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+
+      <div class="row">
+        <div class="form-group col-xs-11">
+
+          <label class="col-xs-2 control-label">资质证书</label>
+
+          <div class="col-xs-10">
+            <div class="preview-wrapper">
+              <div class="certificate" ng-repeat="cert in certList">
+                <div class="pic" style="background-image:url('{{cert.image}}')">
+                  <div class="del-pic" ng-click="delPic($index, 'certificate')" title="删除"><i class="fa fa-minus-circle fa-lg"></i></div>
+                </div>
+                <div class="introduction">{{cert.text}}</div>
+              </div>
+            </div>
+
+            <div class="upload-btn-wrapper">
+              <button type="button" class="btn btn-default" ng-click="addImageWithTitle('certificate')"><i class="fa fa-plus"></i> 添加</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="form-section">
+
+      <div class="row">
+        <div class="form-group col-xs-11">
+          
+          <label class="col-xs-2 control-label">实地环境</label>
+
+          <div class="col-xs-10">
+
+            <div class="preview-wrapper">
+              <div class="photo" ng-repeat="photo in photoList">
+                <div class="pic" style="background-image:url('{{photo.image}}')">
+                  <div class="del-pic" ng-click="delPic($index, 'photo')" title="删除"><i class="fa fa-minus-circle fa-lg"></i></div>
+                </div>
+                <div class="introduction">{{photo.text}}</div>
+              </div>
+            </div>
+
+            <div class="upload-btn-wrapper">
+              <button type="button" class="btn btn-default" ng-click="addImageWithTitle('photo')"><i class="fa fa-plus"></i> 添加</button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <div class="row">
+      <div class="col-xs-11">
+        <div class="submit-btn-wrapper col-xs-offset-2">
+          <button type="button" ng-click="save(qData)" class="btn btn-success btn-lg" ng-disabled="vendorInfoForm.$invalid || vendorInfoForm.$pristine">保存</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</div>

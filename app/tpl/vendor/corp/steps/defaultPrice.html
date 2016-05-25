@@ -1,0 +1,48 @@
+<div class="inner vendor default-price" ng-controller="defaultPriceCtrl">
+  <div class="steps clearfix">
+    <div class="step">选择可提供服务的区域</div>
+    <div class="step">选择可提供的服务项</div>
+    <div class="step active">设定服务价格</div>
+  </div>
+
+  <form>
+  	<table class="table table-bordered">
+  		<thead>
+			  <tr>
+			    <th>服务项</th>
+			    <th>价格</th>
+			    <th>服务特色说明</th>
+			    <th>提供发票类型</th>
+			    <th>操作</th>
+			  </tr>
+		  </thead>
+		  <tbody>
+			  <tr ng-repeat="detail in qData">
+			    <td class="service-item" ng-model="detail.name" name="name">{{detail.name}}</td>
+			    <td class="price">
+			    	<div class="col-xs-9 input-wrapper">
+				      <input type="number" class="form-control" ng-model="detail.price" name="price">
+				    </div>
+			    	<label class="col-xs-3 control-label">元/{{detail.unitname}}</label>
+			    </td>
+			    <td class="advantage">
+			    	<textarea class="form-control" rows="3" ng-model="detail.advantage" name="advantage"></textarea>
+			    </td>
+			    <td class="invoice">
+			    	<select class="form-control" ng-model="detail.invoicetype" name="invoicetype" ng-options="item.value as item.label for item in invoiceTypeUnitOpts">
+            </select>
+			    </td>
+			    <td class="func">
+			    	<a ng-click="defaultPrice($index)">重设为默认价格</a>
+			    </td>
+			  </tr>
+		  </tbody>
+  	</table>
+
+    <div class="submit-btn-wrapper">
+      <!-- <button type="button" class="btn btn-default" ng-click="initStep.current = 1">上一步</button> -->
+      <button ng-click="save(qData)" class="btn btn-success btn-lg">保存</button>
+    </div>
+
+  </form>
+</div>

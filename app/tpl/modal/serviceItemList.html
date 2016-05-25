@@ -1,0 +1,44 @@
+<div class="modal-wrapper serviceItemList">
+  <form class="form-horizontal">
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">添加服务项</h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-success" ng-click="ok()">确定</button>
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="row">
+
+        <div class="col-xs-2">
+          <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" ng-repeat="level1 in serviceItemList" ng-class="{active: currentCataIndex === $index}">
+              <a ng-click="switchCategory($index)">{{level1.topcatName}}</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="service-full-list col-xs-8">
+          <section ng-repeat="level2 in serviceItemList[currentCataIndex].topcatList">
+            <h5 class="level2-title">{{level2.subcatName}}</h5>
+            <label ng-repeat="level3 in level2.subcatList">
+              <input type="checkbox" ng-checked="checkIfSelected(level3.id)" ng-click="toggleSelected(level3.id, level3.name)" ng-true-value="{{level3.name}}" ng-false-value=""> {{level3.name}}
+            </label>
+          </section>
+        </div>
+
+        <div class="current-selected-wrapper col-xs-2">
+          <h5 class="title">已选服务项（{{currentSelectedNames.length}}）</h5>
+          <ul class="preview list-unstyled">
+            <li ng-repeat="name in currentSelectedNames">{{name}}</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+</div>

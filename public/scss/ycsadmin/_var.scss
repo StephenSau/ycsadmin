@@ -1,0 +1,358 @@
+$vi-blue: #1153a7;
+$vi-orange: #eb9000;
+$vi-red: #db281f;
+$vi-green: #629500;
+$vi-lightBlue: #009bb7;
+
+$textDarkgray: #313131;
+$textGray: #666;
+$textLightgray: #9e9e9e;
+$textLightergray: #ddd;
+
+$bgDarkGray: #333;
+$bgLightGray: #f7f7f7;
+$bgLighterGray: #fafafa;
+$bgLightBlue: #eef2f6;
+$bgLightGreen: #e9eee0;
+$bgLightYellow: #f9f5e1;
+
+$globalAnchorText: $vi-blue;
+
+// $imgUri: '../img/';
+// $imgUri: '/static/img/homepage/';
+// @function transUrl($file){
+// 	@return #{$imgUri}#{$file};
+// }
+
+@function black($alpha){
+	@return rgba(0,0,0, $alpha);
+}
+
+@function white($alpha){
+	@return rgba(255,255,255, $alpha);
+}
+
+@mixin dTable {
+	display: table;
+	width: 100%;
+	height: 100%;
+
+	> .cell {
+		display: table-cell;
+		vertical-align: middle;
+		height: 100%;
+	}
+}
+
+@mixin closeIconBtn {
+	&:hover{
+		.close{
+			display: block;
+		}
+	}
+
+	.close{
+		position: absolute;
+		right: -5px;
+		top: -10px;
+		display: none;
+	}
+}
+
+@mixin bgCover {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+@mixin detail {
+	padding: 15px;
+	border-radius: 3px;
+	border: 1px solid $textLightergray;
+	position: relative;
+	margin-bottom: 15px;
+
+	.title {
+		margin-top: 0;
+		font-weight: bold;
+	}
+
+	> .content {
+		margin-bottom: 0;
+	}
+
+	> .delete-wrapper{
+		position: absolute;
+		right: 15px;
+		top: 10px;
+
+		i[popover]{
+			color: $textLightgray;
+			cursor: pointer;
+			position: relative;
+
+			&:hover{
+				color: $textGray;
+			}
+		}
+	}
+}
+
+@mixin autoHeightUiGrid {
+
+	.ui-grid-row {
+		display: table;
+		height: auto !important;
+		position: static;
+
+		&:nth-child(2n){
+			background: $bgLightGray;
+		}
+	}
+
+	[ui-grid-row=row] {
+		display: table-row;
+		height: 100% !important;
+		position: static;
+	}
+
+	.ui-grid-cell {
+		display: table-cell;
+		height: 100% !important;
+		overflow: visible;
+		position: static;
+		background: transparent;
+		border-right: 0;
+
+		.ng-scope{
+			height: auto !important;
+		}
+	}
+
+	.ui-grid-cell-contents{
+		height: auto !important;
+		white-space: normal;
+		overflow:visible;
+	}
+
+}
+
+
+@mixin serviceItemFullList{
+
+	.nav-pills{
+		li{
+
+			a {
+				color: $vi-blue;
+
+				&:hover{
+					color: $textGray;
+				}
+
+				-webkit-transition: background 0.3s;
+				transition: background 0.3s;
+			}
+
+			&.active{
+				a {
+					background: $bgLightBlue;
+					color: $vi-blue;
+					cursor: default;
+				}
+			}
+		}
+	}
+
+	.service-full-list{
+	  section {
+	    border-top: 1px dashed $textLightergray;
+	    padding: 1em 0;
+
+	    &:first-of-type{
+	      border-top: 0;
+	    }
+
+	    .level2-title{
+	      margin-top: 0;
+	      font-size: 1em;
+	      font-weight: bold;
+	    }
+
+	    label {
+	      font-weight: normal;
+	      width: 32.5%;
+	      display: inline-block;
+	      margin-right: 0.5%;
+	      vertical-align: top;
+
+	      &.lv3-item{
+	      	&.active{
+	      		color: $vi-blue;
+	      	}
+	      }
+	    }
+	  }
+	}
+
+  .current-selected-wrapper{
+    background: $bgLightGray;
+
+    .title{
+      font-weight: bold;
+      border-bottom: 1px solid $textLightergray;
+      padding-bottom: 0.5em;
+      margin-bottom: 0.3em;
+    }
+
+    ul.preview,
+    ol.preview{
+      li{
+        font-size: 0.9em;
+        border-top: 1px dotted $textLightergray;
+        padding: 0.3em 0;
+
+        &:first-of-type{
+          border-top: 0;
+        }
+      }
+    }
+  }
+}
+
+
+@mixin delPicBtn {
+	position: relative;
+
+  .del-pic{
+  	color: firebrick;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: -10px;
+    right: -7px;
+    background: #fff;
+    border: 2px solid #fff;
+    border-radius: 100px;
+    box-shadow: 0 3px 5px black(0.3);
+  }
+
+  &:hover{
+    .del-pic{
+    	color: $vi-red;
+      display: inline-block;
+    }
+  }
+}
+
+@mixin compoundTagInput {
+	margin: 0;
+	padding: 0.4em 0;
+
+	li {
+		display: inline-block;
+		padding: 3px 0.5em;
+		border-radius: 3px;
+		margin: 0 5px 5px 0;
+		background:$bgLightBlue;
+		color: $vi-blue;
+
+		&:first-of-type{
+			margin-left: 0;
+		}
+	}
+}
+
+// The toolbox to show after multi-select
+@mixin countWrapper {
+	padding-bottom: 20px;
+
+	a {
+		display: inline-block;
+		margin-left: 1em;
+
+		&.cancel-link{
+			font-weight: normal;
+			opacity: 0.8;
+		}
+
+		&:hover{
+			color: $textDarkgray;
+		}
+	}
+}
+
+
+// Inline-form filter on top of uiGrid
+
+@mixin inlineFormFilter {
+
+	border-top: 1px solid $textLightergray;
+	border-bottom:  1px solid $textLightergray;
+	padding: 8px 0;
+	margin-bottom: 1em;
+
+	.form-group{
+		border-left: 1px solid $textLightergray;
+		padding-left: 1em;
+		margin-left: 0.9em;
+
+		&:first-of-type{
+			margin-left: 0;
+			padding-left: 0;
+			border-left: 0;
+		}
+
+		label {
+			padding-right: 0.5em;
+		}
+
+		select{
+			height: 28px;
+			vertical-align: middle;
+		}
+
+		button {
+			display: inline-block;
+		}
+	}
+
+	.button-group{
+		button{
+			margin-right: 10px; 
+		}
+	}
+
+	.locationSelectGroup{
+		display: inline-block;
+
+		input.preview{
+			display: none !important;
+		}
+	}
+
+}
+
+
+@mixin tagWithRemoveBtn {
+
+	display: inline-block;
+	color: #fff;
+	background-color: $vi-blue;
+	margin-right: 5px; 
+	margin-bottom: 5px;
+	padding: 4px 8px;
+	border-radius: 3px;
+
+	.remove-button{
+		display: inline-block;
+		position: relative;
+		color: white(0.7);
+		font-size: 1.4em;
+		line-height: 0.9em;
+		vertical-align: baseline;
+		padding-left: 3px;
+		top: 2px;
+	}
+
+}

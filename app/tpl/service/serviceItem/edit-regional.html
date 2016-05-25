@@ -1,0 +1,156 @@
+<section class="tab-section regional-service">
+  
+  <div class="col-xs-12">
+    <h4 class="item-title">{{qData.name}}</h4>
+  </div>
+
+  <form class="form-horizontal" ng-submit="saveRegionVersion(currentRegion)" name="regionalForm" novalidate>
+
+    <div>
+      <div class="col-xs-2">
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" ng-repeat="region in currentRegion.regionalList" ng-class="{active: region.service_itemdetailid === currentRegion.service_itemdetailid}">
+            <a ng-click="switchRegion(region.service_itemdetailid)">{{region.nickname}}</a>
+          </li>
+        </ul>
+        <div ng-if="currentRegion.regionalList.length > 0" class="add-new-btn-wrapper">
+          <button type="button" class="btn btn-default" ng-click="addAreaVersion()"><i class="fa fa-plus"></i> 新增区域版本</button>
+        </div>
+      </div>
+
+      <div class="region-version col-xs-10">
+        <div class="row">
+          <div class="col-xs-8">
+            <h4>{{currentRegion.nickname}}</h4>
+          </div>
+          <div class="col-xs-4 text-right">
+            <button class="btn btn-success btn-md" ng-disabled="regionalForm.$invalid">保存区域版本</button>
+          </div>
+        </div>
+
+        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': regionalForm.regionDescription.$invalid && !regionalForm.regionDescription.$pristine }">
+          <label class="col-xs-2 control-label"><em>*</em>服务项简介</label>
+          <div class="col-xs-10 input-wrapper">
+            <textarea rows="6" name="regionDescription" required ng-model="currentRegion.description" class="form-control" ng-maxlength="5000" maxlength="5000" tooltip="最多5000字" tooltip-trigger="focus"></textarea>
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-xs-2 control-label">需满足条件</label>
+          <div class="col-xs-10">
+
+            <div class="detail" ng-repeat="req in currentRegion.requirements">
+              <p class="content">{{req.text}}</p>
+              <div class="delete-wrapper">
+                <a class="delete link-delete" ng-click="delRequirement($index, req.id)">删除</a>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-default" ng-click="editRequirement()" tooltip="需满足条件" tooltip-placement="right">编辑</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-xs-2 control-label">需提供材料</label>
+          <div class="col-xs-10 input-wrapper">
+
+            <div class="detail" ng-repeat="doc in currentRegion.docs">
+              <p class="content">{{doc.text}}</p>
+              <div class="delete-wrapper">
+                <a class="delete link-delete" ng-click="delDoc($index)">删除</a>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-default" ng-click="editDocument()" tooltip="需提供材料" tooltip-placement="right">编辑</button>
+          </div>
+        </div>
+
+        <div class="service-item-steps form-group">
+          <label class="col-xs-2 control-label">服务步骤</label>
+
+          <div class="col-xs-10 input-wrapper">
+
+            <div class="table" ng-repeat="step in currentRegion.stepDetail track by $index">
+
+              <div class="cell step">第<b>{{$index + 1}}</b>步</div>
+
+              <div class="cell content">
+                <div class="detail">
+                  <p class="content">{{step.name}}</p>
+                  <div class="delete-wrapper">
+                    <i ng-if="step.description && step.description.length > 0" class="fa fa-info-circle fa-lg" popover="{{step.description}}" popover-placement="left" popover-trigger="mouseenter"></i>
+                    <a class="edit" ng-click="editSteps($index, false)">编辑</a>
+                    <a class="delete link-delete" ng-click="delSteps($index)">删除</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div>
+              <button type="button" class="btn btn-default" ng-click="editSteps(currentRegion.serviceSteps.length, true)"><i class="fa fa-plus"></i> 添加步骤</button>
+              <a ng-repeat="template in stepsTemplate" class="btn btn-link" ng-click="addStepsTemplate($index)">模板{{$index + 1}}：{{template.title}}</a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="specs form-group">
+          <label class="col-xs-2 control-label">服务规格</label>
+          <div class="col-xs-10 input-wrapper">
+            <div class="detail" ng-repeat="spec in currentRegion.globalSpecs">
+              <h5 class="title">{{spec.name}}</h5>
+              <label ng-repeat="opt in spec.cutOptions" ng-class="{active: checkIfSelected(spec.id, opt.name)}">
+                <input id="specOption-{{$parent.$index}}-{{$index}}" type="checkbox" ng-checked="checkIfSelected(spec.id, opt.name)" ng-click="toggleOptSelection(spec.id, opt)" ng-true-value="{{opt.name}}" ng-false-value="" > {{opt.name}}
+              </label>
+              <div class="delete-wrapper">
+                <a class="delete link-delete" ng-click="delSpecs($index)">删除</a>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-default" ng-click="editSpecs()" tooltip="服务规格" tooltip-placement="right">编辑</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-xs-2 control-label"><em>*</em>基准价格</label>
+          <div class="col-xs-2">
+            <div class="input-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': regionalForm.regionPrice.$invalid && !regionalForm.regionPrice.$pristine }">
+              <div class="input-group-addon">￥</div>
+              <input name="regionPrice" ng-model="currentRegion.price" type="number" required class="form-control" min="0" ng-min="0" step="1">
+            </div>
+            <div class="progression">
+              <label for="regionPriceType">
+                <input name="regionPriceType" id="regionPriceType" type="checkbox" ng-model="currentRegion.pricetype" ng-true-value="1" ng-false-value="0"> 累进收费
+              </label>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <select name="regionUnit" ng-model="currentRegion.unit" required ng-options="item.value as item.label for item in regionUnitOpts" class="form-control">
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-xs-2 control-label"><em>*</em>默认发票类型</label>
+          <div class="col-xs-3 input-wrapper">
+            <select class="form-control" required ng-model="currentRegion.invoicetype">
+              <option value="均可">均可</option>
+              <option value="收据">收据</option>
+              <option value="普通发票">普通发票</option>
+              <option value="增值税专用发票">增值税专用发票</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="submit-btn-wrapper col-xs-offset-2">
+          <button class="btn btn-success btn-md" ng-disabled="regionalForm.$invalid">保存区域版本</button>
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+
+</section>

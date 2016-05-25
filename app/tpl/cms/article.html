@@ -1,0 +1,30 @@
+<div class="inner article" ng-controller="articleCtrl">
+
+  <div class="title-wrapper row">
+    <div class="title-text-block col-xs-9">
+      <h1 class="title">文章列表
+        <a class="btn-add-new btn btn-warning" ui-sref="cms.article.edit({articleId: 'new'})"><i class="fa fa-plus"></i>  新增文章</a>
+        <span class="edit-btn-group" ng-if="tempArray && tempArray.length > 0">
+          <a class="btn btn-info btn-text-shadow" ng-click="addTagsCompound()"><i class="fa fa-tags"></i> 修改标签</a>
+          <a class="btn btn-purple btn-text-shadow" ng-click="startToEditStatus()"><i class="fa fa-circle-o"></i> 修改状态</a>
+          <a class="btn btn-delete" ng-click="editStatus(8)"><i class="fa fa-trash-o"></i> 删除</a>
+        </span>
+      </h1>
+    </div>
+  </div>
+
+  <div class="count-wrapper alert alert-info" ng-if="tempArray && tempArray.length > 0 && isEditStatus === true">
+    你要将选中的 {{tempArray.length}} 条记录的状态修改为：
+    <a ng-click="editStatus(0)" class="alert-link">未完成编辑</a> 
+    <a ng-click="editStatus(2)" class="alert-link">未发布</a> 
+    <a ng-click="editStatus(4)" class="alert-link">已发布</a> 
+    <a ng-click="editStatus(6)" class="alert-link">已撤稿</a> 
+    <a ng-click="clearAll()" class="pull-right alert-link cancel-link" data-dismiss="alert">取消 <i class="fa fa-close"></i></a> 
+  </div>
+
+  <div class="uiGrid" ui-grid-selection ui-grid="gridOptions">
+    <div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+    <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+  </div>
+
+</div>

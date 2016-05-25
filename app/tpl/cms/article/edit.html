@@ -1,0 +1,213 @@
+<div class="inner article edit" ng-controller="articleEditCtrl">
+
+  <div class="title-wrapper clearfix">
+    <h1 class="pull-left"><span ng-if="articleId !== 'new'">编辑</span><span ng-if="articleId === 'new'">新增</span>文章</h1>
+
+    <button type="button" class="btn btn-default pull-right" ng-click="backToList()">关闭</button>
+    <button type="button" class="btn btn-success pull-right" ng-click="save(qData, true)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine || qData.tagsInput.length < 1 || uploadBtnDisabled">保存<span ng-if="articleId !== 'new'">并关闭</span></button>
+    <button ng-if="articleId !== 'new'" type="button" class="btn btn-success pull-right" ng-click="save(qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine || qData.tagsInput.length < 1 || uploadBtnDisabled">保存</button>
+  </div>
+
+  <form class="article-form form-horizontal" name="articleDetail" novalidate>
+    <section class="main-frame form-section col-xs-9">
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': articleDetail.title.$invalid && !articleDetail.title.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>文章标题</label>
+        <div class="col-xs-10 input-wrapper">
+          <input name="title" value="{{qData.title}}" ng-model="qData.title" type="text" class="form-control" required ng-minlength="2" ng-maxlength="100" minlength="2" maxlength="100" tooltip="2-100字" tooltip-trigger="focus">
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': articleDetail.authorname.$invalid && !articleDetail.authorname.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>作者</label>
+        <div class="col-xs-10 input-wrapper">
+          <div class="col-xs-4 fix-padding">
+            <input name="authorname" value="{{qData.authorname}}" ng-model="qData.authorname" type="text" class="form-control" required ng-minlength="2" ng-maxlength="40" minlength="2" maxlength="40" tooltip="2-40字" tooltip-trigger="focus">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+          <div class="checkbox col-xs-6">
+            <label>
+              <input type="checkbox" ng-init="qData.isanonymous = 0" id="isanonymous" ng-model="qData.isanonymous" ng-true-value="1" ng-false-value="0" ng-checked="qData.isanonymous === 1">不显示作者
+              <span class="text-muted">（勾选后，网站前台将不显示文章作者）</span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': articleDetail.sourceid.$invalid && !articleDetail.sourceid.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>来源</label>
+        <div class="col-xs-10 input-wrapper">
+          <div class="col-xs-4 fix-padding">
+            <select class="form-control" ng-model="qData.sourceid" ng-options="item.value as item.label for item in sourceListOpts" required></select>
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+          <div class="checkbox col-xs-6">
+            <label>
+              <input type="checkbox" id="sourcetype" ng-model="qData.sourcetype" ng-true-value="1" ng-false-value="0" ng-checked="qData.sourcetype === 1">显示来源为“网络”
+              <span class="text-muted">（勾选后，网站前台将显示来源为<b>网络</b>）</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback">
+        <label class="col-xs-2 control-label"><em>*</em>标签</label>
+        <div class="col-xs-10 input-wrapper">
+          <ul ng-if="qData.tagsInput.length > 0" class="current-tags">
+            <li ng-repeat="tag in qData.tagsInput" class="tag">{{tag}}</li>
+          </ul>
+          <button class="btn-tags btn btn-sm btn-default" ng-click="editTags()"><i class="fa fa-tags"></i> 编辑标签</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label">原始链接</label>
+        <div class="col-xs-10 input-wrapper">
+          <input name="sourceurl" ng-model="qData.sourceurl" type="text" class="form-control" placeholder="请填入以 http:// 开头的网址" maxlength="500" ng-maxlength="500" tooltip="最多500字" tooltip-trigger="focus">
+        </div>
+      </div>
+
+      <div class="form-group has-feedback">
+        <label class="col-xs-2 control-label">文章摘要</label>
+        <div class="col-xs-10 input-wrapper">
+          <textarea name="abstract" value="{{qData.abstract}}" ng-model="qData.abstract" class="form-control" ng-minlength="2" minlength="2" ng-maxlength="200" maxlength="200" tooltip="2-200字" tooltip-trigger="focus"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label"><em>*</em>正文</label>
+        <div class="col-xs-10 input-wrapper">
+          <textarea
+            required
+            rows="12"
+            ng-ueditor="_ueditor.ueditorConfig"
+            ready="_ueditor.ready"
+            ng-model="_ueditor.ueditorContent"
+            ng-change="_ueditor.updateHtml()"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-xs-10 col-xs-offset-2 submit-btn-wrapper">
+          <button ng-if="articleId !== 'new'" type="button" class="btn btn-success" ng-click="save(qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine || qData.tagsInput.length < 1">保存</button>
+          <button type="button" class="btn btn-success" ng-click="save(qData, true)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine || qData.tagsInput.length < 1">保存<span ng-if="articleId !== 'new'">并关闭</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section col-xs-3">
+      <div class="status-wrapper" ng-if="articleId !== 'new'">
+        <h4>当前状态</h4>
+        <div class="clearfix status-bar">
+          <div ng-if="qData.status === 0">
+            <h5 class="pull-left">未完成编辑</h5>
+            <div class="pull-right">
+              <button class="btn btn-sm btn-default" ng-click="changeStatus(2, qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">完成编辑</button>
+            </div>
+          </div>
+
+          <div ng-if="qData.status === 2">
+            <h5 class="pull-left">未发布</h5>
+            <div class="pull-right">
+              <span ng-if="qData.status === 2 && isSureToPost === false">
+                <button class="btn btn-sm btn-default" ng-click="changePostStatus(true)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">发布</button>
+                <button class="btn btn-sm btn-default" ng-click="changeStatus(0, qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">重新编辑</button>
+              </span>
+              <span ng-if="qData.status === 2 && isSureToPost === true">
+                <button class="btn btn-sm btn-default" ng-click="changeStatus(4, qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">确认发布</button>
+                <button class="btn btn-sm" ng-click="changePostStatus(false)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">取消</button>
+              </span>
+            </div>
+          </div>
+
+          <div ng-if="qData.status === 4">
+            <h5 class="pull-left">已发布</h5>
+            <div class="pull-right">
+              <button class="btn btn-sm btn-default" ng-click="changeStatus(6, qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">撤稿</button>
+              <button class="btn btn-sm btn-delete" ng-click="changeStatus(8, qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">删除</button>
+            </div>
+          </div>
+
+          <div ng-if="qData.status === 6">
+            <h5 class="pull-left">已撤稿</h5>
+            <div class="pull-right">
+              <button class="btn btn-sm btn-default" ng-click="changeStatus(4, qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">重新发布</button>
+              <button class="btn btn-sm btn-delete" ng-click="changeStatus(8, qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">删除</button>
+            </div>
+          </div>
+
+          <div ng-if="qData.status === 8">
+            <h5 class="pull-left">已删除</h5>
+            <div class="pull-right">
+              <button class="btn btn-sm btn-default" ng-click="changeStatus(6, qData)" ng-disabled="articleDetail.$invalid || articleDetail.$pristine">撤销删除</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="time-bar">
+          <div class="clearfix">
+            <p class="pull-left">创建时间</p>
+            <p class="pull-right">{{qData.created}}</p>
+          </div>
+
+          <div class="clearfix">
+            <p class="pull-left">最后更新</p>
+            <p class="pull-right">{{qData.modified}}</p>
+          </div>
+
+          <div class="clearfix">
+            <p class="pull-left">发布时间</p>
+            <p class="pull-right">{{qData.released}}</p>
+          </div>
+
+          <div class="clearfix" ng-if="qData.status === 4 &&  !editTime">
+            <a class="pull-right" ng-click="editPostTime(true)">编辑发布时间</a>
+          </div>
+
+          <div class="well" ng-if="editTime">
+            <p><b>发布时间</b>是指网站前台显示的发布时间，编辑可根据实际需要进行设定，并不一定是真实的发布时间。</p>
+            <input type="text" class="form-control" datetime="yyyy-MM-dd HH:mm:ss" ng-model="qData.postTime">
+            <div class="clearfix func-wrapper">
+              <a class="pull-left" ng-click="updateTime()">设为当前时间</a>
+              <a class="pull-right" ng-click="clearTime()">取消</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="edit-bar">
+          <div class="clearfix editor" ng-if="qData.status !== 0">
+            <p class="pull-left">编辑人员</p>
+            <p class="pull-right">{{qData.username}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="thumb-wrapper">
+        <h4>配图</h4>
+        <div class="upload-btn-group-wrapper">
+          
+          <div  ng-if="qData.image && qData.image.length > 0" class="infotxt-logo" style="background-image:url('{{qData.image}}')"></div>
+          <span ng-if="!qData.image || qData.image.length === 0" class="placeholder">暂未上传配图</span>
+
+          <p class="helper-text">图片高度和宽度不超过1500px，JPG/PNG/BMP格式</p>
+          
+          <div class="button-group" style="display:inline-block;vertical-align:bottom">
+            <label for="corpLogo" class="btn btn-default" ng-class="{loading: uploadBtnDisabled}">
+              <span class="waiting"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+              <span class="normal"><i class="fa fa-upload"></i> <span ng-if="qData.image && qData.image.length > 0">更换</span><span ng-if="!qData.image || qData.image.length < 1">上传</span>图片</span>
+            </label>
+            <input id="corpLogo" ng-disabled="uploadBtnDisabled" type="file" class="hidden-input" accept=".jpg,.png,.bmp" width-max="1500" height-max="1500" image-upload>
+            <input type="hidden" ng-model="qData.image">
+            <button ng-if="qData.image && qData.image.length > 0 && !uploadBtnDisabled" type="button" class="btn btn-delete" ng-click="deleteImage()">删除配图</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </form>
+      
+
+</div>

@@ -1,0 +1,11 @@
+<table class="table table-condensed table-hover message-table">
+  <tbody>
+    <tr ng-repeat="message in messages" ng-class="{'unread': message.status === 0}">
+      <td class="content"><a ng-click="editOrder(message.orderno, message.status, message.id)" title="点击查看相关工单详情">{{message.message}}</a></td>
+      <td class="mark-as-read">
+        <a ng-if="message.status === 0" ng-click="changeMsgStatus(message.id)">标记为已读</a>
+      </td>
+      <td class="time">{{message.created}}</td>
+    </tr>
+  </tbody>
+</table>

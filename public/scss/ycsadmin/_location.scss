@@ -1,0 +1,33 @@
+// Location Select
+
+.locationSelectGroup{
+	.province{
+		min-width: 6em;
+	}
+
+	.city,
+	.district{
+		min-width: 6em;
+
+		&:disabled{
+			display:none;
+		}
+	}
+
+	.preview{
+		width: 8em !important;
+		display: inline-block !important;
+		border: 0;
+		background: transparent !important;
+		color: $textLightgray;
+	}
+
+	.district-checkboxes{
+		.checkbox-inline{
+			display: inline-block;
+			min-width: 10em;
+			margin-right: 1.5em;
+			margin-left: 0;
+		}
+	}
+}

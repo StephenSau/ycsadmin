@@ -1,0 +1,15 @@
+<div class="modal-wrapper serviceItemEdit">
+  <form class="form-horizontal" name="vendorServiceItemForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">{{detail.name}}</h4>
+      <div class="button-group pull-right">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-success" ng-click="save(detail)" ng-disabled="vendorServiceItemForm.$invalid || vendorServiceItemForm.$pristine">保存</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="ng-include" src="'tpl/modal/vendor/vendorServiceItemDetail.html'"></div>
+    </div>
+  </form>
+</div>

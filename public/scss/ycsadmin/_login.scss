@@ -1,0 +1,84 @@
+.login{
+	background: $bgLightBlue;
+
+	.login-wrapper{
+		width: 400px;
+		margin: 50px auto 0 auto;
+	}
+
+	.inner{
+		background: #fff;
+		padding: 1.5em;
+		border-radius: 0.3em;
+		border: 1px solid black(0.1);
+		box-shadow: 0 2px 3px black(0.1);
+	}
+
+	.logo{
+		height: 30px;
+		margin-bottom: 2em;
+		background-size: contain;
+		background-image: url(../img/logo_admin.png);
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+	}
+
+	.validcode-input{
+		input,
+		.valid-code-wrapper{
+			display: inline-block;
+			vertical-align: middle;
+			width: 48%;
+		}
+
+		.valid-code-wrapper{
+			text-align: right;
+
+			img{
+				vertical-align: middle;
+			}
+
+		}
+	}
+
+	.input-group{
+		background: black(0.03);
+		border-color: transparent;
+		box-shadow: 0 1px 2px black(0.1) inset;
+		border-radius: 3px;
+
+		input.form-control{
+			background: transparent;
+			border-color: transparent;
+			box-shadow: none;
+		}
+	}
+
+	.validcode-input{
+		input.form-control{
+			background: black(0.03);
+			border-color: transparent;
+			box-shadow: 0 1px 2px black(0.1) inset;
+		}
+	}
+
+
+	.input-group-addon{
+		background: transparent;
+		border-color: transparent;
+
+		i{
+			color: $textLightgray;
+		}
+	}
+
+	.form-group{
+		margin: 0;
+		padding-top: 1.5em;
+
+		&:first-of-type{
+			padding-top: 0;
+		}
+	}
+
+}

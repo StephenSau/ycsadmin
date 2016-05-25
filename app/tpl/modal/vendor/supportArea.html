@@ -1,0 +1,31 @@
+<div class="modal-wrapper vendorSupportAreas">
+  <form class="form-horizontal">
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">{{detail.servicename}} <span class="modal-sub-title">可提供服务区域</span></h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-success" ng-click="ok()">关闭</button>
+        <!-- <button class="btn" ng-click="close()">取消</button> -->
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="provice">省/直辖市</th>
+            <th class="city">市</th>
+            <th class="district">区</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in detail.list track by item.districts">
+            <td>{{item.province}}</td>
+            <td >{{item.city}}</td>
+            <td>{{item.districts}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </form>
+</div>

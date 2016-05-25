@@ -1,0 +1,20 @@
+<div class="inner slider">
+  <div class="title-wrapper row">
+    <div class="title-text-block col-xs-12">
+      <h1 class="title">页面管理</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-xs-2">
+      <ul class="slider-list-nav nav nav-pills nav-stacked">
+        <li><a ui-sref="system.pages.sliderHome" ui-sref-active="active">首页轮转图</a></li>
+        <li><a ui-sref="system.pages.sliderNews" ui-sref-active="active">资讯首页轮转图</a></li>
+      </ul>
+    </div>
+
+    <div class="col-xs-10" ui-view="sliderDetail"></div>
+    
+  </div>
+</div>

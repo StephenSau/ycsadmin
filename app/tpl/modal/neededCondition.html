@@ -1,0 +1,55 @@
+<div class="modal-wrapper itemRequirement">
+  <form class="form-horizontal">
+    <div class="container-fluid">
+
+      <div class="modal-header row">
+        <h4 class="col-xs-2 modal-title">需满足条件</h4>
+        <div class="col-xs-4">
+          <input class="form-control" type="text" ng-model="requirementSearch" placeholder="搜索..." ng-model-options="{ debounce: 500 }" ng-change="filterRequirement()">
+        </div>
+        <div class="col-xs-6 button-group text-right">
+          <button class="btn btn-success" ng-click="ok()">确定</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="row">
+
+          <div class="col-xs-8">
+            <table class="modal-table table table-hover table-condensed">
+              <tbody>
+                <tr ng-repeat="item in reqList">
+                  <td class="name">
+                    <label for="reqItem-{{item.id}}" ng-class="{active: checkIfSelected(item.name)}" title="{{item.description}}">
+                      <input id="reqItem-{{item.id}}" type="checkbox" ng-click="toggleSelected(item.name, item.id)" ng-checked="checkIfSelected(item.name)" value="item.name"> {{item.name}} 
+                      <i class="fa fa-info-circle" ng-if="item.description && item.description.length > 0"></i>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="preview col-xs-4">
+            <h5 class="title">已选择（{{requirementDetail.texts.length}}）</h5>
+            <ul>
+              <li ng-repeat="selected in requirementDetail.texts">{{selected}}
+                <a class="link-delete fa fa-remove" ng-click="delSelected($index)" tooltip="删除此项" tooltip-placement="left"></a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <div class="button-group pull-right">
+          <button class="btn btn-success" ng-click="ok()">确定</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

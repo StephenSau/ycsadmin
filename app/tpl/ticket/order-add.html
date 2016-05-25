@@ -1,0 +1,70 @@
+<div class="ticket order orderSpecsDetail" ng-controller="orderDetailCtrl">
+  <form name="ticketOrder" class="form-horizontal" novalidate>
+    <div class="form-group" ng-if="orderDetail.func !== 'edit' && orderDetail.func !== 'changeVendor'">
+      <label class="col-xs-2 control-label"><em>*</em>服务区域</label>
+      <div class="col-xs-10 input-wrapper">
+        <div class="select-group">
+          <select-district ng-model="qData.district"></select-district>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-if="orderDetail.func !== 'edit' &&  orderDetail.func !== 'changeVendor'">
+      <label class="col-xs-2 control-label"><em>*</em>选择服务</label>
+      <div class="service-select col-xs-10 input-wrapper">
+        <span class="servicename">{{qData.servicename}}</span><button class="btn btn-default btn-sm" ng-click="editService()" ng-if="!qData.servicename || qData.servicename.length === 0">选择</button>
+      </div>
+    </div>
+
+    <div class="form-group" ng-if="qData.service || orderDetail.func === 'edit'">
+      <label class="col-xs-2 control-label"><em>*</em>服务项规格</label>
+      <div class="col-xs-9 input-wrapper">
+        
+        <!-- No specs -->
+        <div class="no-specs" ng-if="!serviceItemList || serviceItemList.length < 1">无</div>
+
+        <!-- Has specs -->
+        <div class="service-item-wrapper" ng-repeat="serviceItem in serviceItemList">
+          <h4 class="service-title">{{serviceItem.name}}</h4>
+          <div class="well specs-wrapper" ng-repeat="spec in serviceItem.specification">
+            <h5 class="title">{{spec.name}}</h5>
+
+            <div ng-if="spec.type === 1">
+              <!--
+              <label for="specOption-{{serviceItem.id}}-{{$parent.$index}}-{{$index}}" ng-repeat="option in spec.options">
+                <input id="specOption-{{serviceItem.id}}-{{$parent.$index}}-{{$index}}" type="radio" name="specOption-{{serviceItem.id}}-{{$parent.$parent.$index}}" ng-click="toggleSelected(option, spec.type, serviceItem.id, spec.name)" ng-checked="checkIfSelected(option, serviceItem.id, spec.name)">
+                 {{option}}
+              </label>
+              -->
+
+              <select class="form-control" ng-model="spec.content" ng-change="toggleSelected(spec.content, spec.type, serviceItem.id, spec.name)" ng-options="option as option for option in spec.options">
+              </select>
+            </div>
+
+            <div ng-if="spec.type === 2">
+              <label for="specOption-{{serviceItem.id}}-{{$parent.$index}}-{{$index}}" ng-repeat="option in spec.options">
+                <input id="specOption-{{serviceItem.id}}-{{$parent.$index}}-{{$index}}" type="checkbox" name="specOption-{{serviceItem.id}}-{{$parent.$index}}-{{$index}}" ng-click="toggleSelected(option, spec.type, serviceItem.id, spec.name)" ng-checked="checkIfSelected(option, serviceItem.id, spec.name)" ng-true-value="{{option}}" ng-false-value="">
+                 {{option}}
+              </label>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-if="(qData.servicename.length > 0 && isAllSelected) || orderDetail.func === 'edit' || orderDetail.func === 'changeVendor'">
+      <label class="col-xs-2 control-label"><em>*</em>服务商</label>
+      <div class="vendor-select col-xs-10 input-wrapper">
+        <span class="name">{{qData.servicername}}</span><button class="btn btn-default btn-sm" ng-click="editVendor()"><span ng-if="qData.servicername">重新</span>选择</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="submit-btn-wrapper col-xs-10 col-xs-offset-2">
+        <button ng-if="orderDetail.func !== 'edit' && orderDetail.func !== 'changeVendor' && qData.servicername" type="button" class="btn btn-success" ng-click="generateOrder()">保存</button>
+        <button ng-if="orderDetail.func === 'edit' || orderDetail.func === 'changeVendor'" type="button" class="btn btn-success" ng-click="modifyOrder()">保存</button>
+      </div>
+    </div>
+  </form>
+</div>

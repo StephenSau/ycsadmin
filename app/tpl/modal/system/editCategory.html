@@ -1,0 +1,40 @@
+<div class="modal-wrapper editCategory">
+  <form class="form-horizontal" name="categoryForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left"><span ng-if="isEdit">编辑</span><span ng-if="!isEdit">新增</span>分类</h4>
+      <div class="button-group pull-right">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="submit" class="btn btn-success" ng-click="save(detail)" ng-disabled="categoryForm.$invalid || categoryForm.$pristine">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': categoryForm.cateName.$invalid && !categoryForm.cateName.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>分类名称</label>
+        <div class="col-xs-10 input-wrapper">
+          <input name="cateName" type="text" class="form-control" ng-model="detail.name" placeholder="" required minlength="2" ng-minlength="2" maxlength="20" ng-maxlength="20" tooltip="2-20字" tooltip-trigger="focus">
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="isEdit" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': categoryForm.cateOrder.$invalid && !categoryForm.cateOrder.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>排序</label>
+        <div class="col-xs-4 input-wrapper">
+          <input name="cateOrder" type="number" class="form-control" ng-model="detail.sort" placeholder="" required min="0" ng-min="0" max="9999999" ng-max="9999999" tooltip="整数（0-9999999）" tooltip-trigger="focus">
+        </div>
+      </div>
+
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': categoryForm.cateCode.$invalid && !categoryForm.cateCode.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>分类编码</label>
+        <div class="col-xs-5 input-wrapper">
+          <div class="input-group">
+            <input name="cateCode" type="number" class="form-control" ng-model="detail.code" placeholder="" required min="0" ng-min="0" max="999999" ng-max="999999" tooltip="1-6位数字" tooltip-trigger="focus">
+            <span class="input-group-addon">#</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

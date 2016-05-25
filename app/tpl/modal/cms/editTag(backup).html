@@ -1,0 +1,65 @@
+<div class="modal-wrapper addtags">
+  <form>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">添加标签</h4>
+      <div class="button-group pull-right">
+        <!-- <button class="btn btn-success" ng-click="ok(data)">确定</button> -->
+        <button class="btn btn-success" ng-click="check(data)">确定</button>
+        <button class="btn" ng-click="cancel()">取消</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="selected-tag clearfix">
+        <p class="col-xs-12">已选中：{{data.sort}}{{data.extend}}{{data.general}}</p>
+      </div>
+
+      <div class="tag-group clearfix">
+        <div class="form-group col-xs-4">
+          <div class="label-wrapper">
+            <label>分类标签</label>
+          </div>
+          <div>选择分类标签后，才能够正确地显示在服务分类或资讯栏目之下</div>
+          <div class="">
+            <select multiple class="form-control" ng-model="data.sort" style="height:350px;">
+              <option ng-repeat="tag in sort" ng-click="toggleSelected(tag.name)">{{tag.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <div class="label-wrapper">
+            <label>扩展标签</label>
+          </div>
+          <div>请选择扩展标签，以便增强服务或资讯内容的可搜索、可发现性</div>
+          <div class="">
+            <select multiple class="form-control" ng-model="data.extend" style="height:350px;">
+              <option ng-repeat="tag in extend" ng-click="toggleSelected(tag.name)">{{tag.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <div class="label-wrapper">
+            <label>一般标签</label>
+          </div>
+          <div>适当添加一般标签，可以进一步增强服务或资讯内容的可搜索、可发现性</div>
+          <div class="">
+            <select multiple class="form-control" ng-model="data.general" style="height:350px;">
+              <option ng-repeat="tag in general" ng-click="toggleSelected(tag.name)">{{tag.name}}</option>
+            </select>
+          </div>
+        </div>
+
+
+      <div class="col-xs-12 alert alert-danger">按住ctrl可选择多个标签</div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <input ng-model="data.except" class="form-control" placeholder="添加列表上没有的标签,以英文符号,分隔"/>
+    </div>
+
+  </form>
+</div>

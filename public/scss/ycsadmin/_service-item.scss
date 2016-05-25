@@ -1,0 +1,138 @@
+.service-item{
+	.uiGrid{
+		min-height: 500px;
+	}
+
+	&.edit{
+		padding-bottom: 3em;
+
+		.tab-section {
+			padding-top: 1.5em;
+		}
+
+		.divided{
+			border-top: 1px solid $textLightergray;
+			border-bottom: 1px solid $textLightergray;
+			padding: 10px 0;
+		}
+
+		.add-new-btn-wrapper{
+			padding: 1em 0 0 0;
+
+			button {
+				margin-left: 1em;
+			}
+		}
+
+		.save-btn-wrapper{
+			border-top: 1px dashed $textLightergray;
+		}
+
+		.regional-service{
+			.item-title{
+				margin: 0 0 1.5em 0;
+				padding-bottom: 1em;
+				border-bottom: 1px dashed $textLightergray;
+			}
+		}
+
+		.district-wrapper{
+			padding: 15px;
+			background: $bgLightGray;
+			border: 1px solid $textLightergray;
+			position: relative;
+
+			.line{
+				padding: 0.5em;
+			}
+
+			.city{
+				margin-right: 1em;
+			}
+
+			.district{
+				color: $textLightgray;
+				font-size: 12px;
+				margin-right: 0.5em;
+			}
+
+			.edit-district{
+				position: absolute;
+				top: 30px;
+				right: 15px;
+			}
+		}
+
+		.region-version{
+			
+			.form-group{
+				padding: 20px 0;
+				margin-bottom: 0;
+				border-bottom: 1px dashed $textLightergray;
+
+				.progression{
+					margin-top: 10px;
+				}
+			}
+
+			.detail{
+				@include detail;
+			}
+
+			.table{
+				@include dTable;
+
+				.step{
+					border: 1px solid $textLightergray;
+					border-radius: 3px;
+					width: 10% !important;
+					text-align: center;
+					color: $textGray;
+
+					b {
+						color: $textDarkgray;
+						padding: 0 0.2em;
+					}
+				}
+
+				.content{
+					padding-left: 5px;
+				}
+
+				.detail{
+					margin-bottom: 0;
+
+					.edit{
+						margin-right: 0.8em;
+					}
+				}
+			}
+
+			.specs{
+
+				.detail{
+					label {
+						display: inline-block;
+						vertical-align: baseline;
+						margin-right: 3em;
+						font-weight: normal;
+
+						&.active{
+							color: $vi-blue;
+						}
+
+						input {
+							margin-right: 0.3em;
+						}
+					}
+				}
+
+			}
+
+		}
+
+		.submit-btn-wrapper{
+			padding: 1.5em 0 3em 5px; 
+		}
+	}
+}

@@ -1,0 +1,214 @@
+<div class="modal-wrapper editStaff">
+  <form class="form-horizontal" name="vendorStaffForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left"><span ng-if="staffInfo.id === 'new'">新增</span><span ng-if="staffInfo.id !== 'new'">修改</span>人员信息</h4>
+      <div class="button-group pull-right">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <!-- <button type="button" class="btn btn-success" ng-click="save(qData)" ng-disabled="vendorStaffForm.$invalid || vendorStaffForm.$pristine">保存</button> -->
+        <button type="button" ng-click="save(qData)" class="btn btn-success" ng-disabled="vendorStaffForm.$invalid || vendorStaffForm.$pristine || !qData.city || qData.city % 10000 === 0 || fieldArray.length === 0 || qData.grade !== '0' && !qData.head || uploadBtnDisabled">保存</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <section class="form-section">
+      
+        <div class="row">
+          <div class="form-group col-xs-11 has-feedback">
+            
+            <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorStaffForm.realname.$invalid && !vendorStaffForm.realname.$pristine }">
+              <label class="col-xs-2 control-label"><em>*</em>真实姓名</label>
+              <div class="col-xs-6 input-wrapper">
+                <input type="text" class="form-control" ng-model="qData.realname" name="realname" placeholder="" required ng-minlength="2" ng-maxlength="40" minlength="2" maxlength="40" tooltip-placement="bottom" tooltip="2-40位中英文字符、数字" tooltip-trigger="focus">
+                <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-11">
+            <label class="col-xs-2 control-label"><em ng-if="qData.grade && qData.grade !== '0'">*</em>真实照片</label>
+            <div class="col-xs-10 input-wrapper">
+              <div class="portrait" ng-if="qData.head && qData.head.length > 0" style="background-image:url('{{qData.head}}')"></div>
+              <div class="upload-btn-group-wrapper">
+                <p class="helper-text staff">建议上传清晰的免冠证件照，<b>当级别为专家/高级专家时，必须上传真实照片。</b><br>图片要求：230 x 295px，JPG/PNG/BMP格式，且大小不超过1M。</p>
+                <div class="button-group">
+                  <label for="portrait" class="btn btn-default" ng-class="{loading: uploadBtnDisabled}">
+                    <span class="waiting"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                    <span class="normal"><i class="fa fa-upload"></i> <span ng-if="qData.head && qData.head.length > 0" >重新</span>上传</span>
+                  </label>
+                  <input id="portrait" ng-disabled="uploadBtnDisabled" type="file" class="hidden-input" accept=".jpg,.png,.bmp" height-fixed="295" width-fixed="230" size-max="1.0" image-upload>
+                  <input type="hidden" ng-model="qData.head">
+                  <button ng-if="qData.head && qData.head.length > 0 && !uploadBtnDisabled" type="button" class="btn btn-delete" ng-click="deletePortrait()">删除</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-11">
+            <div class="inline">
+              <label class="col-xs-2 control-label"><em>*</em>所在区域</label>
+              <div class="col-xs-6 input-wrapper">
+                <div class="select-group">
+                  <select-district ng-model="qData.city"></select-district>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-11 has-feedback">
+            <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorStaffForm.title.$invalid && !vendorStaffForm.title.$pristine }">
+              <label class="col-xs-2 control-label"><em>*</em>职务头衔</label>
+              <div class="col-xs-6 input-wrapper">
+                <input type="text" class="form-control" ng-model="qData.title" name="title" placeholder="" required ng-minlength="2" ng-maxlength="20" minlength="2" maxlength="20" tooltip="2-20位中英文字符、数字" tooltip-trigger="focus">
+                <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      
+        <div class="row">
+          <div class="form-group col-xs-11 has-feedback">
+            <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorStaffForm.mobile.$invalid && !vendorStaffForm.mobile.$pristine }">
+              <label class="col-xs-2 control-label"><em>*</em>联系手机</label>
+              <div class="col-xs-6 input-wrapper">
+                <input type="text" ng-pattern="/^1(3[0-9]|5[0-35-9]|8[0-9]|7[0-9])\d{8}$/" class="form-control" ng-model="qData.mobile" name="mobile" placeholder="" required ng-minlength="1" ng-maxlength="11" minlength="1" maxlength="11" tooltip="请填写11位手机号码" tooltip-trigger="focus">
+                <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-11 has-feedback">
+            <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorStaffForm.email.$invalid && !vendorStaffForm.email.$pristine }">
+              <label class="col-xs-2 control-label"><em>*</em>电子邮箱</label>
+              <div class="col-xs-6 input-wrapper">
+                <input type="email" ng-pattern="/^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/" class="form-control" ng-model="qData.email" name="email" placeholder="" required>
+                <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="form-group col-xs-11 has-feedback" ng-model-options="{ debounce: 500 }" >
+            <label class="col-xs-2 control-label"><em>*</em>专业领域</label>
+            <div class="col-xs-10 input-wrapper">
+              <label class="checkbox-inline" ng-repeat="field in fieldOpts">
+                <input id="field-{{field.label}}" type="checkbox" value="field.value" ng-click="toggleFieldSelected(field.value)" ng-checked="checkFieldIfSelected(field.value)"> {{field.label}}
+                <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-11">
+            <label class="col-xs-2 control-label">专业资格</label>
+            <div class="col-xs-10 input-wrapper">
+              <div class="row">
+                <label class="col-xs-4 normal" ng-repeat="certificate in certificateOpts">
+                  <input type="checkbox" id="certificate-{{$index}}" value="{{certificate.value}}" ng-click="toggleCertificateSelected(certificate.value)" ng-checked="checkCertificateIfSelected(certificate.value)"> {{certificate.label}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-11">
+
+            <label class="col-xs-2 control-label">证明材料</label>
+
+            <div class="col-xs-10">
+              <div class="preview-wrapper">
+                <div class="certificate" ng-repeat="cert in certList">
+                  <div class="pic" style="background-image:url('{{cert.image}}')">
+                    <div class="del-pic" ng-click="delPic($index)" title="删除"><i class="fa fa-minus-circle fa-lg"></i></div>
+                  </div>
+                  <div class="introduction">{{cert.text}}</div>
+                </div>
+              </div>
+
+              <div class="upload-btn-wrapper">
+                <button type="button" class="btn btn-default" ng-click="addImageWithTitle()"><i class="fa fa-plus"></i> 添加</button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-11 has-feedback">
+            <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorStaffForm.grade.$invalid && !vendorStaffForm.grade.$pristine }">
+              <label class="col-xs-2 control-label"><em>*</em>级别</label>
+              <div class="col-xs-3 input-wrapper">
+                <select class="form-control" name="type" ng-model="qData.grade" ng-options="item.value as item.label for item in rankUnitOpts" required></select>
+                <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section" ng-if="qData.grade !== '0' && qData.grade">
+
+        <div class="row">
+          <div class="form-group col-xs-11 has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorStaffForm.introduction.$invalid && !vendorStaffForm.introduction.$pristine }">
+            <label class="col-xs-2 control-label"><em>*</em>专家简介</label>
+            <div class="col-xs-10 input-wrapper">
+              <textarea rows="4" class="form-control" ng-model="qData.introduction" name="introduction" placeholder="" required minlength="2" ng-minlength="2" maxlength="200" ng-maxlength="200" tooltip="2-200字" tooltip-trigger="focus">{{qData.introduction}}</textarea>
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row">
+          <div class="form-group col-xs-11 has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorStaffForm.worklifeTime.$invalid && !vendorStaffForm.worklifeTime.$pristine }">
+            <label class="col-xs-2 control-label"><em>*</em>开始从业时间</label>
+            <div class="col-xs-3 input-wrapper">
+              <input type="text" class="form-control" datetime="yyyy-MM-dd" ng-model="qData.worklifeTime">
+            </div>
+          </div>
+        </div> -->
+
+        <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+          <div class="inline">
+            <label class="col-xs-2 control-label"><em>*</em>开始从业时间</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" datetime="yyyy-MM-dd" ng-model="qData.worklifeTime">
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">从业年限</label>
+            <div class="col-xs-4">
+              <input type="text" class="form-control" ng-model="qData.workyear" name="workyear" placeholder="系统自动计算，无须填写" readonly="true">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      </section>
+
+      <div class="row">
+        <div class="col-xs-11">
+          <div class="submit-btn-wrapper col-xs-offset-2">
+            <button type="button" ng-click="save(qData)" class="btn btn-success btn-lg" ng-disabled="vendorStaffForm.$invalid || vendorStaffForm.$pristine || !qData.city || qData.city % 10000 === 0 || fieldArray.length === 0 || qData.grade !== '0' && !qData.head || uploadBtnDisabled">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

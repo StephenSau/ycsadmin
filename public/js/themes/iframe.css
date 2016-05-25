@@ -1,0 +1,11 @@
+/* OVERRIDE UEDITOR IFRAME STYLE */
+
+* {
+	color: #313131;  /*$textDarkgray*/
+	padding-bottom: 0.5em;
+}
+
+p {
+	font-size: 14px;
+	line-height: 1.5em;
+}

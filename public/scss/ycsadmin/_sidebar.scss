@@ -1,0 +1,67 @@
+@-webkit-keyframes verNotMatch {
+	0% {background: transparentize($vi-red, 0.2);}
+	50% {background: transparentize($vi-red, 0);}
+	100% {background: transparentize($vi-red, 0.2);}
+}
+
+@keyframes verNotMatch {
+	0% {background: transparentize($vi-red, 0.2);}
+	50% {background: transparentize($vi-red, 0);}
+	100% {background: transparentize($vi-red, 0.2);}
+}
+
+.sidebar-left{
+	padding-top: 1em;
+	position: relative;
+
+	&:after{
+		display: inline-block;
+		content: 'APP ver.' attr(appver) ' |  API ver.' attr(apiver);
+		position: absolute;
+		bottom: 0.8em;
+		left: 2.5em;
+		margin-right: 1em;
+		color: $textLightgray;
+		font-size: 0.85em;
+	}
+
+	&.notMatch{
+		&:after{
+			content: 'Not matching: App ' attr(appver) ' x Api ' attr(apiver);
+			bottom: 1.5em;
+
+			color: #fff;
+			background: $vi-red;
+			padding: 0.3em 0.5em;
+			border-radius: 3px;
+
+			animation: verNotMatch 2s infinite;
+			-webkit-animation: verNotMatch 2s infinite;
+		}
+	}
+
+	.nav-pills{
+		margin: 0 -15px;
+
+		li{
+			a {
+				color: $textDarkgray;
+				border-radius: 0;
+				position: relative;
+				padding-left: 2.5em;
+
+				&:hover{
+					color: inherit;
+				}
+
+				&.active{
+					color: $vi-blue;
+					font-weight: bold;
+				}
+
+			}
+
+		}
+
+	}
+}

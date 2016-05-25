@@ -1,0 +1,68 @@
+<div class="modal-wrapper predefined">
+  <form class="form-horizontal" ng-submit="save(detail)" name="predefForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left"><span ng-if="isEdit === false">添加</span><span ng-if="isEdit === true">编辑</span>预定义项
+        <small>服务项规格</small>
+      </h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-default" type="button" ng-click="cancel()">取消</button>
+        <button class="btn btn-success" type="submit" ng-disabled="predefForm.$invalid || detail.cutOptions.length === 0 || (!detail.cutOptions[0].name || detail.cutOptions[0].name.length < 1) || (!detail.cutOptions[0].unit || detail.cutOptions[0].unit.length < 1)">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': predefForm.name.$invalid && !predefForm.name.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>规格名称</label>
+        <div class="col-xs-10 input-wrapper">
+          <input type="text" class="form-control" value="{{detail.name}}" ng-model="detail.name" name="name" required ng-minlength="2" ng-maxlength="40" minlength="2" maxlength="40" tooltip="2-40字" tooltip-trigger="focus">
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback">
+        <label class="col-xs-2 control-label">相关描述</label>
+        <div class="col-xs-10 input-wrapper">
+          <textarea rows="6" type="text" class="form-control" value="{{detail.description}}" ng-model="detail.description" name="description" maxlength="2000" ng-maxlength="2000" tooltip="最多2000字" tooltip-trigger="focus"></textarea>
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group options">
+        <div class="clearfix">
+          <label class="col-xs-2 control-label"><em>*</em>规格值及价格调整</label>
+          <div class="col-xs-10 option-wrapper">
+            <div class="ng-include" src="'tpl/service/predefined/specs_options.html'"></div>
+          </div>
+        </div>
+
+        <div class="clearfix" style="margin-top:20px;">
+          <div class="col-xs-2"></div>
+          <div class="col-xs-2">
+            <button class="btn btn-default" type="button" ng-click="addOptions()"><i class="fa fa-plus"></i> 添加规格值</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback">
+        <label class="col-xs-2 control-label"><em>*</em>允许多选</label>
+        <div class="col-xs-10 input-wrapper">
+          <label class="radio-inline">
+            <input type="radio" name="type" value="1" ng-model="detail.type" required ng-checked="detail.type === 1">否
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="type" value="2" ng-model="detail.type" required ng-checked="detail.type === 2">是
+          </label>
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': predefForm.itemSort.$invalid && !predefForm.itemSort.$pristine}">
+        <label class="col-xs-2 control-label">排序</label>
+        <div class="col-xs-2 input-wrapper">
+          <input type="number" class="form-control" placeholder="" ng-model="detail.itemSort" name="itemSort" min="0" max="999999" ng-min="0" ng-max="999999" step="1" tooltip="整数" tooltip-trigger="focus" integer>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

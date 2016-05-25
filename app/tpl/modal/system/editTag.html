@@ -1,0 +1,29 @@
+<div class="modal-wrapper tagEdit">
+  <form class="form-horizontal" name="tagsForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left" ng-if="isEdit">编辑标签</h4>
+      <h4 class="modal-title pull-left" ng-if="!isEdit">新增标签</h4>
+      <div class="button-group pull-right">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="submit" class="btn btn-success" ng-click="save(detail)" ng-disabled="tagsForm.$invalid || tagsForm.$pristine">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="col-xs-2 control-label">标签名称</label>
+        <div class="col-xs-9 input-wrapper">
+          <input type="text" class="form-control" placeholder="" ng-model="detail.name" required maxlength="20" ng-maxlength="20" tooltip="最多20字" tooltip-trigger="focus">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-2 control-label">标签类型</label>
+        <div class="col-xs-5 input-wrapper">
+          <select class="form-control" ng-model="detail.typeid" name="typeid" required ng-options="item.value as item.label for item in typeUnitOpts"></select>
+        </div>
+      </div>
+      <!-- <div class="well col-xs-2-offset col-xs-9">仅管理员可将标签类型设置为分类标签及扩展标签；设置为分类标签和扩展标后，仅管理员可进行编辑和删除操作</div> -->
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,21 @@
+<div class="ticket service" ng-controller="ticketServiceCtrl">
+  <form name="ticketClient" class="form-horizontal" novalidate>
+    <section class="row" ng-repeat="order in qData.serviceitems">
+      <div class="col-xs-3 text-right">{{order.name}}</div>
+      <div class="col-xs-9">
+        <div class="line row">
+          <div class="per-step" ng-repeat="step in order.stepsdetail">
+            <button ng-if="step.status === 0" title="{{step.step}}" type="button" class="btn btn-default steps" ng-click="changeSerivceStepsStatus(step.id, qData.orderno, order.id, 1, changeTime)" ng-disabled="!orderModal.serviceActive"><small>{{$index + 1}}</small>{{step.step}}</button>
+            <button ng-if="step.status === 1" title="{{step.step}}" type="button" class="btn btn-success steps" ng-click="changeSerivceStepsStatus(step.id, qData.orderno, order.id, 0, changeTime)" ng-disabled="!orderModal.serviceActive"><small>{{$index + 1}}</small>{{step.step}}</button>
+            <p ng-if="step.status === 1" class="modified">完成时间：{{step.modified}}　<a ng-if="orderModal.serviceActive" ng-click="showEditWrapper(step.id)">编辑</a></p>
+            <div class="edit-wrapper hidden" ng-class="{ show: currentEdit === step.id }">
+              <input type="text" class="form-control"  datetime="yyyy-MM-dd HH:mm:ss" ng-model="changeTime">
+              <button class="btn btn-info" ng-click="changeSerivceStepsStatus(step.id, qData.orderno, order.id, step.status, changeTime)">保存</button>
+              <button class="btn" ng-click="hiddenEditWrapper()">关闭</button>
+            </div>
+          </div>
+      </div>
+    </section>
+
+  </form>
+</div>

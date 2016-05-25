@@ -1,0 +1,54 @@
+<div class="modal-wrapper messageHistory">
+  <form class="form-horizontal">
+    <div class="container-fluid">
+      <div class="modal-header row">
+        <h4 class="col-xs-4 modal-title">发送记录详情</h4>
+        <div class="col-xs-8 button-group text-right">
+          <button class="btn btn-default" ng-click="cancel()">返回</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <section class="message-detail">
+          <div class="well">
+            <p class="message-body">{{notifyDetail.message}}</p>
+            <aside>发送时间：{{notifyDetail.created}}</aside>
+          </div>
+        </section>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>发送到</th>
+              <th>类型</th>
+              <th>账号/手机/邮箱</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-if="notifyDetail.type === 'vendor'" ng-repeat="msg in msgDetailList">
+              <td>{{msg.nickname}}</td>
+              <td>{{msg.sendtype}}</td>
+              <td>{{msg.contacts}}</td>
+              <td>{{msg.status}}</td>
+            </tr>
+            <tr ng-if="notifyDetail.type === 'user'" ng-repeat="msg in msgDetailList">
+              <td>{{msg.username}}</td>
+              <td>{{msg.type}}</td>
+              <td>{{msg.mobile}}</td>
+              <td>{{msg.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <div class="button-group pull-right">
+          <button class="btn btn-default" ng-click="cancel()">返回</button>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+</div>

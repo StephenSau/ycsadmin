@@ -1,0 +1,21 @@
+<div class="inner system" ng-controller="tagCtrl">
+
+  <div class="title-wrapper row">
+  	<div class="title-text-block col-xs-9">
+	    <h1 class="title">标签管理
+		    <a class="btn-add-new btn btn-warning" ng-click="editData('', 'add')"><i class="fa fa-plus"></i>  新增标签</a>
+		    <!-- <div class="btn-group col-xs-1">
+		      <a class="btn btn-default" ng-click="editData('', 'add')">
+		        <i class="fa fa-plus"></i>  新增标签
+		      </a>
+		    </div> -->
+		  </h1>
+    </div>
+  </div>
+
+  <div ui-grid="gridOptions" class="uiGrid">
+  	<div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+    <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+  </div>
+
+</div>

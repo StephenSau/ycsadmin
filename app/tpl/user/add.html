@@ -1,0 +1,241 @@
+<div class="inner user add" ng-controller="userAddCtrl">
+
+  <div class="title-wrapper clearfix">
+    <h1 class="pull-left">新增用户</h1>
+    <button type="button" class="btn btn-default pull-right" ng-click="backToList()">关闭</button>
+    <button type="button" class="btn btn-success pull-right" ng-click="save(qData, true)" ng-disabled="userDetail.$invalid || userDetail.$pristine || qData.password !== qData.confirmpassword || !accAvailable">保存</button>
+  </div>
+
+  <div class="row">
+
+		  <form class="article-form form-horizontal" name="userDetail" novalidate>
+		    <section class="form-section">
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': (userDetail.username.$invalid || !accAvailable) && !userDetail.username.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label"><em>*</em>用户名</label>
+		          <div class="col-xs-5 input-wrapper">
+		            <input type="text" class="form-control" 
+		              ng-pattern="/^[A-Za-z0-9\-\_]{4,20}$/" 
+		            	ng-model="qData.username" 
+		            	name="username" 
+		            	required 
+		              minlength="4" ng-minlength="4" maxlength="20" ng-maxlength="20" 
+		              ng-blur="checkUsernameAvailability(userDetail.username.$invalid, qData.username)" 
+              		placeholder="请输入4-20位字母、数字或“-”、“_”字符" 
+		              tooltip="请输入4-20位字母、数字或“-”、“_”字符" 
+		            	tooltip-trigger="focus">
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		            <p ng-if="!accAvailable" class="text-danger">该账号已存在</p>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.password.$invalid && !userDetail.password.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label"><em>*</em>密码</label>
+		          <div class="col-xs-5 input-wrapper">
+		            <input type="password" class="form-control" 
+		            	ng-model="qData.password" 
+		            	ng-pattern="/^\S{6,20}$/" 
+		            	name="password" 
+		            	required 
+		            	tooltip="6-20位字符，不能包含空格" 
+		            	tooltip-trigger="focus">
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': (userDetail.confirmpassword.$invalid || qData.password !== qData.confirmpassword) && !userDetail.confirmpassword.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label"><em>*</em>确认密码</label>
+		          <div class="col-xs-5 input-wrapper">
+		            <input type="password" class="form-control" 
+		            	ng-model="qData.confirmpassword" 
+		            	name="confirmpassword" 
+		            	required 
+		            	tooltip="请再输入一次密码" 
+		            	tooltip-trigger="focus">
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.mobile.$invalid && !userDetail.mobile.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label"><em>*</em>账户手机号码</label>
+		          <div class="col-xs-5 input-wrapper">
+			          <input type="text" class="form-control"
+		              ng-pattern="/^1(3[0-9]|5[0-35-9]|8[0-9]|7[0-9])\d{8}$/" 
+		            	ng-model="qData.mobile" 
+		            	name="mobile" 
+		            	required 
+		            	minlength="1" ng-minlength="1" 
+		            	maxlength="11" ng-maxlength="11" 
+		            	tooltip="请填写11位手机号码" 
+		            	tooltip-trigger="focus">
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.role.$invalid && !userDetail.role.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label"><em>*</em>用户角色</label>
+		          <div class="col-xs-2 input-wrapper">
+		            <select class="form-control" name="role" ng-model="qData.role" required ng-options="item.value as item.label for item in userRoleOpts"></select>
+		          </div>
+		        </div>
+		      </div>
+
+		    </section>
+
+		    <section class="form-section">
+		    	<div class="row">
+						<div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.contacts.$invalid && !userDetail.contacts.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label">联系人</label>
+		          <div class="col-xs-5 input-wrapper">
+		            <input type="text" class="form-control" 
+		            	ng-model="qData.contacts" 
+		            	ng-trim="false"
+		            	name="contacts"
+		            	ng-pattern="/^[\u4E00-\u9FBFA-Za-z]{2,20}$/"
+		            	minlength="2" ng-minlength="2" maxlength="20" ng-maxlength="20" 
+		            	tooltip="2-20位中文、英文" tooltip-trigger="focus">
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.company.$invalid && !userDetail.company.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label"><em>*</em>公司名称</label>
+		          <div class="col-xs-5 input-wrapper">
+		            <input type="text" class="form-control" 
+		            	ng-model="qData.company" 
+		            	ng-pattern="/^[\u4E00-\u9FBFA-Za-z0-9\s]{1,40}$/"
+		            	name="company" 
+		            	placeholder="请填写公司全称" 
+		            	required 
+		            	minlength="1" ng-minlength="1" maxlength="40" ng-maxlength="40" 
+		            	tooltip="1-40位中文、英文、数字"
+		            	tooltip-trigger="focus">
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.title.$invalid && !userDetail.title.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label">职位</label>
+		          <div class="col-xs-5 input-wrapper">
+		            <input type="text" class="form-control" 
+		            	ng-model="qData.title" 
+		            	ng-pattern="/^[\u4E00-\u9FBFA-Za-z0-9\s]{2,20}$/"
+		            	name="title" 
+		            	minlength="2" ng-minlength="2" maxlength="20" ng-maxlength="20" 
+		            	tooltip="2-20位中文、英文、数字" 
+		            	tooltip-trigger="focus">
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.contactsmobile.$invalid && !userDetail.contactsmobile.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label"><em>*</em>联系人手机号码</label>
+		          <div class="col-xs-3 input-wrapper">
+		          	<div class="input-group">
+		            	<div class="input-group-addon"><i class="fa fa-mobile fa-fw fa-lg"></i></div>
+			            <input type="text" class="form-control"
+			              ng-pattern="/^1(3[0-9]|5[0-35-9]|8[0-9]|7[0-9])\d{8}$/" 
+			            	ng-model="qData.contactsmobile" 
+			            	name="contactsmobile" 
+			            	required 
+			            	minlength="1" ng-minlength="1" 
+			            	maxlength="11" ng-maxlength="11" 
+			            	tooltip="请填写11位手机号码" 
+			            	tooltip-trigger="focus">
+		          	</div>
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.contactstel.$invalid && !userDetail.contactstel.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label">联系人固定电话</label>
+		          <div class="col-xs-3 input-wrapper">
+		          	<div class="input-group">
+		          		<div class="input-group-addon"><i class="fa fa-phone fa-fw fa-lg"></i></div>
+			            <input type="text" class="form-control" 
+			            	ng-pattern="/^(\d{0,4}-)?\d{8}$/" 
+			            	ng-model="qData.contactstel" 
+			            	name="contactstel" 
+			            	minlength="8" ng-minlength="8" maxlength="14" ng-maxlength="14" 
+			            	tooltip="请填写固定电话号码" 
+			            	tooltip-trigger="focus">
+		          	</div>
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.contactsemail.$invalid && !userDetail.contactsemail.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label">邮箱</label>
+		          <div class="col-xs-5 input-wrapper">
+		            <input type="email" class="form-control" 
+		            	ng-pattern="/^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/" 
+		            	ng-model="qData.contactsemail" 
+		            	name="contactsemail" 
+		            	minlength="2" ng-minlength="2" maxlength="100" ng-maxlength="100" 
+		            	tooltip="请输入正确的邮箱格式，最多100个字符" 
+		            	tooltip-trigger="focus">
+		          	<i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="row">
+			      <div class="form-group">
+		          <label class="col-xs-2 col-xs-offset-1 control-label"><em>*</em>所在区域</label>
+	            <div class="col-xs-5 input-wrapper">
+	              <div class="select-group">
+	                <select-district ng-model="qData.contactsdistrict"></select-district>
+	              </div>
+	            </div>
+			      </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetail.contactsaddress.$invalid && !userDetail.contactsaddress.$pristine }">
+		          <label class="col-xs-2 col-xs-offset-1 control-label"><em>*</em>详细地址</label>
+		          <div class="col-xs-5 input-wrapper">
+		            <input type="text" class="form-control" 
+		            	ng-model="qData.contactsaddress" 
+		            	name="contactsaddress" 
+	                placeholder="请填写详细联系地址" 
+		            	required 
+		            	minlength="1" ng-minlength="1" maxlength="100" ng-maxlength="100" 
+		            	tooltip="1-100个字符" 
+		            	tooltip-trigger="focus">
+		            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+		          </div>
+		        </div>
+		      </div>
+
+		    </section>
+
+		    <div class="row">
+	        <div class="submit-btn-wrapper col-xs-10 col-xs-offset-3">
+	          <button type="button" class="btn btn-success btn-lg" 
+	          	ng-click="save(qData, true)" ng-disabled="userDetail.$invalid || userDetail.$pristine || qData.password !== qData.confirmpassword || !accAvailable">保存</button>
+	        </div>
+		    </div>
+		  </form>
+
+	</div>
+
+
+</div>

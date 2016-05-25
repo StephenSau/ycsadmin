@@ -1,0 +1,10 @@
+<div ng-controller="requirementCtrl">
+	<div class="btn-wrapper">
+		<button type="button" class="btn-add-new btn btn-warning" ng-click="editData('', 'add')"><i class="fa fa-plus"></i> 添加需满足条件</button>
+	</div>
+	
+	<div class="grid-predefined uiGrid" ui-grid="gridOptions">
+		<div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+    <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+	</div>
+</div>

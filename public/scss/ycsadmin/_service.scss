@@ -1,0 +1,106 @@
+.service{
+	.uiGrid{
+		min-height: 500px;
+	}
+
+	.title-wrapper{
+		.edit-btn-group{
+			display: inline-block;
+			vertical-align: middle;
+			padding-bottom: 5px;
+			margin-left: 15px;
+			border-left: 1px dotted $textLightergray;
+
+			.btn{
+				margin-left: 15px;
+			}
+		}
+	}
+
+	.count-wrapper{
+		@include countWrapper;
+	}
+
+
+	&.edit{
+
+		padding-bottom: 3em;
+
+		.title-wrapper{
+			button{
+				margin: 20px 0 0 10px;
+			}
+		}
+
+		.title-wrapper,
+		.submit-btn-wrapper{
+			.btn-success{
+				width: 100px;
+			}
+		}
+
+		.form-section{
+			border-bottom: 1px dashed $textLightergray;
+			padding-top: 15px;
+
+			&:first-of-type{
+				border-top: 1px dashed $textLightergray;
+			}
+		}
+
+		.current-tags{
+			@include compoundTagInput;
+		}
+
+		.optionTable{
+			th,
+			td{
+				text-align: center;
+				// padding: 10px 0;
+			}
+
+			.option{
+				width: 50%;
+
+				p{
+					margin: 0.3em 0;
+				}
+			}
+
+		}
+
+		.top{
+			.pic-preview{
+				width: 150px;
+				height: 150px;
+				background-size: contain;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        border: 1px solid $textLightergray;
+				margin-right: 1em;
+				display: inline-block;
+			}
+
+			.cover{
+				position: relative;
+
+				.cover-icon{
+					position: absolute;
+					right: 0;
+					bottom: 0;
+					background: $vi-orange;
+					color: #fff;
+					padding: 2px 0.5em;
+				}
+			}
+		}
+
+		.btn-wrapper{
+			padding-top: 1em;
+		}
+
+		.submit-btn-wrapper{
+			padding-top: 1.5em;
+		}
+	}
+}

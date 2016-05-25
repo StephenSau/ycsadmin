@@ -1,0 +1,17 @@
+.wechat{
+	.uiGrid{
+		min-height: 500px;
+
+		.ui-grid-cell-contents{
+			.notZero{
+				color: $textDarkgray;
+			}
+		}
+	}
+
+	.title-wrapper{
+		.export-group{
+			padding-top: 20px;
+		}
+	}
+} //wechat

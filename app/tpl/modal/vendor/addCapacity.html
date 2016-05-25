@@ -1,0 +1,55 @@
+<div class="modal-wrapper vendor default-service-item">
+  <form name="vendorServiceItemForm" class="form-horizontal" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">新增服务能力 <small>第{{currentStep}}步</small></h4>
+      <div class="button-group pull-right">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- Step 1 -->
+      <section class="step-one" ng-if="currentStep === 1">
+        <div class="service-item-wrapper row">
+          <div class="col-xs-2">
+            <ul class="nav nav-pills nav-stacked">
+              <li role="presentation" ng-repeat="level1 in serviceItemList" ng-class="{active: currentCataIndex === $index}">
+                <a ng-click="switchCategory($index)">{{level1.topcatName}}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="service-full-list col-xs-10">
+            <section ng-repeat="level2 in serviceItemList[currentCataIndex].topcatList">
+              <h5 class="level2-title">{{level2.subcatName}}</h5>
+              <label ng-repeat="level3 in level2.subcatList" ng-class="{disabled: checkIfSelected(level3.id)}">
+                <input type="radio" name="level3.id" ng-checked="level3.id === currentSelectedServiceItem" ng-disabled="checkIfSelected(level3.id)" ng-click="toggleSelected(level3.id, level3.name)" ng-true-value="{{level3.name}}"> {{level3.name}}
+              </label>
+            </section>
+          </div>
+
+        </div>
+
+        <div class="select-preview well">
+          <p>新增服务能力：<span class="label label-warning" ng-repeat="name in currentSelectedNames">{{name}}</span></p>
+          <div class="helper-text">仅可选一项,如需新增多项,请逐次添加</div>
+        </div>
+        
+        <div class="submit-btn-wrapper row">
+          <!-- <button type="button" class="btn btn-default" ng-click="initStep.current = 0">上一步</button> -->
+          <button type="button" class="btn btn-info" ng-click="addServiceItem()" ng-disabled="currentSelectedNames.length === 0">下一步</button>
+        </div>
+      </section>
+      <!-- / Step 1 -->
+
+
+      <!-- Step 2 -->
+      <section class="step-two" ng-if="currentStep === 2">
+        <div class="ng-include" src="'tpl/modal/vendor/vendorServiceItemDetail.html'"></div>
+      </section>
+      <!-- / Step 2 -->
+
+    </div>
+  </form>
+</div>

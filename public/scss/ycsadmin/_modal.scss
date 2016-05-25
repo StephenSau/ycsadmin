@@ -1,0 +1,490 @@
+.modal-xl{
+  width: 1200px;
+}
+
+.modal-backdrop{
+  &.in{
+    opacity: 0.8;
+  }
+}
+
+.modal-dialog{
+  margin-top: 80px;
+}
+
+.modal-wrapper{
+
+  .modal-header{
+    .modal-title{
+      padding-top: 0.3em;
+    }
+  }
+
+  &.addpics{
+    .modal-header{
+      .modal-sub-title{
+        font-size: 16px;
+      }
+
+      .button-group{
+        button{
+          margin-left:10px; 
+        }
+      }
+    }
+
+    .modal-body{
+      .grid{
+        display: inline-block;
+        margin-right: 1em;
+
+        .preview{
+          background-size: contain;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          border: 1px solid $textLightergray;
+          width: 150px;
+          height: 150px;
+          position: relative;
+          margin-bottom: 1em;
+
+          @include delPicBtn;
+        }
+
+        .button-wrapper{
+          .btn{
+            width: 150px;
+          }
+        }
+      }
+
+    }
+  } // addpics
+
+  &.addareas,
+  &.vendorSupportAreas,
+  &.serviceSupportAreas{
+    .modal-header{
+      .modal-sub-title{
+        font-size: 16px;
+      }
+
+      .button-group{
+        button{
+          margin-left:10px; 
+        }
+      }
+    }
+
+    .modal-body{
+      .select-group{
+        display: inline-block;
+      }
+
+      .checkbox-group{
+        margin-top: 10px;
+      }
+    }
+  } // addareas
+    // vendorSupportAreas
+    // serviceSupportAreas
+
+  &.vendorSupportAreas,
+  &.serviceSupportAreas{
+    .provice{
+      min-width: 8em;
+    }
+    .city{
+      min-width: 8em;
+    }
+  }
+
+  &.itemRequirement,
+  &.itemDocuments,
+  &.itemSpecs,
+  &.selectVendor{
+
+    .modal-table{
+      .name{
+        label{
+          cursor: pointer;
+
+          &.active{
+            color: $vi-blue;
+          }
+
+          i {
+            color: $textLightgray;
+          }
+        }
+      }
+
+      .desc{
+        color: $textLightgray;
+      }
+
+      td {
+        &.active{
+          color: $vi-blue;
+        }
+      }
+    }
+
+    .preview{
+      .title{
+        font-weight: bold;
+        margin-top: 0;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          margin-bottom: 0.3em;
+          padding: 0.3em 1.5em 0.3em 0.5em;
+          position: relative;
+          border-radius: 3px;
+          background: $bgLightGray;
+
+          &:hover{
+            background: $bgLightBlue;
+          }
+
+          a {
+            position: absolute;
+            right: 0.5em;
+            top: 0.5em;
+          }
+        }
+      }
+    }
+  }
+
+  &.predefined,
+  &.serviceItemSteps,
+  &.addpics,
+  &.serviceItemEdit,
+  &.default-service-item,
+  &.ticket,
+  &.exportTickets,
+  &.tagEdit,
+  &.subCategoryEdit,
+  &.editCategory,
+  &.changePSW,
+  &.changeUserPsw,
+  &.messageHistory,
+  &.industryCategory,
+  &.addTagsCompound,
+  &.userDetail,
+  &.editStaff,
+  &.editqrcode{
+    .modal-header,
+    .modal-footer{
+      .btn-success{
+        min-width: 100px;
+      }
+    }
+
+    .modal-body{
+      overflow: visible;
+    }
+
+    .form-group{
+      overflow: visible;
+    }
+
+    .options{
+      .option{
+        .input-wrapper{
+          margin: 0.5em 0;
+          padding-left: 0;
+        }
+      }
+    }
+  } // predefined
+    // serviceItemSteps
+    // addpics
+
+  &.addpics{
+    .upload-btn-wrapper{
+      padding-bottom: 1em;
+
+      .helper-text{
+        padding-left: 1em;
+      }
+    }
+
+    .preview{
+      img {
+        max-width: 300px;
+        max-height: 300px;
+        border: 1px solid $textLightergray;
+      }
+    }
+  } // addpics
+
+  &.relativeparameter{
+    .list-inline{
+      margin-bottom: 0;
+    }
+  }
+
+  &.serviceItemList{
+
+    @include serviceItemFullList;
+
+  } // serviceItemList
+
+  &.serviceItemEdit,
+  &.default-service-item{
+    .option-wrapper{
+      .detail{
+        border: 1px solid $textLightergray;
+        padding: 10px;
+        margin-bottom: 1em;
+
+        &:last-of-type{
+          margin-bottom: 0;
+        }
+
+        .title{
+          margin: 0;
+          font-weight: bold;
+        }
+
+        .option-list{
+          margin-top: 1em;
+          padding-left: 0;
+          padding-right: 0;
+
+          .option-name,
+          .input-group{
+            padding-left: 0;
+            padding-right: 0;
+          }
+
+          .option-name{
+            text-align: right;
+            padding-top: 0.3em;
+            padding-right: 1em;
+
+            &.active{
+              color: $vi-blue;
+            }
+          }
+        }
+      }
+    }
+  } // serviceItemEdit
+
+  &.editExceptionList{
+    .exception-list-table{
+      .name{
+        width: 90%;
+      }
+    }
+
+    .btn-wrapper{
+      padding-bottom: 1em;
+    }
+  } // editExceptionList
+
+  
+  &.industryCategory{
+
+    section {
+      border-top: 1px dotted $textLightergray;
+      padding-top: 1em;
+      padding-bottom: 1em;
+      
+      &:first-of-type{
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    .title{
+      font-weight: bold;
+      text-align: right;
+      margin-top: 3px;
+    }
+
+    .content-wrapper{
+      label {
+        font-weight: normal;
+        display: inline-block;
+        width: 48%;
+
+        &.active{
+          color: $vi-blue;
+        }
+      }
+    }
+
+  } // industryCategory
+
+
+  &.addTagsCompound{
+    .tag-list-wrapper{
+      height: 300px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 5px 0;
+      border-radius: 5px;
+      border: 1px solid $textLightergray;
+      box-shadow: 0 0 3px black(0.05) inset;
+    }
+
+    .modal-body{
+      overflow: hidden;
+    }
+
+    .current-selected{
+      margin-bottom: 0;
+    }
+
+    .label-wrapper{
+      label{
+        small{
+          font-weight: normal;
+        }
+      }
+    }
+
+    .tag-item{
+      display: block;
+      font-weight: normal;
+      vertical-align: middle;
+      padding: 1px 8px 3px 8px;
+      margin-bottom: 3px;
+
+      &.active{
+        color: $vi-blue;
+        background: $bgLightBlue;
+      }
+
+      input {
+        margin-right: 0.5em;
+        position: relative;
+        top: 2px;
+      }
+    }
+
+  } // addTagsCompound
+
+  &.addtags{  // Luffy's
+    // .selected-tag{
+    //   border-bottom: 1px dashed $textLightgray;
+    //   padding-bottom:20px;
+    //   margin: 0 15px;
+
+    //   p{
+    //     padding: 0;
+    //   }
+    // }
+
+    // .tag-group{
+    //   padding-top: 20px;
+    // }
+  }
+
+  &.editStaff{
+    .district {
+      display: none;
+    }
+
+    .portrait,
+    .upload-btn-group-wrapper{
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    .portrait{
+      width: 86px;
+      height: 110px;
+      margin-right: 1em;
+      background-size: contain !important;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      border: 1px solid $bgLightGray;
+    }
+
+    .certificate{
+      display: inline-block;
+      padding: 0 1em 1em 0;
+
+      .pic{
+        width: 200px;
+        height: 130px;
+        background-size: contain;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        border: 1px solid $textLightergray;
+
+        @include delPicBtn;
+      }
+
+      .introduction{
+        text-align: center;
+        color: $textLightgray;
+      }
+    }
+
+  } // editStaff
+
+  &.exportTickets{
+
+    .time-combo-field{
+      label {
+        padding-top: 7px;
+      }
+
+      .input-wrapper{
+        input.datetime{
+          width: 150px;
+          display: inline-block;
+        }
+
+        .to{
+          display: inline-block;
+          padding: 0 8px;
+          vertical-align: middle;
+        }
+      }
+    }
+
+  } // exportTickets
+
+  &.messageHistory{
+    .message-detail{
+      padding-bottom: 1.5em;
+
+      aside {
+        color: $textGray;
+        font-size: 0.9em;
+      }
+
+      .message-body{
+        word-break:break-all;
+      }
+
+    }
+  } // messageHistory
+
+
+  &.userDetail{
+
+    .uiGrid {
+      min-height: 400px;
+    }
+
+  } // userDetail
+
+  &.editqrcode{
+    .fix-input{
+      padding-right: 12px;
+    }
+  }
+}

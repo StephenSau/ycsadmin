@@ -1,0 +1,5 @@
+<div class="district-checkboxes checkbox-group">
+	<label for="dist_{{city}}_{{$index}}" class="checkbox-inline" ng-repeat="dist in districtList">
+    <input type="checkbox" id="dist_{{city}}_{{$index}}" ng-checked="checkIfSelected(dist.code)" ng-click="toggleSelection(dist)" ng-true-value="{{dist.code}}" ng-false-value=""> {{dist.name}}
+  </label>
+</div>

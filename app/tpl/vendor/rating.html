@@ -1,0 +1,36 @@
+<div class="inner vendor rating" ng-controller="vendorRatingCtrl">
+
+  <div class="title-wrapper clearfix">
+    <h1 class="pull-left">设置服务商评分</h1>
+    <button type="button" class="btn btn-default pull-right" ng-click="backToList()">关闭</button>
+    <button type="button" class="btn btn-success pull-right" ng-click="save(detail, true)" ng-disabled="vendorRating.$invalid || vendorRating.$pristine">保存并关闭</button>
+    <button type="button" class="btn btn-success pull-right" ng-click="save(detail)" ng-disabled="vendorRating.$invalid || vendorRating.$pristine">保存</button>
+  </div>
+
+  <form class="vendor-rating form-horizontal" name="vendorRating" novalidate>
+    <table class="table table-hover table-condensed table-bordered" ng-cloak>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>服务商简称</th>
+          <th>服务商评分</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="vendor in detail">
+          <td class="order">{{$index + 1}}</td>
+          <td class="name">{{vendor.nickname}}</td>
+          <td class="rating"  ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorRating.perVendorRating{{vendor.id}}.$invalid && !vendorRating.perVendorRating{{vendor.id}}.$pristine }">
+            <input name="perVendorRating{{vendor.id}}" type="number" step="0.01" required ng-model="vendor.score" class="form-control" required min="0" ng-min="0" max="5" ng-max="5" tooltip="数字（0-5）" tooltip-trigger="focus"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  <div class="submit-btn-wrapper text-center">
+    <button type="button" class="btn btn-success" ng-click="save(detail, true)" ng-disabled="vendorRating.$invalid || vendorRating.$pristine">保存并关闭</button>
+    <button type="button" class="btn btn-success" ng-click="save(detail)" ng-disabled="vendorRating.$invalid || vendorRating.$pristine">保存</button>
+  </div>
+
+</div>

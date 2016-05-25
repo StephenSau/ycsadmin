@@ -1,0 +1,50 @@
+<div class="modal-wrapper serviceItemSteps">
+  <form class="form-horizontal" name="siStepsForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">编辑服务步骤</h4>
+      <div class="button-group pull-right">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="submit" class="btn btn-success" ng-click="save(stepInfo)" ng-disabled="siStepsForm.$invalid || siStepsForm.$pristine">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label class="col-xs-3 control-label">步骤编号</label>
+        <div class="col-xs-4 input-wrapper">
+          <input ng-model="stepInfo.sort" name="stepDetailSort" type="number" class="form-control" readonly min="1" ng-min="1" step="1">
+        </div>
+      </div>
+
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': siStepsForm.stepDetailName.$invalid && !siStepsForm.stepDetailName.$pristine }">
+        <label class="col-xs-3 control-label"><em>*</em>步骤名称</label>
+        <div class="col-xs-8 input-wrapper">
+          <input ng-model="stepInfo.name" name="stepDetailName" type="text" class="form-control" placeholder="" required ng-minlength="2" ng-maxlength="60" minlength="2" maxlength="60" tooltip="2-60字" tooltip-trigger="focus">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-3 control-label">步骤介绍</label>
+        <div class="col-xs-8 input-wrapper">
+          <textarea ng-model="stepInfo.description" name="stepDetailDesc" class="form-control" ng-maxlength="200" maxlength="200" tooltip="最多200字" tooltip-trigger="focus"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-3 control-label">步骤用时</label>
+        <div class="col-xs-8 input-wrapper">
+          <input ng-model="stepInfo.days" name="stepDetailDays" type="text" class="form-control" placeholder="例如：1-3个工作日" ng-maxlength="40" maxlength="40" tooltip="最多40字" tooltip-trigger="focus">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-3 control-label">特别注明</label>
+        <div class="col-xs-8 input-wrapper">
+          <input ng-model="stepInfo.special" name="stepDetailSpecial" type="text" class="form-control" placeholder="" ng-maxlength="40" maxlength="40" tooltip="最多40字" tooltip-trigger="focus">
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

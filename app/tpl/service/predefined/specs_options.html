@@ -1,0 +1,29 @@
+<div class="specsWrapper">
+  <div class="option" ng-repeat="cutOpt in detail.cutOptions">
+    <div class="col-xs-6 input-wrapper" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': predefForm.cutOptionsName{{$index}}.$invalid && !predefForm.cutOptionsName{{$index}}.$pristine }">
+      <input type="text" class="form-control" placeholder="规格值" ng-model="cutOpt.name" name="cutOptionsName{{$index}}"  ng-minlength="2" ng-maxlength="40" minlength="2" maxlength="40" tooltip="2-40字" tooltip-trigger="focus">
+    </div>
+    <div class="col-xs-3 input-wrapper" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': predefForm.cutOptionsPrice{{$index}}.$invalid && !predefForm.cutOptionsPrice{{$index}}.$pristine }">
+      <div class="input-group">
+        <div class="input-group-addon">￥</div>
+        <input type="number" class="form-control" placeholder="价格" ng-model="cutOpt.price" name="cutOptionsPrice{{$index}}" min="0" max="999999" ng-min="0" ng-max="999999" step="1" tooltip="数字（0-999999）" tooltip-trigger="focus">
+      </div>
+    </div>
+    <div class="col-xs-2 input-wrapper">
+      <select class="form-control" placeholder="单位" ng-model="cutOpt.unit" name="cutOptins.unit">
+        <option value="元/次">元/次</option>
+        <option value="元/个">元/个</option>
+        <option value="元/套">元/套</option>
+        <option value="元/年">元/年</option>
+        <option value="元/半年">元/半年</option>
+        <option value="元/季度">元/季度</option>
+        <option value="元/月">元/月</option>
+        <option value="元/日">元/日</option>
+        <option value="元起">元起</option>
+      </select>
+    </div>
+    <div class="col-xs-1 input-wrapper">
+      <a ng-if="$index !== 0" class="btn btn-link link-delete" ng-click="delOption($index)" tooltip="删除此规格"><i class="fa fa-lg fa-trash-o"></i></a>
+    </div>
+  </div>
+</div>

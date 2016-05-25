@@ -1,0 +1,88 @@
+<div class="slider" ng-controller="slidersCtrl">
+  <div class="btn-wrapper">
+    <button type="button" class="btn-add-new btn btn-warning" ng-click="addSlider()"><i class="fa fa-plus"></i> 添加轮转图</button>
+  </div>
+  
+  <section class="slider-online">
+    <h4 class="clearfix">启用中（{{sliderListOnline.length}}）
+      <small class="text-warning pull-right" ng-if="sliderListOnline.length !== 0"><i class="fa fa-fw fa-hand-o-down"></i> 拖动表列即可进行排序</small>
+    </h4>
+
+    <p ng-if="sliderListOnline.length === 0" class="placeholder helper-text">暂无相关轮转图</p>
+
+    <div class="header" ng-if="sliderListOnline.length > 0">
+      <div class="inner">
+        <div class="order">排序</div>
+        <div class="thumb">缩略图</div>
+        <div class="func">操作</div>
+        <div class="status">是否启用</div>
+        <div class="link">链接</div>
+        <div class="remark">备注</div>
+        <div class="created">添加时间</div>
+        <div class="func del">删除</div>
+      </div>
+    </div>
+
+    <ul ng-if="sliderListOnline.length > 0" class="slider-list" dnd-list="sliderListOnline">
+      <li ng-repeat="slider in sliderListOnline"
+          dnd-draggable="slider"
+          dnd-moved="sliderListOnline.splice($index, 1)"
+          dnd-dragend="listDragEnd()"
+          dnd-effect-allowed="move">
+        <div class="order">{{$index + 1}}</div>
+        <div class="thumb"><img ng-src="{{slider.image}}"></div>
+        <div class="func">
+          <a ng-click="editSlider(slider.id, 'online')">编辑</a>
+        </div>
+        <div class="status">
+          <span class="isShow" ng-if="slider.status === 1">是</span>
+          <span class="isHidden" ng-if="slider.status === 0">否</span>
+        </div>
+        <div class="link"><a ng-href="{{slider.url}}" target="_blank">{{slider.url}}</a></div>
+        <div class="remark">{{slider.remark}}</div>
+        <div class="created">{{slider.created}}</div>
+        <div class="func del">
+          <a class="link-delete" ng-click="delSlider(slider.id)">删除</a>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slider-offline">
+    <h4>已下架（{{sliderListOffline.length}}）</h4>
+
+    <p ng-if="sliderListOffline.length === 0" class="placeholder helper-text">暂无相关轮转图</p>
+
+    <div class="header" ng-if="sliderListOffline.length > 0">
+      <div class="inner">
+        <div class="order">&nbsp;</div>
+        <div class="thumb">缩略图</div>
+        <div class="func">操作</div>
+        <div class="status">是否启用</div>
+        <div class="link">链接</div>
+        <div class="remark">备注</div>
+        <div class="created">添加时间</div>
+        <div class="func del">删除</div>
+      </div>
+    </div>
+    <ul ng-if="sliderListOffline.length > 0" class="slider-list">
+      <li ng-repeat="slider in sliderListOffline">
+        <div class="order">&nbsp;</div>
+        <div class="thumb"><img ng-src="{{slider.image}}"></div>
+        <div class="func">
+          <a ng-click="editSlider(slider.id, 'offline')">编辑</a>
+        </div>
+        <div class="status">
+          <span class="isShow" ng-if="slider.status === 1">是</span>
+          <span class="isHidden" ng-if="slider.status === 0">否</span>
+        </div>
+        <div class="link"><a ng-href="{{slider.url}}" target="_blank">{{slider.url}}</a></div>
+        <div class="remark">{{slider.remark}}</div>
+        <div class="created">{{slider.created}}</div>
+        <div class="func del">
+          <a class="link-delete" ng-click="delSlider(slider.id)">删除</a>
+        </div>
+      </li>
+    </ul>
+  </section>
+</div>

@@ -1,0 +1,103 @@
+<div class="user edit" ng-controller="userCorpInfoCtrl">
+  <form name="vendorBasicInfo" class="form-horizontal" novalidate>
+
+    <section class="form-section">
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorBasicInfo.description.$invalid && !vendorBasicInfo.description.$pristine }">
+          <label class="col-xs-2 control-label">公司简介</label>
+          <div class="col-xs-10 input-wrapper">
+            <textarea rows="6" class="form-control" ng-model="qData.description" name="description" rows="8" placeholder="" required minlength="2" ng-minlength="2" maxlength="5000" ng-maxlength="5000" tooltip="2-5000字" tooltip-trigger="focus"></textarea>
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+          <div class="inline">
+            <label class="col-xs-2 control-label">成立时间</label>
+            <div class="col-xs-4 input-wrapper">
+              <!-- <quick-datepicker class="registed date-picker" name="registed" ng-model='qData.registed' date-format='yyyy-MM-dd' placeholder='设置' disable-timepicker='true' required></quick-datepicker> -->
+              <input type="text" class="form-control" datetime="yyyy-MM-dd" ng-model="qData.registedTime">
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">成立年限</label>
+            <div class="col-xs-4">
+              <input type="text" class="form-control" ng-model="qData.registedyear" name="registedyear" placeholder="系统自动计算，无须填写" readonly="true">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11">
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">所在行业</label>
+            <div class="col-xs-4 input-wrapper">
+              <!-- <input type="text" class="form-control" required value="专业服务/咨询 (财会/法律/人力资源等)" readonly="true"> -->
+              <div class="input-group">
+                <input type="text" class="form-control" ng-model="qData.tmpIndustry" readonly="true">
+                <span class="input-group-btn">
+                  <button class="btn btn-default fix-btn-padding" type="button" ng-click="chooseIndustry()"><span><span ng-if="qData.tmpIndustry">重新</span>选择</span></button>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">类别</label>
+            <div class="col-xs-4">
+              <input type="text" class="form-control" ng-model="qData.tmpCategory" placeholder="系统自动生成，无须填写" readonly="true">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">人员规模</label>
+            <div class="col-xs-4 input-wrapper">
+              <select class="form-control" ng-model="qData.peoples" name="peoples" ng-options="item.value as item.label for item in peopleUnitOpts" required></select>
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">行业code(测试用)</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.code" name="code" readonly="true"> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': vendorBasicInfo.business.$invalid && !vendorBasicInfo.business.$pristine }">
+          <label class="col-xs-2 control-label">主营业务</label>
+          <div class="col-xs-10 input-wrapper">
+            <input type="text" class="form-control" ng-model="qData.business" name="business" required minlength="2" ng-minlength="2" maxlength="100" ng-maxlength="100" tooltip="2-100字" tooltip-trigger="focus">
+            <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="row">
+      <div class="col-xs-11">
+        <div class="submit-btn-wrapper col-xs-offset-2">
+          <button type="button" ng-click="save(qData)" class="btn btn-success btn-lg"  ng-disabled="vendorBasicInfo.$invalid || vendorBasicInfo.$pristine">保存</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

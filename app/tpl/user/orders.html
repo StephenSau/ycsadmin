@@ -1,0 +1,6 @@
+<div class="user edit" ng-controller="userOrdersCtrl">
+  <div class="uiGrid" ui-grid="gridOptions" ui-grid-resize-columns>
+    <div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+    <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+  </div>
+</div>

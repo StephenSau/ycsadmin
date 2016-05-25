@@ -1,0 +1,30 @@
+<div class="inner feed" ng-controller="feedCtrl">
+
+  <div class="title-wrapper row">
+    <div class="title-text-block col-xs-9">
+      <h1 class="title">采集列表
+        <label for="csvInput" class="btn-add-new btn btn-warning" ng-class="{loading: uploadBtnDisabled}">
+          <span class="waiting"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+          <span class="normal"><i class="fa fa-cloud-upload"></i> 导入新数据</label></span>
+        <input id="csvInput" ng-disabled="uploadBtnDisabled" class="hidden-input" ng-model="csv.csvfile" type="file" accept=".csv" common-file-upload>
+        <span class="edit-btn-group" ng-if="tempArray && tempArray.length > 0">
+          <a class="btn btn-purple btn-text-shadow" ng-click="addToDatabase()"><i class="fa fa-database"></i> 入库</a>
+          <a class="btn btn-delete" ng-click="deleteData()"><i class="fa fa-trash-o"></i> 删除</a>
+        </span>
+      </h1>
+    </div>
+  </div>
+
+  <div class="count-wrapper alert alert-info" ng-if="tempArray && tempArray.length > 0">
+    你当前选定了 {{tempArray.length}} 条数据
+    <a ng-click="reverseSelection()" class="alert-link">反选</a>
+    <a ng-click="selectAll()" class="alert-link">全选</a> 
+    <a ng-click="clearAll()" class="alert-link">取消选定</a> 
+  </div>
+
+  <div class="uiGrid" ui-grid-selection ui-grid="gridOptions">
+    <div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+    <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+  </div>
+
+</div>

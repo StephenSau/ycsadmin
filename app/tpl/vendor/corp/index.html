@@ -1,0 +1,29 @@
+<div class="main-content" >
+  <div class="inner vendor corp" ng-controller="vendorEditCtrl">
+    <div class="title-wrapper">
+      <h1 ng-if="vendorId !== 'new'">{{qData.name}}</h1>
+      <h1 ng-if="vendorId === 'new'">新增服务商</h1>
+    </div>
+
+    <div class="col-xs-12" ng-if="vendorId !== 'new'">
+      <!-- Edit vender -->
+      <tabset>
+        <tab heading="基本信息" ng-click="switchTab('basicInfo')"></tab>
+        <tab heading="服务商信息" ng-click="switchTab('vendorInfo')"></tab>
+        <tab heading="合作关系" ng-click="switchTab('partnerShip')"></tab>
+        <tab heading="服务能力" ng-click="switchTab('capacity')"></tab>
+        <tab heading="人员信息" ng-click="switchTab('staff')"></tab>
+      </tabset>
+      
+      <div class="ng-include" src="currentTab"></div>
+    </div>
+    <!-- / Edit vender -->
+
+    <!-- Add new vender -->
+    <div class="col-xs-12" ng-if="vendorId === 'new'">
+      <div class="ng-include" src="'tpl/vendor/corp/basicInfo.html'"></div>
+    </div>
+    <!-- / Add new vender -->
+
+  </div>
+</div>

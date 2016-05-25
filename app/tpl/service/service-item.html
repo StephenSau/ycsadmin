@@ -1,0 +1,22 @@
+<div class="inner service-item" ng-controller="serviceItemCtrl">
+
+  <!-- 调用itemId示例 -->
+  <!-- <div><a ui-sref="service.item.edit({itemId: 215})">215</a></div> -->
+
+  <div class="title-wrapper row">
+    <div class="title-text-block col-xs-9">
+      <h1 class="title">服务项列表
+        <a class="btn-add-new btn btn-warning" ui-sref="service.item.edit({itemId: 'new'})"><i class="fa fa-plus"></i> 新增服务项</a>
+      </h1>
+    </div>
+    <div class="search-wrapper col-xs-3">
+      <!-- 貌似没有存在的必要了 -->
+      <!-- <input class="form-control" type="text" placeholder="搜索"/> -->
+    </div>
+  </div>
+
+  <div class="uiGrid" ui-grid="gridOptions" ui-grid-resize-columns>
+    <div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+    <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+  </div>
+</div>

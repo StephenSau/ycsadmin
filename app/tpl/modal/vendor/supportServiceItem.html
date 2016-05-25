@@ -1,0 +1,36 @@
+<div class="modal-wrapper addareas">
+  <form class="form-horizontal">
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">{{servicerName}} <small>可提供的服务项</small></h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-default" ng-click="close()">关闭</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>一级分类</th>
+            <th>二级分类</th>
+            <th>服务项</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in detail.list track by item.subCatName">
+            <td>{{item.topCatName}}</td>
+            <td>{{item.subCatName}}</td>
+            <td>
+              <p ng-repeat="service in item.services">{{service}}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-default" ng-click="close()">关闭</button>
+    </div>
+    
+  </form>
+</div>

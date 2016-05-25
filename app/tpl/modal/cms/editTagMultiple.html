@@ -1,0 +1,16 @@
+<div class="modal-wrapper addtags">
+  <div class="modal-header clearfix">
+    <h4 class="modal-title pull-left">批量添加标签</h4>
+    <div class="button-group pull-right">
+      <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+      <button type="button" class="btn btn-success" ng-click="changeTab(tagsInput)">确定</button>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <div class="well">选定的　<b>{{tagInfo.length}}</b>　条记录标签将更改为：<span class="helper-text">（原有标签将被覆盖）</span></div>
+    <tags-input ng-model="tagsInput" placeholder="添加标签" min-tags="1" min-length="2"  add-on-space="true" add-on-enter="true" add-on-comma="true" allow-leftover-text="true">
+      <auto-complete min-length="1" max-results-to-show="5" source="loadTags($query)"></auto-complete>
+    </tags-input>
+  </div>
+</div>

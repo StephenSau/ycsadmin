@@ -1,0 +1,89 @@
+<div class="inner service-item edit" ng-controller="serviceItemEditCtrl">
+  <div class="title-wrapper clearfix">
+    <h1><span ng-if="isAddNew">新增</span><span ng-if="!isAddNew">编辑</span>服务项 <small ng-if="!isAddNew">(服务编号: {{qData.code}})</small></h1>
+  </div>
+
+  <div>
+
+    <tabset>
+
+      <tab heading="基本信息">
+
+        <section class="tab-section basic-info">
+
+          <form class="form-horizontal" name="serviceItemForm" novalidate>
+            <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': serviceItemForm.name.$invalid && !serviceItemForm.name.$pristine }">
+              <label class="col-xs-2 control-label"><em>*</em>服务项名称</label>
+              <div class="col-xs-6 input-wrapper">
+                <input name="name" ng-model="qData.name" type="text" class="form-control" placeholder="" required ng-minlength="2" ng-maxlength="40" minlength="2" maxlength="40" tooltip="2-40字" tooltip-trigger="focus">
+                <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+              </div>
+            </div>
+
+            <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': serviceItemForm.code.$invalid && !serviceItemForm.code.$pristine }">
+              <label class="col-xs-2 control-label"><em>*</em>服务项编号</label>
+              <div class="col-xs-2 input-wrapper">
+                <div class="input-group">
+                  <input name="code" ng-model="qData.code" type="number" class="form-control" placeholder="" required min="0" max="99999999" ng-min="0" ng-max="99999999" step="1" tooltip="0-99999999整数" tooltip-trigger="focus" integer>
+                  <span class="input-group-addon">#</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-xs-2 control-label">备注</label>
+              <div class="col-xs-6 input-wrapper">
+                <textarea name="remark" ng-model="qData.remark" class="form-control" maxlength="200" ng-maxlength="200" tooltip="最多200字" tooltip-trigger="focus"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-xs-2 control-label"><em>*</em>是否提供服务</label>
+              <div class="col-xs-6 input-wrapper">
+                <label class="radio-inline" for="statusTrue">
+                  <input name="status" id="statusTrue" type="radio" required ng-model="qData.status" ng-value="1"> 是
+                </label>
+                <label class="radio-inline" for="statusFalse">
+                  <input name="status" id="statusFalse" type="radio" required ng-model="qData.status" ng-value="0"> 否
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group has-feedback">
+              <label class="col-xs-2 control-label"><em>*</em>标签</label>
+              <div class="col-xs-6 input-wrapper">
+                <tags-input ng-model="qData.tagsInput" placeholder="添加标签" min-tags="1" min-length="2" add-on-space="true" add-from-autocomplete-only="true">
+                  <auto-complete min-length="1" max-results-to-show="5" source="loadTags($query)"></auto-complete>
+                </tags-input>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-xs-6 col-xs-offset-2">
+                <button class="btn btn-success" ng-click="saveInfo(isAddNew)" ng-disabled="serviceItemForm.$invalid || serviceItemForm.$pristine">保存基本信息</button>
+              </div>
+            </div>
+
+          </form>
+
+        </section>
+
+      </tab>
+      
+      <tab ng-if="!isAddNew" heading="区域版本" ng-click="getRegionData(itemId)">
+
+        <div ng-if="noRegion">
+          <div class="add-new-btn-wrapper">
+            <span class="text-muted">本服务项暂未录入区域版本信息，请先</span><button type="button" class="btn btn-default" ng-click="addAreaVersion(true)"><i class="fa fa-plus"></i> 创建默认版本</button>
+          </div>
+        </div>
+
+        <!-- Service Item -->
+        <div ng-if="!noRegion && currentRegion.nickname.length > 0" class="ng-include" src="'tpl/service/serviceItem/edit-regional.html'"></div>
+
+      </tab>
+
+    </tabset>
+
+  </div>
+</div>

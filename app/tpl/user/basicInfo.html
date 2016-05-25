@@ -1,0 +1,190 @@
+<div class="user edit" ng-controller="userBasicInfoCtrl">
+  <form name="userDetailInfo" class="form-horizontal" novalidate>
+    <section class="form-section">
+
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+          
+          <div class="inline">
+            <label class="col-xs-2 control-label"><em>*</em>用户名</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" 
+                ng-model="qData.username" 
+                name="username" 
+                required 
+                disabled>
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+          <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetailInfo.nickname.$invalid && !userDetailInfo.nickname.$pristine }">
+            <label class="col-xs-2 control-label">用户昵称</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" 
+                ng-model="qData.nickname" 
+                name="nickname" 
+                minlength="2" ng-minlength="2" maxlength="20" ng-maxlength="20" 
+                tooltip="2-20位中英文字符" 
+                tooltip-trigger="focus">
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+          
+          <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetailInfo.company.$invalid && !userDetailInfo.company.$pristine }">
+            <label class="col-xs-2 control-label"><em>*</em>公司名称</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" 
+                ng-model="qData.company" 
+                ng-pattern="/^[\u4E00-\u9FBFA-Za-z0-9\s]{1,40}$/"
+                name="company" 
+                placeholder="请填写公司全称" 
+                required 
+                ng-minlength="1" ng-maxlength="40" minlength="1" maxlength="40" 
+                tooltip="1-40位中文、英文、数字" 
+                tooltip-trigger="focus">
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+          <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetailInfo.mobile.$invalid && !userDetailInfo.mobile.$pristine }">
+            <label class="col-xs-2 control-label"><em>*</em>账户手机号码</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" 
+                ng-pattern="/^1(3[0-9]|5[0-35-9]|8[0-9]|7[0-9])\d{8}$/" 
+                ng-model="qData.mobile" 
+                name="mobile" 
+                required 
+                minlength="1" ng-minlength="1" 
+                maxlength="11" ng-maxlength="11" 
+                tooltip="请填写11位手机号码" 
+                tooltip-trigger="focus">
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+          
+          <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetailInfo.role.$invalid && !userDetailInfo.role.$pristine }">
+            <label class="col-xs-2 control-label"><em>*</em>用户角色</label>
+            <div class="col-xs-4 input-wrapper">
+              <select class="form-control" ng-model="qData.role" ng-options="item.value as item.label for item in userRoleOpts" required></select>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <!-- 1.6x版先不上这系列信息 -->
+      <!--
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">公司类型</label>
+            <div class="col-xs-4 input-wrapper">
+              <select class="form-control" name="type" ng-model="qData.type" ng-options="item.value as item.label for item in typeUnitOpts" required></select>
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">母公司</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.parent" name="parent" placeholder="母公司/集团全称" maxlength="40" ng-maxlength="40" tooltip="最多40字" tooltip-trigger="focus">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+
+          <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetailInfo.tel.$invalid && !userDetailInfo.tel.$pristine }">
+            <label class="col-xs-2 control-label">公司电话</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.tel" name="tel" required minlength="6" ng-minlength="6" maxlength="100" ng-maxlength="100" tooltip="6-100字" tooltip-trigger="focus">
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">传真</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.fax" name="fax" maxlength="40" ng-maxlength="40" tooltip="最多40字" tooltip-trigger="focus">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+
+          <div class="inline" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': userDetailInfo.address.$invalid && !userDetailInfo.address.$pristine }">
+            <label class="col-xs-2 control-label">公司地址</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.address" name="address" placeholder="请填写详细联系地址" required minlength="2" ng-minlength="2" maxlength="100" ng-maxlength="100" tooltip="2-100字" tooltip-trigger="focus">
+              <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+            </div>
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">邮编</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.zip" name="zip" maxlength="6" ng-maxlength="6" tooltip="6位数" tooltip-trigger="focus">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-11 has-feedback">
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">所在区域</label>
+            <div class="col-xs-4 input-wrapper">
+              <div class="select-group">
+                <select-district ng-model="qData.district"></select-district>
+                <select-location ng-model="regional.cityCode"></select-location>
+                <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="inline">
+            <label class="col-xs-2 control-label">网站</label>
+            <div class="col-xs-4 input-wrapper">
+              <input type="text" class="form-control" ng-model="qData.web" name="web" placeholder="http://" maxlength="500" ng-maxlength="500" tooltip="最多500个字符" tooltip-trigger="focus">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      -->
+
+
+    </section>
+
+
+    <div class="row">
+      <div class="col-xs-11">
+        <div class="submit-btn-wrapper col-xs-offset-2">
+          <button type="button" ng-click="save(qData)" class="btn btn-success btn-lg"  ng-disabled="userDetailInfo.$invalid || userDetailInfo.$pristine">保存</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

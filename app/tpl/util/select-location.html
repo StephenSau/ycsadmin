@@ -1,0 +1,5 @@
+<div class="locationSelectGroup">
+  <select class="province" name="selectProvince" ng-change="refreshCities()" ng-model="selectProvince" ng-options="province.index as province.name for province in provinceList"></select>
+  <select class="city" name="selectCity" ng-model="selectCity" ng-options="city.index as city.name for city in cityList" ng-disabled="cityDisabled"></select>
+  <input class="preview" name="{{inputName}}" data-bind-model="{{ngModel}}" ng-model="cityCode" type="text" disabled="disabled">
+</div>

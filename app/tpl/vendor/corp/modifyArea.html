@@ -1,0 +1,31 @@
+<div class="inner vendor modify-area default-area" ng-controller="modifyAreaCtrl">
+  <div class="title-wrapper clearfix">
+    <h1 class="pull-left">编辑服务区域</h1>
+
+    <button type="button" class="btn btn-default pull-right" ng-click="backToVendorInfo()">关闭</button>
+    <button type="button" class="btn btn-success pull-right" ng-click="save(currentAreaList, true)" class="btn btn-success">保存并关闭</button>
+    <button type="button" class="btn btn-success pull-right" ng-click="save(currentAreaList)" class="btn btn-success">保存</button>
+  </div>
+
+  <form>
+
+    <div class="district-list form-group clearfix">
+
+      <div class="district-block" ng-repeat="area in currentAreaList">
+        <h5 class="title">{{area.name}}</h5>
+        <div class="content">
+          <district-checkboxes city="{{area.code}}" check-all="{{area.checkAll}}" ng-model="area.selected"></district-checkboxes>
+        </div>
+        <div class="delete-wrapper">
+          <a class="delete" ng-click="removeArea($index)">移除</a>
+        </div>
+      </div>
+
+      <div class="btn-wrapper">
+        <button type="button" class="btn btn-default" ng-click="addAvailableCity()"><i class="fa fa-plus"></i> 添加城市</button>
+      </div>
+
+    </div>
+
+  </form>
+</div>

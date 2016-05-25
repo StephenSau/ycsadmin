@@ -1,0 +1,35 @@
+<div class="inner vendor default-area" ng-controller="supportAreaCtrl">
+  <div class="steps clearfix">
+    <div class="step active">选择可提供服务的区域</div>
+    <div class="step">选择可提供的服务项</div>
+    <div class="step">设定服务价格</div>
+  </div>
+  
+  <form>
+
+    <div ng-if="isEmpty">请添加可提供服务的区域</div>
+
+    <div class="district-list form-group clearfix">
+
+      <div class="district-block" ng-repeat="area in currentAreaList">
+        <h5 class="title">{{area.name}}</h5>
+        <div class="content">
+          <district-checkboxes city="{{area.code}}" check-all="{{area.checkAll}}" ng-model="area.selected"></district-checkboxes>
+        </div>
+        <div class="delete-wrapper">
+          <a class="delete" ng-click="removeArea($index)">移除</a>
+        </div>
+      </div>
+
+      <div class="btn-wrapper">
+        <button type="button" class="btn btn-default" ng-click="addAvailableCity()"><i class="fa fa-plus"></i> 添加</button>
+      </div>
+
+    </div>
+
+    <div ng-if="!isEmpty" class="submit-btn-wrapper">
+      <button ng-click="save(currentAreaList)" class="btn btn-success">下一步</button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,43 @@
+<div class="inner vendor default-service-item" ng-controller="defaultServiceItemCtrl">
+  <div class="steps clearfix">
+    <div class="step">选择可提供服务的区域</div>
+    <div class="step active">选择可提供的服务项</div>
+    <div class="step">设定服务价格</div>
+  </div>
+
+  <form>
+    <div class="service-item-wrapper row">
+      <div class="col-xs-2">
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" ng-repeat="level1 in serviceItemList" ng-class="{active: currentCataIndex === $index}">
+            <a ng-click="switchCategory($index)">{{level1.topcatName}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="service-full-list col-xs-8">
+        <section ng-repeat="level2 in serviceItemList[currentCataIndex].topcatList">
+          <h5 class="level2-title">{{level2.subcatName}}
+            <label ng-if="level2.subcatList.length > 0" class="check-all" ng-class="{active: subcatSelected[currentCataIndex][$index]}"><input type="checkbox" ng-model="subcatSelected[currentCataIndex][$index]" ng-click="toggleChildrenStatus(level2.subcatList, currentCataIndex, $index)"> 全选 / 取消全选</label>
+          </h5>
+          <label ng-repeat="level3 in level2.subcatList" class="lv3-item" ng-class="{active: checkIfSelected(level3.id)}">
+            <input type="checkbox" ng-checked="checkIfSelected(level3.id)" ng-click="toggleSelected(level3.id, level3.name)" ng-true-value="{{level3.name}}" ng-false-value=""> {{level3.name}}
+          </label>
+        </section>
+      </div>
+
+      <div class="current-selected-wrapper col-xs-2">
+        <h5 class="title">已选服务项（{{currentSelectedNames.length}}）</h5>
+        <ul class="preview list-unstyled">
+          <li ng-repeat="name in currentSelectedNames">{{name}}</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="submit-btn-wrapper row">
+      <!-- <button type="button" class="btn btn-default" ng-click="initStep.current = 0">上一步</button> -->
+      <button ng-click="save()" class="btn btn-success">下一步</button>
+    </div>
+  </form>
+</div>

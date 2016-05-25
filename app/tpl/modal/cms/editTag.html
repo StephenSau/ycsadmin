@@ -1,0 +1,15 @@
+<div class="modal-wrapper addtags">
+  <div class="modal-header clearfix">
+    <h4 class="modal-title pull-left">添加标签</h4>
+    <div class="button-group pull-right">
+      <button class="btn btn-success" ng-click="ok(tagsInput)">确定</button>
+      <button class="btn" ng-click="cancel()">取消</button>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <tags-input ng-model="tagsInput" placeholder="添加标签" min-tags="1" min-length="2" add-on-space="true" add-from-autocomplete-only="true">
+      <auto-complete min-length="1" max-results-to-show="5" source="loadTags($query)"></auto-complete>
+    </tags-input>
+  </div>
+</div>

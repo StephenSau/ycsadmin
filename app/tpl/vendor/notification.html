@@ -1,0 +1,86 @@
+<div class="inner vendor notification" ng-controller="vendorNotificationCtrl">
+
+  <div class="title-wrapper row">
+    <div class="title-text-block col-xs-8">
+      <h1 class="title clearfix">发送信息到服务商 <small ng-if="getMsgList">发送记录</small><small ng-if="choiceVendors">选择发送对象</small>
+        <button ng-if="choiceVendors" class="btn btn-green pull-right" ng-click="openMsgSentList()"><i class="fa fa-arrow-left"></i> 返回发送记录列表</button>
+        <button ng-if="getMsgList" class="btn btn-warning btn-text-shadow pull-right" ng-click="openVendorList()"><i class="fa fa-user-plus"></i> 选择发送对象</button>
+      </h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-8">
+
+      <!-- 发送记录(历史消息)列表 -->
+      <div ng-if="getMsgList">
+        <div class="uiGrid" ui-grid="historyGridOptions">
+          <div ng-if="loadingHistory" class="loading-history"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+          <div ng-if="!loadingHistory && historyGridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+        </div>
+      </div>
+
+      <!-- 选择发送对象列表 -->
+      <div ng-if="choiceVendors">
+        <div class="filter-wrapper clearfix">
+          <form>
+            <div class="filter-options pull-left" ng-cloak>
+              按区域筛选：
+              <select-district ng-model="qData.district"></select-district>
+              <button class="btn btn-default btn-sm" ng-click="filterTicket()" ng-if="qData.district && qData.district > 0">确定筛选</button>
+              <button ng-if="qData.district" class="btn btn-sm" ng-click="getExistingData()">清除筛选</button>
+            </div>
+          </form>
+        </div>
+        <div class="uiGrid" ui-grid-selection ui-grid="gridOptions">
+          <div ng-if="loadingGrid" class="loading-grid"><i class="fa-3x fa fa-spinner fa-spin"></i></div>
+          <div ng-if="!loadingGrid && gridOptions.data.length < 1" class="no-result" ng-cloak>找不到符合条件的数据</div>
+        </div>
+      </div>
+
+    </div>
+   
+    <div class="right-sidebar col-xs-4">
+      <form class="vendorNotification-form" name="vendorNotification" novalidate>
+        <section>
+          <div class="form-group" ng-if="qData.sendEmail">
+            <input class="form-control" type="text" name="subject" ng-model="qData.subject" ng-minlength="2" ng-maxlength="40" minlength="2" required maxlength="40" tooltip="2-40字" tooltip-trigger="focus" placeholder="输入标题（仅应用于电子邮件，2-40字）">
+          </div>
+
+          <div class="form-group">
+            <textarea rows="6" class="form-control" name="content" ng-model="qData.content" required ng-maxlength="450" maxlength="450" tooltip="最多450字" tooltip-trigger="focus" placeholder="输入要发送给服务商的信息"></textarea>
+            <p class="count text-right text-muted">字数统计：{{qData.content.length || 0}}/450</p>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-inline">
+              <input type="checkbox" ng-model="qData.sendSMS" name="sendSMS" ng-true-value="1" ng-false-value="0"> 发送手机短信通知
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" ng-model="qData.sendEmail" name="sendEmail" ng-true-value="1" ng-false-value="0"> 发送电子邮件通知
+            </label>
+          </div>
+
+        </section>
+
+        <section ng-if="choiceVendors" ng-cloak>
+          <div class="button-group">
+            <button class="btn btn-success" ng-disabled="vendorNotification.$invalid || vendorNotification.$pristine || tempArray.length < 1 || qData.sendSMS === 0 && qData.sendEmail === 0 || tempArray.length > 20" ng-click="sendMsg(qData)">发送</button>
+            <button class="btn btn-default" ng-click="clearContent()">清除内容</button>
+          </div>
+
+          <div class="tags-area well">
+            <div class="count">发送到（<span ng-if="tempArray.length <= 20">{{tempArray.length || 0}}</span><span ng-if="tempArray.length > 20" class="over-limited">{{tempArray.length}}</span>/20）<span ng-if="tempArray.length > 20" class="over-limited">每次只能发送到20个服务商</span></div>
+            <div class="tags-container" ng-if="tempSelected.length > 0">
+              <div class="selected-vendor" ng-repeat="vendor in tempSelected">{{vendor.srname}}<a class="remove-button" title="删除此项" ng-click="toggleSelection(vendor.id, vendor.srname, 'true')">&times;</a></div>
+            </div>
+          </div>
+
+        </section> 
+
+      </form>
+    </div>
+
+  </div>
+
+</div>

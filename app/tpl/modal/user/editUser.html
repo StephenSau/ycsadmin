@@ -1,0 +1,22 @@
+<div class="modal-wrapper userDetail">
+  <div class="modal-header clearfix">
+    <h4 class="modal-title pull-left">用户详情</h4>
+    <div class="button-group pull-right">
+      <button class="btn btn-default" ng-click="userModal.close()">关闭</button>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <div>
+      <tabset>
+        <tab heading="基本信息" ng-click="switchTab('basicInfo')"></tab>
+        <!-- <tab heading="公司情况" ng-click="switchTab('corpInfo')"></tab> -->
+        <tab heading="联系人信息" ng-click="switchTab('contactInfo')"></tab>
+        <tab heading="订单与服务" ng-click="switchTab('orders')"></tab>
+      </tabset>
+      
+      <div class="ng-include" src="currentTab"></div>
+    </div>
+
+  </div>
+</div>

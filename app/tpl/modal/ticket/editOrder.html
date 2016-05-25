@@ -1,0 +1,31 @@
+<div class="modal-wrapper ticket">
+  <div class="modal-header clearfix">
+    <h4 class="modal-title pull-left" ng-if="orderInfo.id === 'new'">新增工单 <small>订单</small></h4>
+    <h4 class="modal-title pull-left" ng-if="orderInfo.id !== 'new'">工单详情 <small>订单</small></h4>
+    <div class="button-group pull-right">
+      <button class="btn btn-default" ng-click="orderModal.close()">关闭</button>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <!-- Edit ticket -->
+    <div ng-if="orderInfo.id !== 'new'">
+      <tabset>
+        <tab heading="订单" ng-click="switchTab('order')"></tab>
+        <tab heading="客户" ng-click="switchTab('client')"></tab>
+        <tab ng-if="orderModal.showServiceTab" heading="服务" ng-click="switchTab('service')"></tab>
+      </tabset>
+      
+      <div class="ng-include" src="currentTab"></div>
+    </div>
+    <!-- / Edit ticket -->
+
+    <!-- Add new ticket -->
+    <div ng-if="orderInfo.id === 'new'">
+      <div ng-show="newOrder.step === 0" ng-include="'tpl/ticket/client.html'"></div>
+      <div ng-show="newOrder.step === 1" ng-include="'tpl/ticket/order-add.html'"></div>
+    </div>
+    <!-- / Add new ticket -->
+
+  </div>
+</div>

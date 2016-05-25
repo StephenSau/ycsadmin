@@ -1,0 +1,69 @@
+<div class="modal-wrapper addTagsCompound">
+  <form name="tagsCompoundForm" novalidate>
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left"><span ng-if="isBulkEdit">批量</span>添加标签</h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button ng-if="!isBulkEdit" class="btn btn-success" ng-click="save()" ng-disabled="tagsCompoundForm.$invalid">确定</button>
+        <button ng-if="isBulkEdit" class="btn btn-success" ng-click="bulkSave(qData.tagsInput)" ng-disabled="tagsCompoundForm.$invalid">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="well">
+        <p ng-if="isBulkEdit" class="text-info">
+          为选定的　<b>{{tagsCmpInfo.ids.length}}</b>　条记录修改标签（原有标签将被覆盖）
+        </p>
+        <div class="current-selected form-group has-feedback">
+          <label class="control-label">已选中 {{sum.category + sum.extend + sum.general}} 个标签</label>
+          <div class="selected-tag">
+            <tags-input ng-model="qData.tagsInput" required placeholder="添加标签" min-tags="1" min-length="2" add-on-space="true" add-on-enter="true" add-on-comma="true" allow-leftover-text="true" on-tag-removed="deleteTag($tag)" on-tag-added="addedTag($tag)">
+              <auto-complete min-length="1" max-results-to-show="5" source="loadTags($query)"></auto-complete>
+            </tags-input>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tag-group row">
+        <div class="form-group col-xs-4">
+          <div class="label-wrapper">
+            <label>分类标签<small>（{{sum.category}}）</small></label>
+          </div>
+          <p class="text-muted">选择分类标签后，才能够正确地显示在服务分类或资讯栏目之下</p>
+          <div class="tag-list-wrapper">
+            <label ng-repeat="tagC in tagCategory" class="tag-item" ng-class="{active: checkIfSelected(tagC.name)}">
+              <input name="tagsCategory" type="checkbox" ng-click="toggleSelected(tagC.name)" ng-checked="checkIfSelected(tagC.name)">{{tagC.name}}
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <div class="label-wrapper">
+            <label>扩展标签<small>（{{sum.extend}}）</small></label>
+          </div>
+          <p class="text-muted">请选择扩展标签，以便增强服务或资讯内容的可搜索、可发现性</p>
+          <div class="tag-list-wrapper">
+            <label ng-repeat="tagE in tagExtend" class="tag-item" ng-class="{active: checkIfSelected(tagE.name)}">
+              <input name="tagsExtend" type="checkbox" ng-click="toggleSelected(tagE.name)" ng-checked="checkIfSelected(tagE.name)">{{tagE.name}}
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <div class="label-wrapper">
+            <label>一般标签<small>（{{sum.general}}）</small></label>
+          </div>
+          <p class="text-muted">适当添加一般标签，可以进一步增强服务或资讯内容的可搜索、可发现性</p>
+          <div class="tag-list-wrapper">
+            <label ng-repeat="tagG in tagGeneral" class="tag-item" ng-class="{active: checkIfSelected(tagG.name)}">
+              <input name="tagsGeneral" type="checkbox" ng-click="toggleSelected(tagG.name)" ng-checked="checkIfSelected(tagG.name)">{{tagG.name}}
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+</div>

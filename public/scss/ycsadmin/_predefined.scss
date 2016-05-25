@@ -1,0 +1,36 @@
+.predefined{
+
+	.predefined-list-nav{
+		li {
+
+			a {
+				-webkit-transition: background 0.3s;
+				transition: background 0.3s;
+
+				&.active{
+					color: $vi-blue;
+					background: $bgLightBlue;
+					cursor: default;
+				}
+			}
+
+		}
+	}
+
+	.btn-wrapper{
+		padding-bottom: 10px;
+	}
+
+	// UI Grid
+	.grid-predefined{
+		width: 100%;
+		min-height: 500px;
+		// text-align: center;
+	}
+
+	.auto-height{
+		.ui-grid-canvas{
+			@include autoHeightUiGrid;
+		}
+	}
+}

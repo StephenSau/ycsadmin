@@ -1,0 +1,124 @@
+.user{
+	.uiGrid{
+		min-height: 500px;
+
+		.ui-grid-cell-contents{
+			&.order-statics {
+				color: $textLightgray;
+				font-size: 0.9em;
+			}
+
+			.notZero{
+				color: $textDarkgray;
+			}
+		}
+	}
+
+	.title-wrapper{
+		.edit-btn-group{
+			display: inline-block;
+			vertical-align: middle;
+			padding-bottom: 5px;
+			margin-left: 15px;
+			border-left: 1px dotted $textLightergray;
+
+			.btn{
+				margin-left: 15px;
+			}
+		}
+	}
+
+	.filter-wrapper{
+		@include inlineFormFilter;
+	}
+
+	&.add{
+		padding-bottom: 3em;
+
+		.main-frame{
+			padding-right: 4em;
+		}
+
+		.fix-padding{
+			padding-left: 0;
+		}
+
+		.title-wrapper{
+			border-bottom: 1px dashed $textLightergray;
+			margin-bottom: 1em;
+
+			button{
+				margin: 20px 0 0 10px;
+			}
+		}
+
+		.title-wrapper,
+		.submit-btn-wrapper{
+			.btn-success{
+				width: 100px;
+			}
+		}
+
+		.form-section{
+			border-bottom: 1px dashed $textLightergray;
+			padding-top: 15px;
+
+			&:last-of-type{
+				border-bottom: 0;
+			}
+		}
+	}
+
+	&.edit{
+		padding-top: 20px;
+
+		.fix-btn-padding{
+			padding: 6px 12px 7px 12px;
+		}
+	}
+
+	&.notification{
+		.loading-history{
+			position: absolute;
+			color: $textLightgray;
+			top: 30%;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			text-align: center;
+		}
+
+		.right-sidebar{
+			section{
+				padding-top: 15px;
+
+				&:first-of-type{
+					padding-top: 0;
+				}
+
+				.tags-area {
+					margin-top: 20px;
+				}
+
+				.tags-container{
+					padding-top: 10px;
+				}
+			}
+		}
+
+		.over-limited{
+			color:$vi-red;
+			font-weight: bold;
+		}
+
+		.button-group{
+			.btn{
+				width: 100px;
+			}
+		}
+
+		.selected-user{
+			@include tagWithRemoveBtn;
+		}
+	}
+} // user

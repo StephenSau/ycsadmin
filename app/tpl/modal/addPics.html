@@ -1,0 +1,36 @@
+<div class="modal-wrapper addpics">
+  <form class="form-horizontal">
+    <div class="modal-header clearfix">
+      <h4 class="modal-title pull-left">配图 <small>{{picsInfo.serviceName}}</small></h4>
+      <div class="button-group pull-right">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-success" ng-click="save(pics)" ng-disabled="uploadBtnDisabled">确定</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <p class="text-muted" ng-if="!pics || pics.length < 1">暂未上传配图</p>
+      
+      <div class="grid" ng-repeat="pic in pics">
+        
+        <!-- IMAGE -->
+        <div class="preview" style="background-image: url('{{pic}}');">
+          <div ng-if="!$first" class="del-pic" ng-click="delPic($index)" title="删除"><i class="fa fa-minus-circle fa-lg"></i></div>
+        </div>
+        
+        <div class="button-wrapper">
+          <button type="button" class="btn" ng-if="$first" disabled>当前封面图</button>
+          <button type="button" class="btn btn-default" ng-if="!$first" ng-click="setToCover($index)">设为封面图</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <label for="upload" class="btn btn-info" ng-class="{loading: uploadBtnDisabled}">
+        <span class="waiting"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+        <span class="normal"><i class="fa fa-upload"></i> 本地上传</label></span>
+        <input class="hidden-input" id="upload" type="file" accept=".jpg,.png,.bmp" size-max="1.0" image-upload>
+      <p class="help-block">文件尺寸：小于1MB，可用扩展名:jpg, png, bmp</p>
+    </div>
+  </form>
+</div>

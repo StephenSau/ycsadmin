@@ -1,0 +1,77 @@
+<div class="modal-wrapper selectServiceItem">
+  <form class="form-horizontal">
+    <div class="ng-if=''">
+      <div class="container-fluid">
+        <div class="modal-header row">
+          <h4 class="col-xs-4 modal-title">选择服务项</h4>
+          <div class="col-xs-2 button-group text-right">
+            <button class="btn btn-success" ng-click="ok()">确定</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">服务项规格</label>
+          <div class="col-xs-10 input-wrapper">
+            <div class="" ng-repeat="serviceItem in serviceItemList">
+              <h4>{{serviceItem.name}}</h4>
+              <div ng-repeat="spec in serviceItem.specification">
+                <h5 class="title">{{spec.name}}</h5>
+                <label ng-repeat="option in spec.options">
+                  <input ng-if="spec.type === 2" id="specOption-{{serviceItem.id}}-{{$parent.$index}}-{{$index}}" type="checkbox" ng-click="checkIfSelected(option, spec.type, serviceItem.id, spec.name)" ng-true-value="{{option}}" ng-false-value="">
+                  <input ng-if="spec.type === 1" id="specOption-{{serviceItem.id}}-{{$parent.$index}}-{{$index}}" name="specOption-{{serviceItem.id}}-{{$parent.$parent.$index}}" type="radio" ng-click="checkIfSelected(option, spec.type, serviceItem.id, spec.name)" ng-true-value="{{option}}" ng-false-value="">
+                   {{option}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ng-if='1=2'">
+      <div class="container-fluid">
+
+        <div class="modal-header row">
+          <h4 class="col-xs-4 modal-title">选择服务商</h4>
+          <div class="col-xs-6">
+            <input class="form-control" type="text" ng-model="vendorSearch" placeholder="搜索..." ng-model-options="{ debounce: 500 }" ng-change="filterVendor()">
+          </div>
+          <div class="col-xs-2 button-group text-right">
+            <button class="btn btn-success" ng-click="ok()">确定</button>
+          </div>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="row">
+
+            <div class="col-xs-12">
+              <table class="modal-table table table-hover table-condensed">
+                <tbody>
+                  <tr ng-repeat="vendor in vendorList">
+                    <td class="name" ng-class="{active: vendor.id === vendorDetail.currentSelected}">
+                      <label for="vendor-{{vendor.id}}" ng-class="{active: vendor.id === vendorDetail.currentSelected}" title="{{vendor.description}}">
+                        <input id="vendor-{{vendor.id}}" name="service" type="radio" ng-click="toggleSelected(vendor.id)" ng-checked="vendor.id === vendorDetail.currentSelected" value="vendor.id"> {{vendor.nickname}} 
+                      </label>
+                    </td>
+                    <td class="price text-right" ng-class="{active: vendor.id === vendorDetail.currentSelected}">
+                      ￥{{vendor.price}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <div class="button-group pull-right">
+            <button class="btn btn-success" ng-click="ok()">确定</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>

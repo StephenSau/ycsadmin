@@ -1,0 +1,182 @@
+<div class="inner service edit" ng-controller="serviceEditCtrl">
+
+  <div class="title-wrapper clearfix">
+    <h1 class="pull-left" ng-if="serviceId !== 'new'">编辑服务 <small>(服务编号: {{qData.code}})</small></h1>
+    <h1 class="pull-left" ng-if="serviceId === 'new'">新增服务</h1>
+
+    <button type="button" class="btn btn-default pull-right" ng-click="backToList()">关闭</button>
+    <button type="button" class="btn btn-success pull-right" ng-click="save(qData, true)" ng-disabled="servicePackForm.$invalid || servicePackForm.$pristine || qData.pics.length < 1 || (newlyAdded.length < 1 && qData.serviceitem.length < 1) || qData.tagsInput.length < 1">保存<span ng-if="serviceId !== 'new'">并关闭</span></button>
+    <button ng-if="serviceId !== 'new'" type="button" class="btn btn-success pull-right" ng-click="save(qData)" ng-disabled="servicePackForm.$invalid || servicePackForm.$pristine || qData.pics.length < 1 || (newlyAdded.length < 1 && qData.serviceitem.length < 1) || qData.tagsInput.length < 1">保存</button>
+  </div>
+
+  <form class="form-horizontal" name="servicePackForm" novalidate>
+    <section class="form-section">
+    
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': servicePackForm.name.$invalid && !servicePackForm.name.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>服务名称</label>
+        <div class="col-xs-6 input-wrapper">
+          <input type="text" class="form-control" ng-model="qData.name" name="name" placeholder="" required ng-minlength="2" ng-maxlength="40" minlength="2" maxlength="40" tooltip="2-40字" tooltip-trigger="focus">
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+      <div class="form-group" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': servicePackForm.code.$invalid && !servicePackForm.code.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>服务编号</label>
+        <div class="col-xs-2 input-wrapper">
+          <div class="input-group">
+            <input type="number" class="form-control" ng-model="qData.code" name="code" placeholder="" required min="0" max="99999999" ng-min="0" ng-max="99999999" step="1" tooltip="0-99999999整数" tooltip-trigger="focus" integer>
+            <span class="input-group-addon">#</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label"><em>*</em>是否上架</label>
+        <div class="col-xs-6 input-wrapper">
+          <label class="radio-inline">
+            <input type="radio" name="status" ng-model="qData.status" ng-checked="qData.status === 1" value="1"> 上架
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="status" ng-model="qData.status" ng-checked="qData.status === 0" value="0"> 不上架
+          </label>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="form-section">
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label"><em>*</em>标签</label>
+        <div class="col-xs-6 input-wrapper">
+          <ul ng-if="qData.tagsInput.length > 0" class="current-tags">
+            <li ng-repeat="tag in qData.tagsInput" class="tag">{{tag}}</li>
+          </ul>
+          <button class="btn-tags btn btn-sm btn-default" ng-click="editTags()"><i class="fa fa-tags"></i> 编辑标签</button>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="form-section">
+
+      <div class="form-group has-feedback" ng-model-options="{ debounce: 500 }" ng-class="{'has-error': servicePackForm.description.$invalid && !servicePackForm.description.$pristine }">
+        <label class="col-xs-2 control-label"><em>*</em>服务简介</label>
+        <div class="col-xs-8 input-wrapper">
+          <textarea
+            required 
+            ng-ueditor="_ueditor.ueditorConfig"
+            ready="_ueditor.ready"
+            ng-model="_ueditor.ueditorContent"
+            ng-change="_ueditor.updateHtml()"
+          ></textarea>
+          <i class="fa fa-exclamation-triangle form-control-feedback"></i>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="form-section">
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label"><em>*</em>配图</label>
+        <div class="col-xs-6 input-wrapper">
+          <div class="top">
+            <div ng-class="{cover:$first}" ng-repeat="pic in qData.pics" class="pic-preview" style="background-image:url('{{pic}}')">
+              <div class="cover-icon" ng-if="$first">封面图</div>
+            </div>
+          </div>
+          <div class="btn-wrapper">
+            <button type="button" class="btn btn-default" ng-click="editPics()"><i class="fa fa-image"></i> 修改配图</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    
+
+    <section class="form-section">
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label"><em>*</em>包含服务项</label>
+
+        <div class="col-xs-8">
+          <table ng-if="qData.serviceitem && qData.serviceitem.length > 0"  class="table table-bordered table-condensed table-hover optionTable">
+              <thead>
+                <tr>
+                  <th class="index">序号</th>
+                  <th class="name">服务项名称</th>
+                  <th class="option">包含规格及规格值</th>
+                  <th class="func">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in qData.serviceitem">
+                  <td class="index">{{item.index}}</td>
+                  <td class="name">{{item.siname}}</td>
+                  <td class="option">
+                    <p ng-repeat="item_si_opts in item.si_opts track by $index">{{item_si_opts}}</p>
+                  </td>
+                  <td class="func"><a ng-click="removeItem($index, item.siid, item.siname)">移除</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <ul ng-if="newlyAdded.length > 0" class="preview list-group">
+              <p class="text-warning">本次新增，保存后加入列表：</p>
+              <li class="list-group-item list-group-item-warning" ng-repeat="newItem in newlyAdded">{{newItem}}</li>
+            </ul>
+            <div class="">
+              <button type="button" class="btn btn-default" ng-click="openServiceItemModal()"><i class="fa fa-plus"></i> 添加服务项</button>
+            </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="form-section">
+
+      <div class="form-group" >
+        <label class="col-xs-2 control-label">办理时间</label>
+        <div class="col-xs-6 input-wrapper">
+          <input type="text" class="form-control" name="days" ng-model="qData.days" placeholder="例如：3-5天" maxlength="200" ng-maxlength="200" tooltip="最多200字" tooltip-trigger="focus">
+        </div>
+      </div>
+
+      <!-- 151123 PW: 据测试和产品需求，暂时隐藏此模块 -->
+      <!-- 只显示在“编辑”状态 -->
+      <!--
+      <div ng-if="serviceId !== 'new'" class="form-group">
+        <label class="col-xs-2 control-label">支持区域</label>
+        <div class="col-xs-6 input-wrapper">
+          <button type="button" class="btn btn-default" ui-sref="service.pack.supportRegion({serviceId: '{{serviceId}}'})"><i class="fa fa-map-marker"></i> 查看服务支持区域</button>
+        </div>
+      </div>
+      -->
+
+    </section>
+
+    <section class="form-section">
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label">优惠政策名称</label>
+        <div class="col-xs-6 input-wrapper">
+          <input type="text" class="form-control" name="discountname" ng-model="qData.discountname" maxlength="40" ng-maxlength="40" tooltip="最多40字" tooltip-trigger="focus">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-2 control-label">优惠政策描述</label>
+        <div class="col-xs-6 input-wrapper">
+          <textarea rows="6" class="form-control" name="discountdesc" ng-model="qData.discountdesc" maxlength="2000" ng-maxlength="2000" tooltip="最多2000字" tooltip-trigger="focus"></textarea>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="submit-btn-wrapper col-xs-offset-2">
+      <button ng-if="serviceId !== 'new'" type="button" class="btn btn-success" ng-click="save(qData)" ng-disabled="servicePackForm.$invalid || servicePackForm.$pristine || qData.pics.length < 1 || (newlyAdded.length < 1 && qData.serviceitem.length < 1) || qData.tagsInput.length < 1">保存</button>
+      <button type="button" class="btn btn-success" ng-click="save(qData, true)" ng-disabled="servicePackForm.$invalid || servicePackForm.$pristine || qData.pics.length < 1 || (newlyAdded.length < 1 && qData.serviceitem.length < 1) || qData.tagsInput.length < 1">保存<span ng-if="serviceId !== 'new'">并关闭</span></button>
+    </div>
+
+  </form>
+
+</div>

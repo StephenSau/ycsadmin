@@ -1,0 +1,24 @@
+<div class="modal-wrapper userPermission">
+  <div class="modal-header text-center">
+    <h4 class="modal-title text-center">
+      是否确定要<span ng-if="userInfo.func === 'freeze'">冻结</span><span ng-if="userInfo.func === 'unfreeze'">解冻</span><span ng-if="userInfo.func === 'delete'">删除</span><span ng-if="userInfo.func === 'restore'">恢复</span>用户
+    </h4>
+    <h5>{{userInfo.username}}</h5>
+  </div>
+
+  <div class="modal-body text-center">
+    <button class="btn btn-danger" ng-if="userInfo.func === 'freeze'" ng-click="editUserStatus(userInfo)">确定冻结</button>
+    <button class="btn btn-success" ng-if="userInfo.func === 'unfreeze'" ng-click="editUserStatus(userInfo)">确定解冻</button>
+    <button class="btn btn-danger" ng-if="userInfo.func === 'delete'" ng-click="editUserStatus(userInfo)">确定删除</button>
+    <button class="btn btn-success" ng-if="userInfo.func === 'restore'" ng-click="editUserStatus(userInfo)">确定恢复</button>
+    <button class="btn btn-default" ng-click="userModal.close()">取消</button>
+    <div class="form-group text-center" style="margin-top:10px">
+      <label class="checkbox-inline">
+        <input type="checkbox" ng-model="userInfo.isSendSms" ng-true-value="1" ng-false-value="0" name="isSendSms"> 发送手机短信通知
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" ng-model="userInfo.isSendMessage" ng-true-value="1" ng-false-value="0" name="isSendMessage"> 发送通知到用户中心
+      </label>
+    </div>
+  </div>
+</div>

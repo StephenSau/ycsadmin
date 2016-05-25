@@ -1,0 +1,45 @@
+<div class="modal-wrapper itemRequirement">
+  <form class="form-horizontal">
+    <div class="container-fluid">
+
+      <div class="modal-header row">
+        <h4 class="col-xs-2 modal-title">选择服务</h4>
+        <div class="col-xs-4">
+          <input class="form-control" type="text" ng-model="serviceSearch" placeholder="搜索..." ng-model-options="{ debounce: 500 }" ng-change="filterRequirement()">
+        </div>
+        <div class="col-xs-6 button-group text-right">
+          <button class="btn btn-success" ng-click="ok()">确定</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="row">
+
+          <div class="col-xs-12">
+            <table class="modal-table table table-hover table-condensed">
+              <tbody>
+                <tr ng-repeat="item in serviceList">
+                  <td class="name">
+                    <label for="serviceItem-{{item.id}}" ng-class="{active: checkIfSelected(item.name)}" title="{{item.description}}">
+                      <input id="serviceItem-{{item.id}}" name="service" type="radio" ng-click="toggleSelected(item)" ng-checked="checkIfSelected(item.name)" value="item.name"> {{item.name}} 
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <div class="button-group pull-right">
+          <button class="btn btn-success" ng-click="ok()">确定</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
